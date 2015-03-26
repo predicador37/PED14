@@ -1,0 +1,29 @@
+@startuml
+Visitante <|-- Registrado
+Registrado <|-- Administrador
+
+(Buscar currículo) as (Buscar)
+(Visualizar características) as (Visualizar)
+(Buscar) <|-- (Visualizar)
+(Visualizar) <|-- (Mostrar interés)
+(Darse de alta) as (Alta)
+Visitante --> (Buscar)
+Visitante --> (Alta)
+
+(Alta elementos) as (AltaElem)
+(Baja elementos) as (BajaElem)
+(Modificar elementos) as (ModificarElem)
+(Elaborar perfil) as (Perfil)
+(Dar de baja) as (Baja)
+Registrado --> (AltaElem)
+Registrado --> (BajaElem)
+Registrado --> (ModificarElem)
+Registrado --> (Perfil)
+Registrado --> (Baja)
+
+(Desactivar funciones) as (Desactivar)
+(Activar funciones) as (Activar)
+Administrador --> (Desactivar)
+Administrador --> (Activar)
+Administrador --> (Baja)
+@enduml
