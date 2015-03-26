@@ -1,4 +1,8 @@
 # PED14: Práctica Tecnologías Web
+Este es el repositorio de la práctica de la asignatura de la UNED Tecnologías Web, para el grupo de prácticas nº 14 (Héctor, Marcos y Miguel).
+
+Se basa en el arquetipo para Spring de [kolorobot](https://github.com/kolorobot/spring-mvc-quickstart-archetype)
+
 ## Requisitos
 - JDK 1.7
 - Tomcat 7
