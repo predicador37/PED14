@@ -33,18 +33,18 @@ Para generar un WAR para desplegarlo posteriormente, en una consola, en el direc
 ##Uso de git 
 - Antes de nada, descargar lo que haya en el repositorio para evitar conflitos:
 
-      git pull
+        git pull
 
 - Se realizan los cambios o añadidos pertinentes en el código
 - Se vuelve a hacer un `git pull`
 - Se añaden los cambios para hacer commiti (desde el directorio raíz del proyecto):
 
-      git add .
+        git add .
 
 - Se hace commit de los cambios:
 
-      git commit -m "Mensaje del commit explicativo del código enviado"
+        git commit -m "Mensaje del commit explicativo del código enviado"
 
 - Se hace push al repositorio, rama master:
 
-      git push origin master
+        git push origin master
