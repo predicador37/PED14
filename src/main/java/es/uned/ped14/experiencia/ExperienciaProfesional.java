@@ -1,6 +1,6 @@
 package es.uned.ped14.experiencia;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -17,17 +17,18 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@Column
-	private String descripcion;
+	
 	@Column
 	private String cargo;
 	@Column
 	private String empresa;
 	@Column
+	private String descripcion;
+	@Column
 	private Date fecha_inicio;
 	@Column
 	private Date fecha_fin;
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class)
+	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
 
@@ -35,14 +36,14 @@ public class ExperienciaProfesional implements java.io.Serializable {
 
 	}
 
-	public ExperienciaProfesional(String descripcion, String cargo,
-			String empresa, Date fecha_inicio, Date fecha_fin) {
+	public ExperienciaProfesional(String cargo, String empresa, 
+			String descripcion, Date date, Date date2) {
 		super();
-		this.descripcion = descripcion;
 		this.cargo = cargo;
 		this.empresa = empresa;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
+		this.descripcion = descripcion;
+		this.fecha_inicio = date;
+		this.fecha_fin = date2;
 	}
 
 
@@ -89,6 +90,14 @@ public class ExperienciaProfesional implements java.io.Serializable {
 
 	public void setFecha_fin(Date fecha_fin) {
 		this.fecha_fin = fecha_fin;
+	}
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
 	}
 	
 }
