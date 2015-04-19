@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import es.uned.ped14.account.Account;
+import es.uned.ped14.config.HibernateUtil;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
 
@@ -26,9 +27,6 @@ public class CurriculumRepository {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	@Autowired
-    private SessionFactory sessionFactory;
 	
 	@Transactional
 	public Curriculum save(Curriculum curriculum) {
@@ -46,22 +44,27 @@ public class CurriculumRepository {
 		}
 	}
 	
-	public List<Curriculum> findByPaisAndCiudadAndExperiencia(String pais, String ciudad, ExperienciaProfesional experiencia) {
+	public List<Curriculum> findByPaisAndCiudad(String pais, String ciudad) {
+		System.out.println("Curriculum repository findByPaisAndCiudad");
 		Criteria criteria = getSession().createCriteria(Curriculum.class);
 		if (pais != null) {
+			System.out.println("pais not null");
 		    criteria.add(Expression.eq("pais", pais));
 		}
 		
 		if (ciudad != null) {
+			System.out.println("ciudad not null");
 		    criteria.add(Expression.eq("ciudad", ciudad));
 		}
 		
 		List results = criteria.list();
+		 System.out.println("CURRICULOS: " + results);
 		
 		return results;
 	}
 	
 	private Session getSession(){
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         return sessionFactory.getCurrentSession();
     }
 
