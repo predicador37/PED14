@@ -1,12 +1,16 @@
 package es.uned.ped14.curriculum;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.experiencia.*;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Formula;
 
 @SuppressWarnings("serial")
 @Entity
@@ -30,8 +34,13 @@ public class Curriculum implements java.io.Serializable {
 	private String url_imagen;
 	@Column
 	private String url_archivo;
-	@OneToMany(mappedBy="curriculum")
-	private List<ExperienciaProfesional> experiencia;
+	
+	//@Formula("(SELECT DATE_FORMAT(max(c.experiencias.fecha_fin), '%Y') - DATE_FORMAT(max(c.experiencias.fecha_inicio), '%Y')-(DATE_FORMAT(max(c.experiencias.fecha_fin), '00-%m-%d') lt; DATE_FORMAT(max(c.experiencias.fecha_inicio), '00-%m-%d')) from curriculum c where c.id = id)")
+	//@Formula("(SELECT COUNT(c.experiencias) FROM curriculum c, experiencia_profesional e where c.id = e.curriculum_id)")
+	@Transient
+	private Integer experiencia;
+	@OneToMany(mappedBy="curriculum", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ExperienciaProfesional> experiencias;
 
     protected Curriculum() {
 
@@ -113,18 +122,29 @@ public class Curriculum implements java.io.Serializable {
 	}
 
 
-	public List<ExperienciaProfesional> getExperiencia() {
-		return experiencia;
+	public List<ExperienciaProfesional> getExperiencias() {
+		return experiencias;
 	}
 
 
-	public void setExperiencia(List<ExperienciaProfesional> experiencia) {
-		this.experiencia = experiencia;
+	public void setExperiencias(List<ExperienciaProfesional> experiencias) {
+		this.experiencias = experiencias;
 	}
 
 
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Integer getExperiencia() {
+		
+		Integer mesesExperiencia = 0;
+		for (ExperienciaProfesional e: experiencias){	
+			mesesExperiencia = mesesExperiencia + ((e.getFecha_fin().getYear()*12 + e.getFecha_fin().getMonth()) - (e.getFecha_inicio().getYear()*12 + e.getFecha_inicio().getMonth()) + 1);
+		}
+		return mesesExperiencia;
+	}
+	
+	
 	
 }
