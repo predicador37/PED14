@@ -1,6 +1,7 @@
 package es.uned.ped14.curriculum;
 
 import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -29,6 +30,14 @@ public class CurriculumService {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}
 		return curriculum;
+	}
+	
+	public List<Curriculum> findByPaisAndCiudad(String pais, String ciudad) throws CurriculumNotFoundException {
+		List<Curriculum> curriculos = curriculumRepository.findByPaisAndCiudad(pais, ciudad);
+		if(curriculos.isEmpty()) {
+			throw new CurriculumNotFoundException("curriculum not found");
+		}
+		return curriculos;
 	}
 	
 
