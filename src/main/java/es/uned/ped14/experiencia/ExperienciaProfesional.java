@@ -96,8 +96,32 @@ public class ExperienciaProfesional implements java.io.Serializable {
 		return curriculum;
 	}
 
+	/**
+	* Fijar el nuevo currículum asociado. Este método mantiene
+	* la consistencia entre relaciones:
+	* * la experiencia se elimina del currículo anterior
+	* * la experiencia se añade al nuevo currículo
+	*
+	* @param owner
+	*/
+	
 	public void setCurriculum(Curriculum curriculum) {
+		//prevenir bucle sin fin
+		if (sameAsFormer(curriculum))
+		return ;
+		//fijar nuevo currículum
+		Curriculum viejoCurriculum = this.curriculum;
 		this.curriculum = curriculum;
+		//eliminar del currículum viejo
+		if (viejoCurriculum!=null)
+		viejoCurriculum.removeExperiencia(this);
+		//fijarme a mí mismo como nuevo currículum
+		if (curriculum!=null)
+		curriculum.addExperiencia(this);
 	}
+	
+	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
+		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
+		 }
 	
 }
