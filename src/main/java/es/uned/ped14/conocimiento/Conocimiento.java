@@ -16,8 +16,7 @@ public class Conocimiento implements java.io.Serializable {
 	@Column
 	private String descripcion;
 
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = NivelConocimiento.class, cascade=CascadeType.PERSIST)
-	@JoinColumn(name="id_nivel")
+	
 	private NivelConocimiento nivelconocimiento;
 	
     protected Conocimiento() {
