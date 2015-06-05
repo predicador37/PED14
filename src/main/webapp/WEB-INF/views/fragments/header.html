@@ -12,7 +12,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Demo project</a>
+            <a class="navbar-brand" href="#">PED14</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -22,10 +22,13 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${#authorization.expression('!isAuthenticated()')}">
-                    <a href="/signin" th:href="@{/signin}">Sign in</a>
+                    <a href="/signin" th:href="@{/signin}">Iniciar Sesion</a>
+                </li>
+				<li th:if="${#authorization.expression('!isAuthenticated()')}">
+                    <a href="/sigup" th:href="@{/signup}">Registrarse</a>
                 </li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Logout</a>
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Terminar Sesion</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
             </ul>
@@ -33,5 +36,42 @@
         <!--/.nav-collapse -->
     </div>
 </div>
+
+<!-- Si entra un usuario que esta dado de alta en el sistema podra modificar su cv, darse de baja o buscar cv de otros usuarios -->
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="usuario">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+			<a class="navbar-brand" href="#">PED14</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">				
+				<li class="active"><a href="#" th:href="@{/}">Home</a></li>
+                <li><a href="modcv" th:href="@{/modcv}">Modificar CV</a></li>
+                <li><a href="/userOut" th:href="@{/userout}">Dar de baja usuario</a></li>
+				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+				<a href="/enableFields" th:href="@{/enableFields}">Activar/Desactivar funcion</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">                
+                <li th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Terminar Sesion</a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                </li>
+            </ul>			
+			<!--
+			<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+				This will only be displayed if authenticated user has role ROLE_ADMIN.
+			</div> -->
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+
+<!-- Si entra el usuario administrador podra deshabilitar que campos pueden ver los usuarios o invitados, dar de baja a usuarios o cv -->
+
 </body>
 </html>

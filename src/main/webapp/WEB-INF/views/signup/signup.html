@@ -15,29 +15,43 @@
         <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
     </th:block>
     <fieldset>
-        <legend>Please Sign Up</legend>
+        <legend>Darse de alta</legend>
+        <div class="form-group" th:classappend="${#fields.hasErrors('usuario')}? 'has-error'">
+            <label for="usuario" class="col-lg-2 control-label">Login</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="usuario" placeholder="Login Usuario" th:field="*{usuario}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}">Login incorrecto</span>
+            </div>
+        </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
             <label for="email" class="col-lg-2 control-label">Email</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="email" placeholder="Email address" th:field="*{email}" />
-                <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect email</span>
+                <input type="text" class="form-control" id="email" placeholder="Correo electronico" th:field="*{email}" />
+                <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email erroneo</span>
             </div>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
             <label for="password" class="col-lg-2 control-label">Password</label>
             <div class="col-lg-10">
                 <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</span>
+                <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password no valida</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('provincia')}? 'has-error'">
+            <label for="provincia" class="col-lg-2 control-label">Provincia</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="provincia" placeholder="Provincia" th:field="*{provincia}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}">Provincia no puede estar en blanco</span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <button type="submit" class="btn btn-default">Sign up</button>
+                <button type="submit" class="btn btn-default">Dar de alta</button>
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <p>Already have an account? <a href="signin" th:href="@{/signin}">Sign In</a></p>
+                <p>Si ya estas registrado - <a href="signin" th:href="@{/signin}">Iniciar sesion</a></p>
             </div>
         </div>
     </fieldset>

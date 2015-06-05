@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{view.index.title}">Portal PED14</title>
+	<title th:text="#{view.index.title}">Modificar CV</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
@@ -9,16 +9,14 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/header :: usuario">&nbsp;</div>
-<div class="container">
-    <!-- /* Handle the flash message */-->
-    <th:block th:if="${message != null}">
-        <!-- /* The message code is returned from the @Controller */ -->
-        <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
-    </th:block>
+	<div th:replace="fragments/header :: usuario">&nbsp;</div>
     <p>
-	Bienvenido al portal PED14 - La plataforma para los contactos profesionales.        
+	Modificar CV        
     </p>
-</div>
+	<p>Muestra todos los campos del cv</p>
+	<p>i. Localización geográfica (ciudad,país).</p>
+    <p>ii. Experiencia profesional (ej. 3 años, 5 años, …).</p>
+	<p>iii. Titulaciones(ej. Ingeniero, Ingeniero Técnico, …)</p>
+	<p>iv. Conocimientos de una determinada tecnología (ej., java, unix, …)</p>
 </body>
 </html>

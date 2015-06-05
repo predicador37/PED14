@@ -25,7 +25,7 @@ public class AccountRepository {
 	}
 	
 	public Account findByEmail(String email) {
-		try {
+		try {			
 			return entityManager.createNamedQuery(Account.FIND_BY_EMAIL, Account.class)
 					.setParameter("email", email)
 					.getSingleResult();
@@ -33,6 +33,5 @@ public class AccountRepository {
 			return null;
 		}
 	}
-
 	
 }

@@ -17,7 +17,7 @@ import es.uned.ped14.account.UserService;
 
 @Configuration
 @EnableWebMvcSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserService userService() {

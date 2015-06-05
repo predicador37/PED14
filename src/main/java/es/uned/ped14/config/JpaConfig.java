@@ -22,7 +22,7 @@ import es.uned.ped14.Application;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
-public class JpaConfig implements TransactionManagementConfigurer {
+class JpaConfig implements TransactionManagementConfigurer {
 
     @Value("${dataSource.driverClassName}")
     private String driver;
