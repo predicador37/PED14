@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.curriculum.CurriculumNotFoundException;
+
 @Service
 public class CurriculumService {
-	Logger logger = LoggerFactory.getLogger(CurriculumServiceTest.class);
+	Logger logger = LoggerFactory.getLogger(CurriculumService.class);
 	 
 	@Autowired
 	private CurriculumRepository curriculumRepository;

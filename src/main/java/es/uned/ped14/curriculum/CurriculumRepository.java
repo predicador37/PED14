@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class CurriculumRepository {
 	
-	Logger logger = LoggerFactory.getLogger(CurriculumServiceTest.class);
+	Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
 	 
 	@PersistenceContext
 	private EntityManager entityManager;
