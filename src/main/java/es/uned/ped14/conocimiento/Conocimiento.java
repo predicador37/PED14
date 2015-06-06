@@ -2,6 +2,7 @@ package es.uned.ped14.conocimiento;
 
 import javax.persistence.*;
 
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "conocimiento")

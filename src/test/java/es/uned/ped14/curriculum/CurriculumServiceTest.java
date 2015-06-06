@@ -87,7 +87,7 @@ public class CurriculumServiceTest {
 		// arrange
 		
 		// act
-		List<Curriculum> curriculos = curriculumService.findByPaisAndCiudadAndGreaterThanExperiencia("España", "Santander", 5);
+		List<Curriculum> curriculos = curriculumService.findByPaisAndCiudadAndGreaterThanExperiencia("España", "Santand", 5);
      
 		// assert
 		logger.info(curriculos.get(0).getNombre() + " : " + curriculos.get(0).getExperiencia()/12 + " años");
@@ -97,6 +97,8 @@ public class CurriculumServiceTest {
 		assertThat("Miguel").isEqualTo(curriculos.get(1).getNombre());
 		assertThat(curriculos.size()).isEqualTo(2);
 	}
+	
+	
 
 	
 }

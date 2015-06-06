@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -61,16 +60,17 @@ public class CurriculumRepository {
 		
 	
 		if (pais != null) {
-			Predicate predicate1 = builder.equal(
-						              curriculumRoot.get("pais"),
-						              pais);
+			Predicate predicate1 = builder.like(
+									builder.lower(
+						              curriculumRoot.<String>get("pais")),
+						              "%" + pais.toLowerCase() + "%");
 		   predicates.add(predicate1);
 		}
 		
 		if (ciudad != null) {
-			Predicate predicate2 = builder.equal(
-		              curriculumRoot.get("ciudad"),
-		              ciudad);
+			Predicate predicate2 = builder.like(
+									builder.lower(curriculumRoot.<String>get("ciudad")),
+									"%" + ciudad.toLowerCase() + "%");
 			predicates.add(predicate2);
 		}
 		
@@ -85,6 +85,7 @@ public class CurriculumRepository {
 		return entityManager.createQuery(criteriaQuery).getResultList();
 		
 	}
+	
 
 
 	/**
