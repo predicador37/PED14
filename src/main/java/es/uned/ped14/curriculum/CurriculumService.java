@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
 
 @Service
@@ -33,6 +34,11 @@ public class CurriculumService {
 		ExperienciaProfesional experiencia5 = new ExperienciaProfesional("Presidenta del Consejo de Administración", "Banco Santander", "Dueña del banco",  formatoFecha.parse("01/07/2010"), formatoFecha.parse("27/04/2015"));
 		ExperienciaProfesional experiencia6 = new ExperienciaProfesional("Becario", "ACME", "Gestión de cadena de producción", formatoFecha.parse("14/10/2008"), formatoFecha.parse("31/12/2012"));
 		
+		Titulacion titulacion1 = new Titulacion("Ingeniero Informático");
+		Titulacion titulacion2 = new Titulacion("Ingeniero de Telecomunicaciones");
+		Titulacion titulacion3 = new Titulacion("Ingeniero Informático");
+		Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones");
+		
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum2 = new Curriculum("Héctor", "Garnacho", "España", "Valladolid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum3 = new Curriculum("Marcos", "Azorí", "España", "Madrid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
@@ -40,11 +46,15 @@ public class CurriculumService {
 		Curriculum demoCurriculum5 = new Curriculum("Lucía", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		
 		demoCurriculum1.addExperiencia(experiencia1);
+		demoCurriculum1.addTitulacion(titulacion2);
 		demoCurriculum2.addExperiencia(experiencia2);
+		demoCurriculum2.addTitulacion(titulacion1);
 		demoCurriculum1.addExperiencia(experiencia3);
 		demoCurriculum4.addExperiencia(experiencia4);
+		demoCurriculum4.addTitulacion(titulacion4);
 		demoCurriculum4.addExperiencia(experiencia5);
-		demoCurriculum5.addExperiencia(experiencia6);		
+		demoCurriculum5.addExperiencia(experiencia6);
+		demoCurriculum3.addTitulacion(titulacion3);
 		
 		curriculumRepository.save(demoCurriculum1);
 		curriculumRepository.save(demoCurriculum2);
@@ -85,8 +95,8 @@ public class CurriculumService {
 	 * @return List<Curriculum>
 	 * @throws CurriculumNotFoundException
 	 */
-	public List<Curriculum> findByPaisAndCiudadAndGreaterThanExperiencia(String pais, String ciudad, Integer experiencia) throws CurriculumNotFoundException {
-		List<Curriculum> curriculos = curriculumRepository.findByPaisAndCiudadAndGreaterThanExperiencia(pais, ciudad, experiencia);
+	public List<Curriculum> findByPaisAndCiudadAndGreaterThanExperiencia(String pais, String ciudad, Integer experiencia, String titulacion) throws CurriculumNotFoundException {
+		List<Curriculum> curriculos = curriculumRepository.findByPaisAndCiudadAndGreaterThanExperiencia(pais, ciudad, experiencia, titulacion);
 		if(curriculos.isEmpty()) {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}

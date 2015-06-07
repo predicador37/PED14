@@ -9,12 +9,19 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import es.uned.ped14.titulacion.Titulacion;
+import es.uned.ped14.titulacion.Titulacion_;
 
 @Repository
 @Transactional(readOnly = true)
@@ -51,11 +58,13 @@ public class CurriculumRepository {
 	 * @param experiencia: Integer con la experiencia en años
 	 * @return List<Curriculum>
 	 */
-	public List<Curriculum> findByPaisAndCiudadAndGreaterThanExperiencia(String pais, String ciudad, Integer experiencia) {
+	public List<Curriculum> findByPaisAndCiudadAndGreaterThanExperiencia(String pais, String ciudad, Integer experiencia, String titulacion) {
 		logger.info("Curriculum repository findByPaisAndCiudadAndGreaterThanExperiencia");
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Curriculum> criteriaQuery = builder.createQuery( Curriculum.class );
-		Root<Curriculum> curriculumRoot = criteriaQuery.from(Curriculum.class );
+		Root<Curriculum> curriculumRoot = criteriaQuery.from(Curriculum.class);
+		
+		//Root<Curriculum> curriculumRoot = criteriaQuery.from(Curriculum.class );
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 	
@@ -79,6 +88,16 @@ public class CurriculumRepository {
 		              curriculumRoot.<Integer>get("experiencia"),
 		              experiencia*12);
 			predicates.add(predicate3);
+		}
+		
+		if (titulacion != null) {
+			
+			Join<Curriculum, Titulacion> titulaciones = curriculumRoot.join(Curriculum_.titulaciones);
+			Predicate predicate4 = builder.like(builder.lower(
+		              titulaciones.get(Titulacion_.descripcion)),
+		              "%" + titulacion.toLowerCase() + "%");
+			predicates.add(predicate4);
+			
 		}
 		criteriaQuery.select(curriculumRoot).where(predicates.toArray(new Predicate[]{}));
 		criteriaQuery.orderBy(builder.desc(curriculumRoot.get("experiencia")));
