@@ -1,6 +1,6 @@
 package es.uned.ped14.curso;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 

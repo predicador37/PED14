@@ -103,7 +103,7 @@ public class CurriculumServiceTest {
 
 		// assert
 		logger.info("Curriculos size: " + curriculos.size());
-		assertThat(curriculos.size()).isEqualTo(5);
+		assertThat(curriculos.size()).isEqualTo(6);
 		
 	}
 	

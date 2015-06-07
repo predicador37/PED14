@@ -21,7 +21,7 @@ import es.uned.ped14.Application;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = Application.class)
+@EnableJpaRepositories(basePackageClasses = Application.class, entityManagerFactoryRef="configureEntityManagerFactory")
 public class JpaConfig implements TransactionManagementConfigurer {
 
     @Value("${dataSource.driverClassName}")

@@ -28,7 +28,7 @@ import es.uned.ped14.titulacion.Titulacion_;
 @Repository
 @Transactional(readOnly = true)
 
-public class CurriculumRepository {
+public class CurriculumRepository{
 	
 	Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
 	 
