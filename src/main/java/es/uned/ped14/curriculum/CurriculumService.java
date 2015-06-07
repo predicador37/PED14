@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
+import es.uned.ped14.account.Account;
+import es.uned.ped14.account.AccountRepository;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
@@ -23,6 +25,9 @@ public class CurriculumService {
 	 
 	@Autowired
 	private CurriculumRepository curriculumRepository;
+	
+	@Autowired
+	private AccountRepository accountRepository;
 	
 	@PostConstruct	
 	protected void initialize() throws ParseException {
@@ -46,12 +51,16 @@ public class CurriculumService {
 		Conocimiento conocimiento3 = new Conocimiento("java", NivelConocimiento.BAJO);
 		Conocimiento conocimiento4 = new Conocimiento("unix", NivelConocimiento.BAJO);
 		
+		Account user1 = new Account("miguel.exposito@gmail.com", "miguel", "ROLE_USER");
+		
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum2 = new Curriculum("Héctor", "Garnacho", "España", "Valladolid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum3 = new Curriculum("Marcos", "Azorí", "España", "Madrid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum4 = new Curriculum("Ana Patricia", "Botín", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum5 = new Curriculum("Lucía", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		
+		
+		demoCurriculum1.setUser(user1);
 		demoCurriculum1.addExperiencia(experiencia1);
 		demoCurriculum1.addTitulacion(titulacion2);
 		demoCurriculum1.addConocimiento(conocimiento2);
@@ -67,6 +76,7 @@ public class CurriculumService {
 		demoCurriculum3.addTitulacion(titulacion3);
 		demoCurriculum3.addConocimiento(conocimiento3);
 		
+		accountRepository.save(user1);
 		curriculumRepository.save(demoCurriculum1);
 		curriculumRepository.save(demoCurriculum2);
 		curriculumRepository.save(demoCurriculum3);
@@ -78,6 +88,14 @@ public class CurriculumService {
 	
 	public Curriculum find(Long id) throws CurriculumNotFoundException {
 		Curriculum curriculum = curriculumRepository.findOne(id);
+		if(curriculum == null) {
+			throw new CurriculumNotFoundException("curriculum not found");
+		}
+		return curriculum;
+	}
+	
+	public Curriculum findByUserEmail(String email) throws CurriculumNotFoundException {
+		Curriculum curriculum = curriculumRepository.findByUserEmail(email);
 		if(curriculum == null) {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}
@@ -103,7 +121,7 @@ public class CurriculumService {
 	 * @param pais: String con el país de origen
 	 * @param ciudad: String con la ciudad de origen
 	 * @param experiencia: Integer con la experiencia en años
-	 * @param titulacion: String con la titulación deseada; busca también si es una subcadena de la titultación
+	 * @param titulacion: String con la titulación deseada; busca también si es una subcadena de la titulación
 	 * @param conocimiento: String con el conocimiento deseado; busca también si es una subcadena del conocimiento
 	 * @return List<Curriculum>
 	 * @throws CurriculumNotFoundException
@@ -114,6 +132,36 @@ public class CurriculumService {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}
 		return curriculos;
+	}
+	
+	/**
+	 * Servicio que persiste un currículum dado este y sus experiencia profesional, titulación y conocimiento asociados
+	 * @param curriculum: Curriculum con sus campos poblados
+	 * @param experienciaProfesional: ExperienciaProfesional que se va a asociar al currículum. Puede ser null.
+	 * @param titulacion: Titulación que se va a asociar al currículum. Puede ser null.
+	 * @param conocimiento: Conocimiento que se va a asociar al currículum. Puede ser null.
+	 * @throws CurriculumEmptyException
+	 */
+	public void save(Curriculum curriculum, Account usuario, ExperienciaProfesional experienciaProfesional, Titulacion titulacion, Conocimiento conocimiento) throws CurriculumEmptyException {
+		
+		logger.info("Inicializado servicio de almacenamiento de currículo");
+		
+		if (curriculum == null) throw new CurriculumEmptyException("Los datos para el currículum no existen");
+		
+		if (usuario != null) {
+			curriculum.setUser(usuario);
+		}
+		if (experienciaProfesional != null){
+		curriculum.addExperiencia(experienciaProfesional);
+		}
+		if (titulacion != null){
+		curriculum.addTitulacion(titulacion);
+		}
+		if (conocimiento != null){
+		curriculum.addConocimiento(conocimiento);
+		}
+		
+		curriculumRepository.save(curriculum);
 	}
 
 }

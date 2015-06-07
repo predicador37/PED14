@@ -51,6 +51,16 @@ public class CurriculumRepository {
 		}
 	}
 	
+	public Curriculum findByUserEmail(String email) {
+		try {
+			return entityManager.createNamedQuery(Curriculum.FIND_BY_USER_EMAIL, Curriculum.class)
+					.setParameter("email", email)
+					.getSingleResult();
+		} catch (PersistenceException e) {
+			return null;
+		}
+	}
+	
 	/**
 	 * Método que devuelve un listado de currículos filtrados por país, ciudad, experiencia, titulación y conocimiento utilizando una
 	 * consulta realizada con JPA criteria. Los parámetros pueden ser nulos, en cuyo caso no se filtrará por ellos.

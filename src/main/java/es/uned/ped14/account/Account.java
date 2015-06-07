@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import es.uned.ped14.curriculum.Curriculum;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
@@ -19,11 +21,26 @@ public class Account implements java.io.Serializable {
 	@Column(unique = true)
 	private String email;
 	
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@JsonIgnore
 	private String password;
 
 	private String role = "ROLE_USER";
-
+	
+	@OneToOne(mappedBy="user")
+	private Curriculum curriculum;
+	
     protected Account() {
 
 	}

@@ -9,11 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import es.uned.ped14.account.Account;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
@@ -21,9 +27,13 @@ import es.uned.ped14.titulacion.Titulacion;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "curriculum")
-@NamedQuery(name = Curriculum.FIND_ONE, query = "select a from Curriculum a where a.id = :id")
+@NamedQueries({
+@NamedQuery(name = Curriculum.FIND_ONE, query = "select a from Curriculum a where a.id = :id"),
+@NamedQuery(name = Curriculum.FIND_BY_USER_EMAIL, query = "select a from Curriculum a where a.user.email = :email")
+}) 
 public class Curriculum implements java.io.Serializable {
 	public static final String FIND_ONE = "Curriculum.findOne";
+	public static final String FIND_BY_USER_EMAIL = "Curriculum.findByUserEmail";
 
 	@Id
 	@GeneratedValue
@@ -42,14 +52,26 @@ public class Curriculum implements java.io.Serializable {
 	private String url_archivo;
 	@Column
 	private Integer experiencia;
-
-	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	
+	@OneToOne
+	private Account user;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<ExperienciaProfesional> experiencias = new ArrayList<ExperienciaProfesional>();
 	
-	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<Titulacion> titulaciones = new ArrayList<Titulacion>();
+	public Account getUser() {
+		return user;
+	}
+
+	public void setUser(Account user) {
+		this.user = user;
+	}
 	
-	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
+	private Collection<Titulacion> titulaciones = new ArrayList<Titulacion>();
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
 
 	protected Curriculum() {
