@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.uned.ped14.conocimiento.Conocimiento;
+import es.uned.ped14.conocimiento.Conocimiento_;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.titulacion.Titulacion_;
 
@@ -50,21 +52,21 @@ public class CurriculumRepository {
 	}
 	
 	/**
-	 * Método que devuelve un listado de currículos filtrados por país, ciudad y experiencia utilizando una
+	 * Método que devuelve un listado de currículos filtrados por país, ciudad, experiencia, titulación y conocimiento utilizando una
 	 * consulta realizada con JPA criteria. Los parámetros pueden ser nulos, en cuyo caso no se filtrará por ellos.
 	 * La experiencia se filtra devolviendo todos aquellos currículos con experiencia mayor o igual a la introducida.
 	 * @param pais: String con el país de origen
 	 * @param ciudad: String con la ciudad de origen
 	 * @param experiencia: Integer con la experiencia en años
+	 * @param titulacion: String con la titulación deseada; busca también si es una subcadena de la titultación
+	 * @param conocimiento: String con el conocimiento deseado; busca también si es una subcadena del conocimiento
 	 * @return List<Curriculum>
 	 */
-	public List<Curriculum> findByPaisAndCiudadAndGreaterThanExperiencia(String pais, String ciudad, Integer experiencia, String titulacion) {
-		logger.info("Curriculum repository findByPaisAndCiudadAndGreaterThanExperiencia");
+	public List<Curriculum> findByOptionalParameters(String pais, String ciudad, Integer experiencia, String titulacion, String conocimiento) {
+		logger.info("Curriculum repository findByOptionalParameters");
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Curriculum> criteriaQuery = builder.createQuery( Curriculum.class );
 		Root<Curriculum> curriculumRoot = criteriaQuery.from(Curriculum.class);
-		
-		//Root<Curriculum> curriculumRoot = criteriaQuery.from(Curriculum.class );
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 	
@@ -97,6 +99,16 @@ public class CurriculumRepository {
 		              titulaciones.get(Titulacion_.descripcion)),
 		              "%" + titulacion.toLowerCase() + "%");
 			predicates.add(predicate4);
+			
+		}
+		
+		if (conocimiento != null) {
+			
+			Join<Curriculum, Conocimiento> conocimientos = curriculumRoot.join(Curriculum_.conocimientos);
+			Predicate predicate5 = builder.like(builder.lower(
+		              conocimientos.get(Conocimiento_.descripcion)),
+		              "%" + conocimiento.toLowerCase() + "%");
+			predicates.add(predicate5);
 			
 		}
 		criteriaQuery.select(curriculumRoot).where(predicates.toArray(new Predicate[]{}));

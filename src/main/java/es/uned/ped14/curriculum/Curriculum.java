@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
 
@@ -47,6 +48,9 @@ public class Curriculum implements java.io.Serializable {
 	
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<Titulacion> titulaciones = new ArrayList<Titulacion>();
+	
+	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Collection<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
 
 	protected Curriculum() {
 
@@ -129,6 +133,7 @@ public class Curriculum implements java.io.Serializable {
 	 * Añade una nueva experiencia al currículum. Este método mantiene la
 	 * consistencia entre las relaciones. Este currículum se asocia a la
 	 * experiencia en concreto
+	 * @param ExperienciaProfresional experiencia
 	 */
 	public void addExperiencia(ExperienciaProfesional experiencia) {
 		// prevenir bucle infinito
@@ -144,6 +149,7 @@ public class Curriculum implements java.io.Serializable {
 	 * Elimina una experiencia de un currículum. Este método mantiene la
 	 * consistencia entre las relaciones. La experiencia no estára asociada al
 	 * currículo a partir de ahora.
+	 * @param ExperienciaProfesional experiencia
 	 */
 	public void removeExperiencia(ExperienciaProfesional experiencia) {
 		// prevent endless loop
@@ -169,6 +175,7 @@ public class Curriculum implements java.io.Serializable {
 	 * Añade una nueva titulación al currículum. Este método mantiene la
 	 * consistencia entre las relaciones. Este currículum se asocia a la
 	 * titulación en concreto
+	 * @param Titulacion titulacion
 	 */
 	public void addTitulacion(Titulacion titulacion) {
 		// prevenir bucle infinito
@@ -184,6 +191,7 @@ public class Curriculum implements java.io.Serializable {
 	 * Elimina una titulación de un currículum. Este método mantiene la
 	 * consistencia entre las relaciones. La titulación no estára asociada al
 	 * currículo a partir de ahora.
+	 * @param Titulacion titulacion
 	 */
 	public void removeTitulación(Titulacion titulacion) {
 		// prevent endless loop
@@ -194,6 +202,49 @@ public class Curriculum implements java.io.Serializable {
 		// remove myself from the twitter account
 		titulacion.setCurriculum(null);
 	}
+	
+	/**
+	 * Devuelve una colección de conocimientos. La colección devuelta es una
+	 * copia defensiva (nadie puede cambiarla desde el exterior)
+	 *
+	 * @return una coleccion de conocimientos asociadas al currículum
+	 */
+	public Collection<Conocimiento> getConocimientos() {
+		return new ArrayList<Conocimiento>(conocimientos);
+	}
+
+	/**
+	 * Añade un nuevo conocimiento al currículum. Este método mantiene la
+	 * consistencia entre las relaciones. Este currículum se asocia al
+	 * conocimiento en concreto
+	 * @param Conocimiento conocimiento
+	 */
+	public void addConocimiento(Conocimiento conocimiento) {
+		// prevenir bucle infinito
+		if (conocimientos.contains(conocimiento))
+			return;
+		// añadir nueva experiencia
+		conocimientos.add(conocimiento);
+		// asociar este currículo con la experiencia
+		conocimiento.setCurriculum(this);
+	}
+
+	/**
+	 * Elimina un conocimiento de un currículum. Este método mantiene la
+	 * consistencia entre las relaciones. El conocimiento no estára asociado al
+	 * currículo a partir de ahora.
+	 * @param Conocimiento conocimiento
+	 */
+	public void removeConocimiento(Conocimiento conocimiento) {
+		// prevent endless loop
+		if (!conocimientos.contains(conocimiento))
+			return;
+		// remove the account
+		conocimientos.remove(conocimiento);
+		// remove myself from the twitter account
+		conocimiento.setCurriculum(null);
+	}
+
 
 	public void setId(Long id) {
 		this.id = id;

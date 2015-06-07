@@ -83,11 +83,11 @@ public class CurriculumServiceTest {
 	}
 	
 	@Test
-	public void shouldReturnCurriculumByPaisAndCiudadAndGreaterThanExperiencia() throws CurriculumNotFoundException, ParseException {
+	public void shouldReturnCurriculumByOptionalParameters() throws CurriculumNotFoundException, ParseException {
 		// arrange
 		
 		// act
-		List<Curriculum> curriculos = curriculumService.findByPaisAndCiudadAndGreaterThanExperiencia("España", "Santander", 5, "Telecomunicaciones");
+		List<Curriculum> curriculos = curriculumService.findByOptionalParameters("España", "Santander", 5, "Telecomunicaciones", "unix");
 		logger.info("número de resultados: " + curriculos.size());
 		// assert
 		logger.info(curriculos.get(0).getNombre() + " : " + curriculos.get(0).getExperiencia()/12 + " años" +  curriculos.get(0).getTitulaciones().toString());
