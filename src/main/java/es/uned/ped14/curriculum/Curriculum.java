@@ -21,6 +21,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.conocimiento.Conocimiento;
+import es.uned.ped14.curso.CursoFormacion;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
 
@@ -73,6 +74,8 @@ public class Curriculum implements java.io.Serializable {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
+	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
+	private Collection<CursoFormacion> cursos = new ArrayList<CursoFormacion>();
 
 	protected Curriculum() {
 
@@ -215,7 +218,7 @@ public class Curriculum implements java.io.Serializable {
 	 * currículo a partir de ahora.
 	 * @param Titulacion titulacion
 	 */
-	public void removeTitulación(Titulacion titulacion) {
+	public void removeTitulacion(Titulacion titulacion) {
 		// prevent endless loop
 		if (!titulaciones.contains(titulacion))
 			return;
@@ -251,6 +254,7 @@ public class Curriculum implements java.io.Serializable {
 		conocimiento.setCurriculum(this);
 	}
 
+	
 	/**
 	 * Elimina un conocimiento de un currículum. Este método mantiene la
 	 * consistencia entre las relaciones. El conocimiento no estára asociado al
@@ -265,6 +269,49 @@ public class Curriculum implements java.io.Serializable {
 		conocimientos.remove(conocimiento);
 		// remove myself from the twitter account
 		conocimiento.setCurriculum(null);
+	}
+
+	
+	/**
+	 * Devuelve una colección de cursos. La colección devuelta es una
+	 * copia defensiva (nadie puede cambiarla desde el exterior)
+	 *
+	 * @return una coleccion de cursos asociados al currículum
+	 */
+	public Collection<CursoFormacion> getCursos() {
+		return new ArrayList<CursoFormacion>(cursos);
+	}
+
+	/**
+	 * Añade un nuevo curso al currículum. Este método mantiene la
+	 * consistencia entre las relaciones. Este currículum se asocia al
+	 * curso en concreto
+	 * @param CursoFormacion curso
+	 */
+	public void addCurso(CursoFormacion curso) {
+		// prevenir bucle infinito
+		if (cursos.contains(curso))
+			return;
+		// añadir nueva experiencia
+		cursos.add(curso);
+		// asociar este currículo con la experiencia
+		curso.setCurriculum(this);
+	}
+	
+	/**
+	 * Elimina un curso de un currículum. Este método mantiene la
+	 * consistencia entre las relaciones. El curso no estára asociado al
+	 * currículo a partir de ahora.
+	 * @param CursoFormacion curso
+	 */
+	public void removeCurso(CursoFormacion curso) {
+		// prevent endless loop
+		if (!cursos.contains(curso))
+			return;
+		// remove the account
+		cursos.remove(curso);
+		// remove myself from the twitter account
+		curso.setCurriculum(null);
 	}
 
 

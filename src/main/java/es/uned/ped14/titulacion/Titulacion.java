@@ -18,6 +18,9 @@ public class Titulacion implements java.io.Serializable {
 	@Column
 	private String descripcion;
 	
+	@Column(columnDefinition = "int default 0")
+	private Integer numeroLikes;
+	
 	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
@@ -54,10 +57,10 @@ public class Titulacion implements java.io.Serializable {
 	/**
 	* Fijar el nuevo currículum asociado. Este método mantiene
 	* la consistencia entre relaciones:
-	* * la experiencia se elimina del currículo anterior
-	* * la experiencia se añade al nuevo currículo
+	* * la titulación se elimina del currículo anterior
+	* * la titulación se añade al nuevo currículo
 	*
-	* @param owner
+	* @param Curriculum curriculum
 	*/
 	
 	public void setCurriculum(Curriculum curriculum) {
@@ -69,13 +72,29 @@ public class Titulacion implements java.io.Serializable {
 		this.curriculum = curriculum;
 		//eliminar del currículum viejo
 		if (viejoCurriculum!=null)
-		viejoCurriculum.removeTitulación(this);
+		viejoCurriculum.removeTitulacion(this);
 		//fijarme a mí mismo como nuevo currículum
 		if (curriculum!=null)
 		curriculum.addTitulacion(this);
 	}
 	
-	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
+	 public Integer getNumeroLikes() {
+		return numeroLikes;
+	}
+
+	public void setNumeroLikes(Integer numeroLikes) {
+		this.numeroLikes = numeroLikes;
+	}
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	private boolean sameAsFormer(Curriculum nuevoCurriculum) {
 		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
 		 }
 	

@@ -23,6 +23,25 @@ public class Conocimiento implements java.io.Serializable {
 	@Column(name ="nivel_conocimiento")
 	private NivelConocimiento nivelConocimiento;
 	
+	@Column(columnDefinition = "int default 0")
+	private Integer numeroLikes;
+	
+	public Integer getNumeroLikes() {
+		return numeroLikes;
+	}
+
+	public void setNumeroLikes(Integer numeroLikes) {
+		this.numeroLikes = numeroLikes;
+	}
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;

@@ -28,6 +28,21 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	private Date fecha_inicio;
 	@Column
 	private Date fecha_fin;
+	@Column(columnDefinition = "int default 0")
+	private Integer numeroLikes;
+	
+	public Integer getNumeroLikes() {
+		return numeroLikes;
+	}
+
+	public void setNumeroLikes(Integer numeroLikes) {
+		this.numeroLikes = numeroLikes;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
