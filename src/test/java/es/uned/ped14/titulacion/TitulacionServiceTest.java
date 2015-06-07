@@ -1,4 +1,4 @@
-package es.uned.ped14.curso;
+package es.uned.ped14.titulacion;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,27 +27,27 @@ import es.uned.ped14.experiencia.ExperienciaProfesional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class, JpaConfig.class, SecurityConfig.class})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-public class CursoFormacionServiceTest {
+public class TitulacionServiceTest {
 
 	@Autowired
-	private CursoFormacionService cursoService;
+	private TitulacionService titulacionService;
 	
 	@Autowired
 	private CurriculumService curriculumService;
 	
 		
 	@Test
-	public void shouldReturnCursoByCurriculum() throws CurriculumNotFoundException, CursoFormacionNotFoundException {
-		 Logger logger = LoggerFactory.getLogger(CursoFormacionServiceTest.class);
+	public void shouldReturnTitulacionByCurriculum() throws CurriculumNotFoundException, TitulacionNotFoundException {
+		 Logger logger = LoggerFactory.getLogger(TitulacionServiceTest.class);
 		logger.info("shouldReturnCurriculumById");
 		// arrange
 		
-		Curriculum curriculum = curriculumService.findByUserEmail("miguel@gmail.com");
+		Curriculum curriculum = curriculumService.findByUserEmail("jose@gmail.com");
 		// act
-		CursoFormacion curso = cursoService.findByCurriculum(curriculum);
+		Titulacion titulacion = titulacionService.findByCurriculum(curriculum);
 
 		// assert
-		assertThat(curso.getDescripcion()).isEqualTo("Curso de desarrollo ágil de software");
+		assertThat(titulacion.getDescripcion()).isEqualTo("Ingeniero de obras públicas");
 		
 	}
 
