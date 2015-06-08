@@ -2,6 +2,9 @@ package es.uned.ped14.conocimiento;
 
 import javax.persistence.*;
 
+import es.uned.ped14.curriculum.Curriculum;
+
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "conocimiento")
@@ -16,17 +19,41 @@ public class Conocimiento implements java.io.Serializable {
 	@Column
 	private String descripcion;
 
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = NivelConocimiento.class, cascade=CascadeType.PERSIST)
-	@JoinColumn(name="id_nivel")
-	private NivelConocimiento nivelconocimiento;
+	@Enumerated(EnumType.STRING)
+	@Column(name ="nivel_conocimiento")
+	private NivelConocimiento nivelConocimiento;
+	
+	@Column(columnDefinition = "int default 0")
+	private Integer numeroLikes;
+	
+	public Integer getNumeroLikes() {
+		return numeroLikes;
+	}
+
+	public void setNumeroLikes(Integer numeroLikes) {
+		this.numeroLikes = numeroLikes;
+	}
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
+	@JoinColumn(name="curriculum_id")
+	private Curriculum curriculum;
 	
     protected Conocimiento() {
 
 	}
 
-	public Conocimiento(String descripcion, Integer nivel) {
+	public Conocimiento(String descripcion,NivelConocimiento nivelConocimiento) {
 		super();
-		this.descripcion = descripcion;		
+		this.descripcion = descripcion;	
+		this.nivelConocimiento = nivelConocimiento;	
 	}
 
 	public Long getId() {
@@ -41,11 +68,39 @@ public class Conocimiento implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public NivelConocimiento getNivelconocimiento() {
-		return nivelconocimiento;
+	public NivelConocimiento getNivelConocimiento() {
+		return nivelConocimiento;
 	}
 
-	public void setNivelconocimiento(NivelConocimiento nivelconocimiento) {
-		this.nivelconocimiento = nivelconocimiento;
+	public void setNivelConocimiento(NivelConocimiento nivelConocimiento) {
+		this.nivelConocimiento = nivelConocimiento;
 	}
+	
+	/**
+	* Fijar el nuevo currículum asociado. Este método mantiene
+	* la consistencia entre relaciones:
+	* * el conocimiento se elimina del currículo anterior
+	* * el conocimiento se añade al nuevo currículo
+	*
+	* @param curriculum
+	*/
+	
+	public void setCurriculum(Curriculum curriculum) {
+		//prevenir bucle sin fin
+		if (sameAsFormer(curriculum))
+		return ;
+		//fijar nuevo currículum
+		Curriculum viejoCurriculum = this.curriculum;
+		this.curriculum = curriculum;
+		//eliminar del currículum viejo
+		if (viejoCurriculum!=null)
+		viejoCurriculum.removeConocimiento(this);
+		//fijarme a mí mismo como nuevo currículum
+		if (curriculum!=null)
+		curriculum.addConocimiento(this);
+	}
+	
+	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
+		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
+		 }
 }

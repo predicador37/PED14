@@ -38,7 +38,7 @@ public class UserServiceNoMockTest {
 	@Test
 	public void shouldReturnUserDetails() {
 		// arrange
-		Account demoUser = new Account("user@example.com", "demo", "ROLE_USER");
+		Account demoUser = new Account("user@example.com", "demo", "demo", "Sevilla", "ROLE_USER");
 		accountRepository.save(demoUser);
 		// act
 		UserDetails userDetails = userService.loadUserByUsername("user@example.com");

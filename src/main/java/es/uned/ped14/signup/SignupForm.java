@@ -56,8 +56,9 @@ public class SignupForm {
 		this.provincia = provincia;
 	}
 
+	// Dar de alta un usuario segun el formulario signup.html y almacenarlo en la BBDD 
 	public Account createAccount() {
-        return new Account(getEmail(), getPassword(), "ROLE_USER");
-	}
+        return new Account(getEmail(), getPassword(), getUsuario(), getProvincia(),"ROLE_USER");
+	}	
 
 }

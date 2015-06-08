@@ -1,8 +1,10 @@
 package es.uned.ped14.curso;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
+
+import es.uned.ped14.curriculum.Curriculum;
 
 @SuppressWarnings("serial")
 @Entity
@@ -10,6 +12,28 @@ import javax.persistence.*;
 
 public class CursoFormacion implements java.io.Serializable {
 
+
+	public Integer getNumeroLikes() {
+		return numeroLikes;
+	}
+
+
+
+	public void setNumeroLikes(Integer numeroLikes) {
+		this.numeroLikes = numeroLikes;
+	}
+
+
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@Id
 	@GeneratedValue
@@ -21,8 +45,13 @@ public class CursoFormacion implements java.io.Serializable {
 	private Integer numero_horas;
 	@Column
 	private Date fecha_finalizacion;
-	
+	@Column(columnDefinition = "int default 0")
+	private Integer numeroLikes;
 
+	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
+	@JoinColumn(name="curriculum_id")
+	private Curriculum curriculum;
+	
     protected CursoFormacion() {
 
 	}
@@ -65,5 +94,33 @@ public class CursoFormacion implements java.io.Serializable {
 	public void setFecha_finalizacion(Date fecha_finalizacion) {
 		this.fecha_finalizacion = fecha_finalizacion;
 	}
+	
+	/**
+	* Fijar el nuevo currículum asociado. Este método mantiene
+	* la consistencia entre relaciones:
+	* * el curso se elimina del currículo anterior
+	* * el curso se añade al nuevo currículo
+	*
+	* @param Curriculum curriculum
+	*/
+	
+	public void setCurriculum(Curriculum curriculum) {
+		//prevenir bucle sin fin
+		if (sameAsFormer(curriculum))
+		return ;
+		//fijar nuevo currículum
+		Curriculum viejoCurriculum = this.curriculum;
+		this.curriculum = curriculum;
+		//eliminar del currículum viejo
+		if (viejoCurriculum!=null)
+		viejoCurriculum.removeCurso(this);
+		//fijarme a mí mismo como nuevo currículum
+		if (curriculum!=null)
+		curriculum.addCurso(this);
+	}
+	
+	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
+		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
+		 }
 	
 }

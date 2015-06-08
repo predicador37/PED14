@@ -12,7 +12,7 @@
         <div th:replace="fragments/alert :: alert (type='danger', message='Sign in error. Please try again.')">Alert</div>
     </th:block>
     <fieldset>
-        <legend>Iniciar sesion</legend>
+        <legend>Please Sign In</legend>
         <div class="form-group">
             <label for="inputEmail" class="col-lg-2 control-label">Email</label>
             <div class="col-lg-10">
@@ -25,7 +25,6 @@
                 <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" />
             </div>
         </div>
-		<!--
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
                 <div class="checkbox">
@@ -34,15 +33,15 @@
                     </label>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <button type="submit" class="btn btn-default">Inicia sesion</button>
+                <button type="submit" class="btn btn-default">Sign in</button>
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <p><a href="signup" th:href="@{/signup}">Darse de alta gratis</a></p>
+                <p>New here? <a href="signup" th:href="@{/signup}">Sign Up</a></p>
             </div>
         </div>
     </fieldset>

@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import es.uned.ped14.curriculum.Curriculum;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
@@ -16,28 +18,44 @@ public class Account implements java.io.Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@Column(unique = true) 
-	private String usuario;
-	
 	@Column(unique = true)
 	private String email;
 	
 	@Column
-	private String provincia;
+	private String login;
 	
+	@Column
+	private String provincia;
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@JsonIgnore
-	private String password;	
+	private String password;
 
 	private String role = "ROLE_USER";
-
+	
+	@OneToOne(mappedBy="user")
+	private Curriculum curriculum;
+	
     protected Account() {
 
 	}
 	
-	public Account(String email, String password, String usuario, String role) {
+	public Account(String email, String password, String login, String provincia, String role) {
 		this.email = email;
 		this.password = password;
-		this.usuario = usuario;
+		this.login = login;
+		this.provincia = provincia;
 		this.role = role;
 	}
 
@@ -52,29 +70,28 @@ public class Account implements java.io.Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-    public String getUsuario() {
-		return usuario;
-	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-	
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-	
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
 	public String getRole() {

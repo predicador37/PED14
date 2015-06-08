@@ -43,7 +43,7 @@ public class UserServiceTest {
 		thrown.expect(UsernameNotFoundException.class);
 		thrown.expectMessage("user not found");
 
-		when(accountRepositoryMock.findByUser("user@example.com")).thenReturn(null);
+		when(accountRepositoryMock.findByEmail("user@example.com")).thenReturn(null);
 		// act
 		userService.loadUserByUsername("user@example.com");
 	}
@@ -51,8 +51,8 @@ public class UserServiceTest {
 	@Test
 	public void shouldReturnUserDetails() {
 		// arrange
-		Account demoUser = new Account("user@example.com", "demo", "ROLE_USER");
-		when(accountRepositoryMock.findByUser("user@example.com")).thenReturn(demoUser);
+		Account demoUser = new Account("user@example.com", "demo",  "demo", "Sevilla", "ROLE_USER");
+		when(accountRepositoryMock.findByEmail("user@example.com")).thenReturn(demoUser);
 
 		// act
 		UserDetails userDetails = userService.loadUserByUsername("user@example.com");
