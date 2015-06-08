@@ -1,0 +1,23 @@
+body{background: #fff;padding-bottom:0px;}
+a:hover{color:#04D6A1!important;}
+.navbar-inverse{background:#00533F;}
+.navbar-inverse .navbar-nav > li > a{color:#fff;} 
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {background:#02775A;}
+.navbar > .container .navbar-brand {color:#fff;}
+.logo{margin-top:-3px;margin-right: 10px;}
+.container > .navbar-header, .container > .navbar-collapse {margin-bottom: -5px}
+
+.btn-success{background: #02775A;border:none;color:#fff;}
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {background:#00A87E;color:#fff!important;}
+
+.btn-mostrar-filtrado{margin-top:6px;}
+.btn-mostrar-registro{margin-top:6px;}
+
+.row{margin-left:0px;margin-right: 0px;}
+
+.footer{background:#00533F;height:60px;color:#FFF;border-radius: 4px;}
+.texto-footer-izquierda{float:left;padding:20px;}
+.texto-footer-derecha{float:right;padding:20px;}
+.footer a{color:#fff!important;}
+.footer a:hover{color:#04D6A1!important;text-decoration: none;}
+

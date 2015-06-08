@@ -1,25 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Welcome to the Spring MVC Quickstart application! Get started quickly by signing up!</title>
+    <title>Red social profesional. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />    
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/header :: header">Header</div>
 <div class="container">
-    <div class="text-center">
-        <h1>Test</h1>
-        <p class="lead">
-            Welcome to the Spring MVC Quickstart application!
-            Get started quickly by signing up.
-        </p>
-        <p>
-            <a href="/signup" th:href="@{/signup}" class="btn btn-success btn-lg">Sign up</a>
-        </p>
+    <div class="row">
+        <h1>Bienvenido a la red social profesional</h1>
+        <div class="alert alert-success" role="alert">
+            <h4>Registrate y publica tu propio curriculum</h4>
+            <p>Si te registras, podras crear tu propio perfil ".</p>
+            <a class="btn btn-success btn-mostrar-registro" href="/signup" th:href="@{/signup}">
+                Registrate
+            </a>           
+        </div>        
+
+        <div class="alert alert-success" role="alert">
+            <h4>Encuentra a tu candidato</h4>
+            <p>A continuacion se muestran los curriculums disponibles. Para establecer los elementos a mostrar, puedes pulsar el boton "Mostrar opciones de filtrado".</p>
+            <a class="btn btn-success btn-mostrar-filtrado" data-toggle="collapse" href="#opciones-edicion" aria-expanded="false" aria-controls="collapseExample">
+                Mostrar opciones de filtrado
+            </a>
+            <div class="collapse" id="opciones-edicion">
+            <div class="formulario-opciones-filtrado">
+                ...
+            </div>
+            </div>
+        </div>        
+        <h2>Curriculums</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Pais</th>
+                    <th>Ciudad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>Portugal</td>
+                      <td>Lisboa</td>
+                      <td><a class="btn btn-success btn-xs pull-right" href="#ver?id=1">Ver curriculum</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>Italia</td>
+                      <td>Milan</td>
+                      <td><a  class="btn btn-success btn-xs pull-right" href="#ver?id=2">Ver curriculum</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>Alemania</td>
+                      <td>Munich</td>
+                      <td><a  class="btn btn-success btn-xs pull-right" href="#ver?id=2">Ver curriculum</a></td>
+                    </tr>
+            </tbody>            
+        </table>
+   
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
 </div>
