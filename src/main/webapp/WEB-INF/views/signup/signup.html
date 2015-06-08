@@ -16,6 +16,13 @@
     </th:block>
     <fieldset>
         <legend>Please Sign Up</legend>
+        <div class="form-group" th:classappend="${#fields.hasErrors('usuario')}? 'has-error'">
+            <label for="usuario" class="col-lg-2 control-label">Login</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="usuario" placeholder="Login Usuario" th:field="*{usuario}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}">Login incorrecto</span>
+            </div>
+        </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
             <label for="email" class="col-lg-2 control-label">Email</label>
             <div class="col-lg-10">
@@ -28,6 +35,13 @@
             <div class="col-lg-10">
                 <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}"/>
                 <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('provincia')}? 'has-error'">
+            <label for="provincia" class="col-lg-2 control-label">Provincia</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="provincia" placeholder="Provincia" th:field="*{provincia}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}">Provincia no puede estar en blanco</span>
             </div>
         </div>
         <div class="form-group">
