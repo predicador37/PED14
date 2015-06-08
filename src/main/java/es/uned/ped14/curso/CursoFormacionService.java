@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.experiencia.ExperienciaProfesionalNotFoundException;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
@@ -28,7 +29,7 @@ public class CursoFormacionService {
 	Logger logger = LoggerFactory.getLogger(CursoFormacionService.class);
 	 
 	@Autowired
-	private CursoFormacionRepositoryInterface cursoRepository;
+	private CursoFormacionRepositoryInterface cursoFormacionRepository;
 	
 	@Autowired
 	private CurriculumRepository curriculumRepository;
@@ -51,15 +52,12 @@ public class CursoFormacionService {
 		curso.setCurriculum(curriculum);
 		accountRepository.save(user1);
 		curriculumRepository.save(curriculum);
-		cursoRepository.save(curso);
-		
-		
-		
+		cursoFormacionRepository.save(curso);
+
 	}
 	 
-	
 	public CursoFormacion findByCurriculum(Curriculum curriculum) throws CursoFormacionNotFoundException {
-		CursoFormacion curso = cursoRepository.findByCurriculum(curriculum);
+		CursoFormacion curso = cursoFormacionRepository.findByCurriculum(curriculum);
 		if(curso == null) {
 			throw new CursoFormacionNotFoundException("curso not found");
 		}
@@ -67,11 +65,24 @@ public class CursoFormacionService {
 	}
 	
 	public CursoFormacion findByDescripcion(String descripcion) throws CursoFormacionNotFoundException {
-		CursoFormacion curso = cursoRepository.findByDescripcion(descripcion);
+		CursoFormacion curso = cursoFormacionRepository.findByDescripcion(descripcion);
 		if(curso == null) {
 			throw new CursoFormacionNotFoundException("curso not found");
 		}
 		return curso;
+	}
+	
+	public List<CursoFormacion> findAll() throws CursoFormacionNotFoundException {
+		List<CursoFormacion> cursos = cursoFormacionRepository.findAll();
+		if(cursos.isEmpty()) {
+			throw new CursoFormacionNotFoundException("No se encontraron cursos de formación.");
+		}
+		return cursos;
+	}
+	
+	public void  save(CursoFormacion curso) {
+		cursoFormacionRepository.save(curso);
+		
 	}
 	
 	}

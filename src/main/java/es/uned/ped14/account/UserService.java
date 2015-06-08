@@ -11,6 +11,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.*;
 
+import es.uned.ped14.curriculum.Curriculum;
+
 public class UserService implements UserDetailsService {
 	
 	@Autowired
@@ -45,6 +47,11 @@ public class UserService implements UserDetailsService {
 
 	private GrantedAuthority createAuthority(Account account) {
 		return new SimpleGrantedAuthority(account.getRole());
+	}
+	
+	public void  save(Account user) {
+		accountRepository.save(user);
+		
 	}
 
 }

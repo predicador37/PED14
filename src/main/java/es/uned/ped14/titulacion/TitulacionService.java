@@ -16,6 +16,7 @@ import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.UserService;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.Curriculum;
@@ -31,7 +32,7 @@ public class TitulacionService {
 	private TitulacionRepositoryInterface titulacionRepository;
 	
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private UserService userService;
 	
 	@Autowired
 	private AccountRepository accountRepository;
@@ -49,8 +50,8 @@ public class TitulacionService {
 		curriculum.setUser(user1);
 		Titulacion titulacion = new Titulacion("Ingeniero de obras públicas");
 		titulacion.setCurriculum(curriculum);
-		accountRepository.save(user1);
-		curriculumRepository.save(curriculum);
+		userService.save(user1);
+		curriculumService.save(curriculum);
 		titulacionRepository.save(titulacion);
 		
 	}

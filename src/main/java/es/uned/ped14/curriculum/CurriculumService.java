@@ -163,5 +163,10 @@ public class CurriculumService {
 		
 		curriculumRepository.save(curriculum);
 	}
+	
+	public void  save(Curriculum curriculum) {
+		curriculumRepository.save(curriculum);
+		
+	}
 
 }

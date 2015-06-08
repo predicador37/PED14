@@ -48,10 +48,5 @@ public class TitulacionController {
       
 		return "titulacion/list";
 	}
-	/*
-	@ModelAttribute("allTitulaciones")
-	public List<Titulacion> populateTitulaciones() {
-	    return this.titulacionService.findAll();
-	}*/
 	
 }
