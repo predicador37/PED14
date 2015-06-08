@@ -28,7 +28,7 @@ public class TitulacionService {
 	Logger logger = LoggerFactory.getLogger(TitulacionService.class);
 	 
 	@Autowired
-	private TitulacionRepositoryInterface cursoRepository;
+	private TitulacionRepositoryInterface titulacionRepository;
 	
 	@Autowired
 	private CurriculumRepository curriculumRepository;
@@ -51,15 +51,13 @@ public class TitulacionService {
 		titulacion.setCurriculum(curriculum);
 		accountRepository.save(user1);
 		curriculumRepository.save(curriculum);
-		cursoRepository.save(titulacion);
-		
-		
+		titulacionRepository.save(titulacion);
 		
 	}
 	 
 	
 	public Titulacion findByCurriculum(Curriculum curriculum) throws TitulacionNotFoundException {
-		Titulacion titulacion = cursoRepository.findByCurriculum(curriculum);
+		Titulacion titulacion = titulacionRepository.findByCurriculum(curriculum);
 		if(titulacion == null) {
 			throw new TitulacionNotFoundException("titulacion not found");
 		}
@@ -67,11 +65,24 @@ public class TitulacionService {
 	}
 	
 	public Titulacion findByDescripcion(String descripcion) throws TitulacionNotFoundException {
-		Titulacion titulacion = cursoRepository.findByDescripcion(descripcion);
+		Titulacion titulacion = titulacionRepository.findByDescripcion(descripcion);
 		if(titulacion == null) {
 			throw new TitulacionNotFoundException("titulacion not found");
 		}
 		return titulacion;
+	}
+	
+	public List<Titulacion> findAll() throws TitulacionNotFoundException {
+		List<Titulacion> titulaciones = titulacionRepository.findAll();
+		if(titulaciones.isEmpty()) {
+			throw new TitulacionNotFoundException("No se encontraron titulaciones");
+		}
+		return titulaciones;
+	}
+	
+	public void  save(Titulacion titulacion) {
+		titulacionRepository.save(titulacion);
+		
 	}
 	
 	}

@@ -17,3 +17,5 @@ target
 #temp and swap files
 *.swp
 /.apt_generated/
+
+.project
