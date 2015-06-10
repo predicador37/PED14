@@ -14,8 +14,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -23,6 +25,7 @@ import es.uned.ped14.account.Account;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.curso.CursoFormacion;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.titulacion.AsociacionTitulacion;
 import es.uned.ped14.titulacion.Titulacion;
 
 @SuppressWarnings("serial")
@@ -58,6 +61,8 @@ public class Curriculum implements java.io.Serializable {
 	private Account user;
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
+ 
+
 	private Collection<ExperienciaProfesional> experiencias = new ArrayList<ExperienciaProfesional>();
 	
 	public Account getUser() {
@@ -69,8 +74,10 @@ public class Curriculum implements java.io.Serializable {
 	}
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
-	private Collection<Titulacion> titulaciones = new ArrayList<Titulacion>();
+	@OneToMany(mappedBy = "curriculum", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, 
+		    org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
+	private Collection<AsociacionTitulacion> titulaciones = new ArrayList<AsociacionTitulacion>();
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
@@ -192,8 +199,8 @@ public class Curriculum implements java.io.Serializable {
 	 *
 	 * @return una coleccion de titulaciones asociadas al currículum
 	 */
-	public Collection<Titulacion> getTitulaciones() {
-		return new ArrayList<Titulacion>(titulaciones);
+	public Collection<AsociacionTitulacion> getTitulaciones() {
+		return new ArrayList<AsociacionTitulacion>(titulaciones);
 	}
 
 	/**
@@ -202,14 +209,15 @@ public class Curriculum implements java.io.Serializable {
 	 * titulación en concreto
 	 * @param Titulacion titulacion
 	 */
-	public void addTitulacion(Titulacion titulacion) {
-		// prevenir bucle infinito
-		if (titulaciones.contains(titulacion))
-			return;
-		// añadir nueva experiencia
-		titulaciones.add(titulacion);
-		// asociar este currículo con la experiencia
-		titulacion.setCurriculum(this);
+	public void addTitulacion(Titulacion titulacion, Integer likes) {
+		
+		 AsociacionTitulacion asociacion = new AsociacionTitulacion(this, titulacion);
+		 asociacion.setLikes(likes);
+		 this.titulaciones.add(asociacion);
+		    // Also add the association object
+		 if (!titulacion.getCurriculos().contains(asociacion)){
+			 titulacion.addCurriculum(this, 0);
+		 }
 	}
 
 	/**
@@ -220,12 +228,15 @@ public class Curriculum implements java.io.Serializable {
 	 */
 	public void removeTitulacion(Titulacion titulacion) {
 		// prevent endless loop
-		if (!titulaciones.contains(titulacion))
+		AsociacionTitulacion asociacion = new AsociacionTitulacion(this,titulacion);
+		if (!titulaciones.contains(asociacion))
 			return;
 		// remove the account
-		titulaciones.remove(titulacion);
+		titulaciones.remove(asociacion);
 		// remove myself from the twitter account
-		titulacion.setCurriculum(null);
+		 if (titulacion.getCurriculos().contains(asociacion)){
+			 titulacion.removeCurriculum(this);
+		 }
 	}
 	
 	/**
@@ -324,6 +335,7 @@ public class Curriculum implements java.io.Serializable {
 	 * experiencias individuales añadidas. Devuelve la experiencia en meses.
 	 */
 	@PrePersist
+	@PreUpdate
 	public void calculateExperiencia() {
 
 		Integer mesesExperiencia = 0;
@@ -339,6 +351,11 @@ public class Curriculum implements java.io.Serializable {
 
 	public Integer getExperiencia() {
 		return experiencia;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nombre + this.apellidos;
 	}
 
 }

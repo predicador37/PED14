@@ -29,6 +29,8 @@ import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.experiencia.ExperienciaProfesionalRepository;
+import es.uned.ped14.titulacion.AsociacionTitulacion;
+import es.uned.ped14.titulacion.AsociacionTitulacionRepositoryInterface;
 import es.uned.ped14.titulacion.Titulacion;
 
 import org.slf4j.Logger;
@@ -48,10 +50,15 @@ public class CurriculumServiceTest {
 	private EntityManager entityManager;
 	
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepositoryInterface curriculumRepository;
+	
+	@Autowired
+	private CurriculumRepository curriculumRepositoryImp;
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
+	
 	
 	@Autowired
 	private CurriculumService curriculumService;
@@ -68,14 +75,13 @@ public class CurriculumServiceTest {
 	public void shouldReturnCurriculumById() throws CurriculumNotFoundException {
 		logger.info("shouldReturnCurriculumById");
 		// arrange
-		Curriculum demoCurriculum = new Curriculum("Miguel", "Expósito Martín", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 
 		// act
 		Curriculum curriculum = curriculumService.find(1L);
 
 		// assert
-		assertThat(demoCurriculum.getNombre()).isEqualTo(curriculum.getNombre());
-		assertThat(demoCurriculum.getCiudad()).isEqualTo(curriculum.getCiudad());
+		assertThat("Manuel").isEqualTo(curriculum.getNombre());
+		assertThat("Valladolid").isEqualTo(curriculum.getCiudad());
 	}
 	
 	@Test
@@ -112,6 +118,7 @@ public class CurriculumServiceTest {
 		// arrange
 		
 		// act
+		logger.info("shouldReturnCurriculumByOptionalParameters");
 		List<Curriculum> curriculos = curriculumService.findByOptionalParameters("España", "Santander", 5, "Telecomunicaciones", "unix");
 		logger.info("número de resultados: " + curriculos.size());
 		// assert
@@ -138,7 +145,7 @@ public class CurriculumServiceTest {
 		// assert
 		
 		assertThat("Pepito").isEqualTo(curriculumService.findByUserEmail("nuevo.usuario@gmail.com").getNombre());
-		logger.info("titulación del usuario cuyo currículo está asociado al email de test: " + curriculumService.findByUserEmail("nuevo.usuario@gmail.com").getTitulaciones().iterator().next().getDescripcion());
+		logger.info("titulación del usuario cuyo currículo está asociado al email de test: " + curriculumService.findByUserEmail("nuevo.usuario@gmail.com").getTitulaciones().iterator().next().getTitulacion().getDescripcion());
 		//assertThat("Miguel").isEqualTo(curriculos.get(1).getNombre());
 		//assertThat(curriculos.size()).isEqualTo(2);
 	}

@@ -24,7 +24,7 @@ import es.uned.ped14.experiencia.ExperienciaProfesional;
 public class CurriculumTest {
 
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepositoryInterface curriculumRepository;
 	
 	@Test
 	public void shouldReturnExperiencia() {

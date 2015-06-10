@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.Conocimiento_;
+import es.uned.ped14.titulacion.AsociacionTitulacion;
+import es.uned.ped14.titulacion.AsociacionTitulacion_;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.titulacion.Titulacion_;
 
@@ -34,23 +36,7 @@ public class CurriculumRepository{
 	 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	@Transactional
-	public Curriculum save(Curriculum curriculum) {
-		entityManager.persist(curriculum);
-		return curriculum;
-	}
-	
-	public Curriculum findOne(Long id) {
-		try {
-			return entityManager.createNamedQuery(Curriculum.FIND_ONE, Curriculum.class)
-					.setParameter("id", id)
-					.getSingleResult();
-		} catch (PersistenceException e) {
-			return null;
-		}
-	}
-	
+
 	public Curriculum findByUserEmail(String email) {
 		try {
 			return entityManager.createNamedQuery(Curriculum.FIND_BY_USER_EMAIL, Curriculum.class)
@@ -60,7 +46,7 @@ public class CurriculumRepository{
 			return null;
 		}
 	}
-	
+		
 	/**
 	 * Método que devuelve un listado de currículos filtrados por país, ciudad, experiencia, titulación y conocimiento utilizando una
 	 * consulta realizada con JPA criteria. Los parámetros pueden ser nulos, en cuyo caso no se filtrará por ellos.
@@ -72,6 +58,8 @@ public class CurriculumRepository{
 	 * @param conocimiento: String con el conocimiento deseado; busca también si es una subcadena del conocimiento
 	 * @return List<Curriculum>
 	 */
+	
+
 	public List<Curriculum> findByOptionalParameters(String pais, String ciudad, Integer experiencia, String titulacion, String conocimiento) {
 		logger.info("Curriculum repository findByOptionalParameters");
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -103,10 +91,11 @@ public class CurriculumRepository{
 		}
 		
 		if (titulacion != null) {
-			
-			Join<Curriculum, Titulacion> titulaciones = curriculumRoot.join(Curriculum_.titulaciones);
+			Root<Titulacion> titulacionRoot = criteriaQuery.from(Titulacion.class);
+			Join<Curriculum, AsociacionTitulacion> titulaciones = curriculumRoot.join(Curriculum_.titulaciones);
+			Join<Titulacion, AsociacionTitulacion> curriculos = titulacionRoot.join(Titulacion_.curriculos);
 			Predicate predicate4 = builder.like(builder.lower(
-		              titulaciones.get(Titulacion_.descripcion)),
+		              titulaciones.get(AsociacionTitulacion_.titulacion).get(Titulacion_.descripcion)),
 		              "%" + titulacion.toLowerCase() + "%");
 			predicates.add(predicate4);
 			
@@ -121,28 +110,12 @@ public class CurriculumRepository{
 			predicates.add(predicate5);
 			
 		}
-		criteriaQuery.select(curriculumRoot).where(predicates.toArray(new Predicate[]{}));
+		criteriaQuery.select(curriculumRoot).where(predicates.toArray(new Predicate[]{})).distinct(true);
 		criteriaQuery.orderBy(builder.desc(curriculumRoot.get("experiencia")));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 		
 	}
-	
 
-
-	/**
-	 * Método que devuelve una lista de todos los currículos existentes utilizando una
-	 * consulta JPA criteria.
-	 * @return List<Curriculum>
-	 */
-	public List<Curriculum> findAll() {
-		logger.info("Curriculum repository findAll");
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Curriculum> criteriaQuery = builder.createQuery(Curriculum.class );
-		Root<Curriculum> curriculumRoot = criteriaQuery.from(Curriculum.class );
-		CriteriaQuery<Curriculum> all = criteriaQuery.select(curriculumRoot);
-		TypedQuery<Curriculum> allQuery = entityManager.createQuery(all);
-        return allQuery.getResultList();
-	}
 
 	
 }

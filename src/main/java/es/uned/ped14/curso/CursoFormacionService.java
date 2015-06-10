@@ -17,11 +17,12 @@ import es.uned.ped14.experiencia.ExperienciaProfesionalNotFoundException;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.UserService;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
-import es.uned.ped14.curriculum.CurriculumRepository;
+import es.uned.ped14.curriculum.CurriculumRepositoryInterface;
 import es.uned.ped14.curriculum.CurriculumService;
 
 @Service
@@ -32,17 +33,15 @@ public class CursoFormacionService {
 	private CursoFormacionRepositoryInterface cursoFormacionRepository;
 	
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepositoryInterface curriculumRepository;
 	
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	@Autowired
-	private CurriculumService curriculumService;
 	
 	@PostConstruct	
 	protected void initialize() throws ParseException {
-		logger.info("Inicializar data para servicio de currículos");
+		logger.info("Inicializar data para servicio de cursos");
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Account user1 = new Account("miguel@gmail.com", "miguel", "ROLE_USER");

@@ -30,9 +30,6 @@ public class ExperienciaProfesionalService {
 	@Autowired
 	private ExperienciaProfesionalRepositoryInterface experienciaProfesionalRepository;
 	
-	@Autowired
-	private CurriculumService curriculumService;
-	
 	@PostConstruct	
 	protected void initialize() throws ParseException {
 		logger.info("Inicializar data para servicio de experiencia profesional");

@@ -30,9 +30,6 @@ public class ConocimientoService {
 	@Autowired
 	private ConocimientoRepositoryInterface conocimientoRepository;
 	
-	@Autowired
-	private CurriculumService curriculumService;
-	
 	@PostConstruct	
 	protected void initialize() throws ParseException {
 		logger.info("Inicializar data para servicio deconocimientos");

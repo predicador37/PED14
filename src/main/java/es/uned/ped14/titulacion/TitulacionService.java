@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumRepository;
+import es.uned.ped14.curriculum.CurriculumRepositoryInterface;
 import es.uned.ped14.curriculum.CurriculumService;
 
 @Service
@@ -30,41 +32,38 @@ public class TitulacionService {
 	 
 	@Autowired
 	private TitulacionRepositoryInterface titulacionRepository;
-	
-	@Autowired
-	private UserService userService;
-	
+
 	@Autowired
 	private AccountRepository accountRepository;
 	
+
 	@Autowired
-	private CurriculumService curriculumService;
+	private AsociacionTitulacionRepositoryInterface asociacionTitulacionRepository;
 	
-	@PostConstruct	
+	@Autowired
+	private CurriculumRepositoryInterface curriculumRepository;
+	
+	@PostConstruct
+	 @Transactional
 	protected void initialize() throws ParseException {
-		logger.info("Inicializar data para servicio de currículos");
+		logger.info("Inicializar data para servicio de titulaciones");
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Account user1 = new Account("jose@gmail.com", "jose", "ROLE_USER");
 		Curriculum curriculum = new Curriculum("Don José", "Pérez", "España", "Oviedo", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		curriculum.setUser(user1);
 		Titulacion titulacion = new Titulacion("Ingeniero de obras públicas");
-		titulacion.setCurriculum(curriculum);
-		userService.save(user1);
-		curriculumService.save(curriculum);
-		titulacionRepository.save(titulacion);
 		
+		accountRepository.save(user1);
+		
+		titulacionRepository.save(titulacion);
+		curriculumRepository.save(curriculum);
+		curriculum.addTitulacion(titulacion, 0);
+		titulacionRepository.save(titulacion);
+		curriculumRepository.save(curriculum);
+
 	}
-	 
-	
-	public Titulacion findByCurriculum(Curriculum curriculum) throws TitulacionNotFoundException {
-		Titulacion titulacion = titulacionRepository.findByCurriculum(curriculum);
-		if(titulacion == null) {
-			throw new TitulacionNotFoundException("titulacion not found");
-		}
-		return titulacion;
-	}
-	
+
 	public Titulacion findByDescripcion(String descripcion) throws TitulacionNotFoundException {
 		Titulacion titulacion = titulacionRepository.findByDescripcion(descripcion);
 		if(titulacion == null) {

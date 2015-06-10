@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.experiencia.ExperienciaProfesionalRepositoryInterface;
+import es.uned.ped14.titulacion.AsociacionTitulacion;
+import es.uned.ped14.titulacion.AsociacionTitulacionRepositoryInterface;
 import es.uned.ped14.titulacion.Titulacion;
+import es.uned.ped14.titulacion.TitulacionRepositoryInterface;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
 import es.uned.ped14.conocimiento.Conocimiento;
@@ -24,7 +28,20 @@ public class CurriculumService {
 	Logger logger = LoggerFactory.getLogger(CurriculumService.class);
 	 
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepositoryInterface curriculumRepository;
+	
+	@Autowired
+	private TitulacionRepositoryInterface titulacionRepository;
+	
+	@Autowired
+	private AsociacionTitulacionRepositoryInterface asociacionTitulacionRepository;
+	
+	@Autowired
+	private ExperienciaProfesionalRepositoryInterface experienciaProfesionalRepository;
+	
+	
+	@Autowired
+	private CurriculumRepository curriculumRepositoryImp;
 	
 	@Autowired
 	private AccountRepository accountRepository;
@@ -43,8 +60,8 @@ public class CurriculumService {
 		
 		Titulacion titulacion1 = new Titulacion("Ingeniero Informático");
 		Titulacion titulacion2 = new Titulacion("Ingeniero de Telecomunicaciones");
-		Titulacion titulacion3 = new Titulacion("Ingeniero Informático");
-		Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones");
+		//Titulacion titulacion3 = new Titulacion("Ingeniero Informático");
+		//Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones");
 		
 		Conocimiento conocimiento1 = new Conocimiento("java", NivelConocimiento.ALTO);
 		Conocimiento conocimiento2 = new Conocimiento("unix", NivelConocimiento.ALTO);
@@ -52,6 +69,7 @@ public class CurriculumService {
 		Conocimiento conocimiento4 = new Conocimiento("unix", NivelConocimiento.BAJO);
 		
 		Account user1 = new Account("miguel.exposito@gmail.com", "miguel", "ROLE_USER");
+		Account user2 = new Account("anapa@gmail.com", "anapa", "ROLE_USER");
 		
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum2 = new Curriculum("Héctor", "Garnacho", "España", "Valladolid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
@@ -59,24 +77,39 @@ public class CurriculumService {
 		Curriculum demoCurriculum4 = new Curriculum("Ana Patricia", "Botín", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum5 = new Curriculum("Lucía", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		
+		accountRepository.save(user1);
+		accountRepository.save(user2);
+		titulacionRepository.save(titulacion1);
+		titulacionRepository.save(titulacion2);
+		titulacionRepository.save(titulacion1);
+		titulacionRepository.save(titulacion2);
+		curriculumRepository.save(demoCurriculum1);
+		curriculumRepository.save(demoCurriculum2);
+		curriculumRepository.save(demoCurriculum3);
+		curriculumRepository.save(demoCurriculum4);
+		curriculumRepository.save(demoCurriculum5);
+		
+		
+		
 		
 		demoCurriculum1.setUser(user1);
 		demoCurriculum1.addExperiencia(experiencia1);
-		demoCurriculum1.addTitulacion(titulacion2);
+		demoCurriculum1.addTitulacion(titulacion2, 0);
 		demoCurriculum1.addConocimiento(conocimiento2);
 		demoCurriculum2.addExperiencia(experiencia2);
-		demoCurriculum2.addTitulacion(titulacion1);
+		demoCurriculum2.addTitulacion(titulacion1, 0);
 		demoCurriculum2.addConocimiento(conocimiento1);
 		demoCurriculum1.addExperiencia(experiencia3);
 		demoCurriculum4.addExperiencia(experiencia4);
-		demoCurriculum4.addTitulacion(titulacion4);
+		demoCurriculum4.setUser(user2);
+		demoCurriculum4.addTitulacion(titulacion2, 0);
 		demoCurriculum4.addConocimiento(conocimiento4);
 		demoCurriculum4.addExperiencia(experiencia5);
 		demoCurriculum5.addExperiencia(experiencia6);
-		demoCurriculum3.addTitulacion(titulacion3);
+		demoCurriculum3.addTitulacion(titulacion1, 0);
 		demoCurriculum3.addConocimiento(conocimiento3);
 		
-		accountRepository.save(user1);
+		//accountRepository.save(user1);
 		curriculumRepository.save(demoCurriculum1);
 		curriculumRepository.save(demoCurriculum2);
 		curriculumRepository.save(demoCurriculum3);
@@ -95,7 +128,7 @@ public class CurriculumService {
 	}
 	
 	public Curriculum findByUserEmail(String email) throws CurriculumNotFoundException {
-		Curriculum curriculum = curriculumRepository.findByUserEmail(email);
+		Curriculum curriculum = curriculumRepositoryImp.findByUserEmail(email);
 		if(curriculum == null) {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}
@@ -127,7 +160,10 @@ public class CurriculumService {
 	 * @throws CurriculumNotFoundException
 	 */
 	public List<Curriculum> findByOptionalParameters(String pais, String ciudad, Integer experiencia, String titulacion, String conocimiento) throws CurriculumNotFoundException {
-		List<Curriculum> curriculos = curriculumRepository.findByOptionalParameters(pais, ciudad, experiencia, titulacion, conocimiento);
+		
+		Curriculum miguel = curriculumRepository.findByNombre("Miguel");
+	    Curriculum anapa = curriculumRepository.findByNombre("Ana Patricia");
+		List<Curriculum> curriculos = curriculumRepositoryImp.findByOptionalParameters(pais, ciudad, experiencia, titulacion, conocimiento);
 		if(curriculos.isEmpty()) {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}
@@ -155,7 +191,9 @@ public class CurriculumService {
 		curriculum.addExperiencia(experienciaProfesional);
 		}
 		if (titulacion != null){
-		curriculum.addTitulacion(titulacion);
+		titulacionRepository.save(titulacion);
+		curriculumRepository.save(curriculum);
+		curriculum.addTitulacion(titulacion, 0);
 		}
 		if (conocimiento != null){
 		curriculum.addConocimiento(conocimiento);

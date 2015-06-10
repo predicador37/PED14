@@ -39,11 +39,12 @@ public class CursoFormacionServiceTest {
 	@Test
 	public void shouldReturnCursoByCurriculum() throws CurriculumNotFoundException, CursoFormacionNotFoundException {
 		 Logger logger = LoggerFactory.getLogger(CursoFormacionServiceTest.class);
-		logger.info("shouldReturnCurriculumById");
+		logger.info("shouldReturnCursoByCurriculum");
 		// arrange
 		
 		Curriculum curriculum = curriculumService.findByUserEmail("miguel@gmail.com");
 		// act
+		
 		CursoFormacion curso = cursoService.findByCurriculum(curriculum);
 
 		// assert

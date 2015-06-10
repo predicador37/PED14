@@ -33,22 +33,29 @@ public class TitulacionServiceTest {
 	private TitulacionService titulacionService;
 	
 	@Autowired
+	private AsociacionTitulacionRepositoryInterface asociacionTitulacionRepository;
+	
+	@Autowired
 	private CurriculumService curriculumService;
 	
 		
 	@Test
 	public void shouldReturnTitulacionByCurriculum() throws CurriculumNotFoundException, TitulacionNotFoundException {
 		 Logger logger = LoggerFactory.getLogger(TitulacionServiceTest.class);
-		logger.info("shouldReturnCurriculumById");
+		logger.info("shouldReturnTitulacionByCurriculum");
 		// arrange
 		
 		Curriculum curriculum = curriculumService.findByUserEmail("jose@gmail.com");
 		// act
-		Titulacion titulacion = titulacionService.findByCurriculum(curriculum);
+		AsociacionTitulacion asociacion = asociacionTitulacionRepository.findByCurriculum(curriculum);
+		
+		Titulacion titulacion = asociacion.getTitulacion();
 
 		// assert
 		assertThat(titulacion.getDescripcion()).isEqualTo("Ingeniero de obras públicas");
 		
 	}
+	
+	
 
 }
