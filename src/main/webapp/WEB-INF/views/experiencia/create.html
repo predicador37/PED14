@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<form class="form-narrow form-horizontal" method="post" th:action="@{/experiencia/create}" th:object="${experienciaForm}">
+    <!--/* Show general error message when form contains errors */-->
+    <th:block th:if="${#fields.hasErrors('${experienciaForm.*}')}">
+        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+    </th:block>
+    <fieldset>
+        <legend>Introduzca los datos requeridos:</legend>
+        <div class="form-group" th:classappend="${#fields.hasErrors('cargo')}? 'has-error'">
+            <label for="cargo" class="col-lg-2 control-label">Cargo</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="cargo" placeholder="Ej: Director General" th:field="*{cargo}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}">Cargo incorrecto</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('empresa')}? 'has-error'">
+            <label for="empresa" class="col-lg-2 control-label">Empresa</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="empresa" placeholder="Ej: IBM" th:field="*{empresa}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('empresa')}" th:errors="*{empresa}">Empresa incorrecta</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('descripcion')}? 'has-error'">
+            <label for="descripcion" class="col-lg-2 control-label">Descripción</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="descripcion" placeholder="Ej: Gestión de personal, proyectos, clientes y ventas" th:field="*{descripcion}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Descripción incorrecta</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('fechaInicio')}? 'has-error'">
+            <label for="fechaInicio" class="col-lg-2 control-label">Fecha de inicio</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="fechaInicio" placeholder="Ej: 5/5/2014" th:field="*{fechaInicio}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}">Fecha incorrecta</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('fechaFin')}? 'has-error'">
+            <label for="fechaFin" class="col-lg-2 control-label">Fecha de finalización</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="fechaFin" placeholder="Ej: 6/5/2014" th:field="*{fechaFin}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}">Fecha incorrecta</span>
+            </div>
+        </div>
+      
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-default">Guardar</button>
+            </div>
+        </div>
+       
+    </fieldset>
+</form>
+</body>
+</html>

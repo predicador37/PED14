@@ -99,7 +99,7 @@ public class ExperienciaProfesional implements java.io.Serializable {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFecha_fin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 

@@ -82,7 +82,7 @@ public class Curriculum implements java.io.Serializable {
 	}
 
 	public Curriculum(String nombre, String apellidos, String pais,
-			String ciudad, String url_imagen, String url_archivo) {
+			String ciudad, String urlImagen, String urlArchivo) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -132,11 +132,11 @@ public class Curriculum implements java.io.Serializable {
 		return urlImagen;
 	}
 
-	public void setUrl_imagen(String urlImagen) {
+	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
 	}
 
-	public String getUrl_archivo() {
+	public String getUrlArchivo() {
 		return urlArchivo;
 	}
 
@@ -329,10 +329,10 @@ public class Curriculum implements java.io.Serializable {
 		Integer mesesExperiencia = 0;
 		for (ExperienciaProfesional e : experiencias) {
 			mesesExperiencia = mesesExperiencia
-					+ ((e.getFecha_fin().getYear() * 12 + e.getFecha_fin()
+					+ ((e.getFechaFin().getYear() * 12 + e.getFechaFin()
 							.getMonth())
-							- (e.getFecha_inicio().getYear() * 12 + e
-									.getFecha_inicio().getMonth()) + 1);
+							- (e.getFechaInicio().getYear() * 12 + e
+									.getFechaInicio().getMonth()) + 1);
 		}
 		experiencia = mesesExperiencia;
 	}
