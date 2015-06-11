@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<h1>Cursos de formación disponibles</h1>
+  
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Descripción</th>
+        <th>Nº de horas</th>
+        <th>Fecha finalización</th>
+      </tr>
+      <tr th:each="curso : ${cursos}">
+        <td th:text="${curso.id}"></td>
+        <td th:text="${curso.descripcion}"></td>
+        <td th:text="${curso.numeroHoras}"></td>
+        <td th:text="${curso.fechaFinalizacion}"></td>
+        <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
+        <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
+      </tr>
+    </table>
+  
+    <p>
+      <a href="../home.html" th:href="@{/}">Página principal</a>
+    </p>
+
+
+</body>
+</html>

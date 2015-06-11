@@ -13,28 +13,6 @@ import es.uned.ped14.curriculum.Curriculum;
 public class CursoFormacion implements java.io.Serializable {
 
 
-	public Integer getNumeroLikes() {
-		return numeroLikes;
-	}
-
-
-
-	public void setNumeroLikes(Integer numeroLikes) {
-		this.numeroLikes = numeroLikes;
-	}
-
-
-
-	public Curriculum getCurriculum() {
-		return curriculum;
-	}
-
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -42,9 +20,9 @@ public class CursoFormacion implements java.io.Serializable {
 	@Column
 	private String descripcion;
 	@Column
-	private Integer numero_horas;
+	private Integer numeroHoras;
 	@Column
-	private Date fecha_finalizacion;
+	private Date fechaFinalizacion;
 	@Column(columnDefinition = "int default 0")
 	private Integer numeroLikes;
 
@@ -58,12 +36,12 @@ public class CursoFormacion implements java.io.Serializable {
 	
 	
 
-	public CursoFormacion(String descripcion, Integer numero_horas,
-			Date fecha_finalizacion) {
+	public CursoFormacion(String descripcion, Integer numeroHoras,
+			Date fechaFinalizacion) {
 		super();
 		this.descripcion = descripcion;
-		this.numero_horas = numero_horas;
-		this.fecha_finalizacion = fecha_finalizacion;
+		this.numeroHoras = numeroHoras;
+		this.fechaFinalizacion = fechaFinalizacion;
 	}
 
 
@@ -79,20 +57,20 @@ public class CursoFormacion implements java.io.Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Integer getNumero_horas() {
-		return numero_horas;
+	public Integer getNumeroHoras() {
+		return numeroHoras;
 	}
 
-	public void setNumero_horas(Integer numero_horas) {
-		this.numero_horas = numero_horas;
+	public void setNumeroHoras(Integer numeroHoras) {
+		this.numeroHoras = numeroHoras;
 	}
 
-	public Date getFecha_finalizacion() {
-		return fecha_finalizacion;
+	public Date getFechaFinalizacion() {
+		return fechaFinalizacion;
 	}
 
-	public void setFecha_finalizacion(Date fecha_finalizacion) {
-		this.fecha_finalizacion = fecha_finalizacion;
+	public void setFechaFinalizacion(Date fechaFinalizacion) {
+		this.fechaFinalizacion = fechaFinalizacion;
 	}
 	
 	/**
@@ -122,5 +100,27 @@ public class CursoFormacion implements java.io.Serializable {
 	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
 		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
 		 }
+	 
+	 public Integer getNumeroLikes() {
+			return numeroLikes;
+		}
+
+
+
+		public void setNumeroLikes(Integer numeroLikes) {
+			this.numeroLikes = numeroLikes;
+		}
+
+
+
+		public Curriculum getCurriculum() {
+			return curriculum;
+		}
+
+
+
+		public void setId(Long id) {
+			this.id = id;
+		}
 	
 }

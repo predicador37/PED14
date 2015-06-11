@@ -48,9 +48,9 @@ public class Curriculum implements java.io.Serializable {
 	@Column
 	private String ciudad;
 	@Column
-	private String url_imagen;
+	private String urlImagen;
 	@Column
-	private String url_archivo;
+	private String urlArchivo;
 	@Column
 	private Integer experiencia;
 	
@@ -88,8 +88,8 @@ public class Curriculum implements java.io.Serializable {
 		this.apellidos = apellidos;
 		this.pais = pais;
 		this.ciudad = ciudad;
-		this.url_imagen = url_imagen;
-		this.url_archivo = url_archivo;
+		this.urlImagen = urlImagen;
+		this.urlArchivo = urlArchivo;
 	}
 
 	public Long getId() {
@@ -128,20 +128,20 @@ public class Curriculum implements java.io.Serializable {
 		this.ciudad = ciudad;
 	}
 
-	public String getUrl_imagen() {
-		return url_imagen;
+	public String getUrlImagen() {
+		return urlImagen;
 	}
 
-	public void setUrl_imagen(String url_imagen) {
-		this.url_imagen = url_imagen;
+	public void setUrl_imagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 
 	public String getUrl_archivo() {
-		return url_archivo;
+		return urlArchivo;
 	}
 
-	public void setUrl_archivo(String url_archivo) {
-		this.url_archivo = url_archivo;
+	public void setUrlArchivo(String urlArchivo) {
+		this.urlArchivo = urlArchivo;
 	}
 
 	/**

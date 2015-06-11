@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<form class="form-narrow form-horizontal" method="post" th:action="@{/curso/update}" th:object="${curso}">
+    <!--/* Show general error message when form contains errors */-->
+    <input type="text" hidden="hidden" data-th-value="*{id}" data-th-field="*{id}" />
+     <th:block th:if="${#fields.hasErrors('${curso.*}')}">
+        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+    </th:block>
+    <fieldset>
+        <legend>Introduzca los datos requeridos:</legend>
+        <div class="form-group" th:classappend="${#fields.hasErrors('descripcion')}? 'has-error'">
+            <label for="descripcion" class="col-lg-2 control-label">Descripción</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="descripcion" placeholder="Ej: Curso de java" th:field="*{descripcion}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Descripción incorrecta</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('numeroHoras')}? 'has-error'">
+            <label for="numeroHoras" class="col-lg-2 control-label">Número de horas</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="descripcion" placeholder="Ej: 20" th:field="*{numeroHoras}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('numeroHoras')}" th:errors="*{numeroHoras}">Número incorrecto</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('fechaFinalizacion')}? 'has-error'">
+            <label for="fechafinalizacion" class="col-lg-2 control-label">Fecha de finalización</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="fechaFinalizacion" placeholder="Ej: 5/5/2014" th:field="*{fechaFinalizacion}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('fechaFinalizacion')}" th:errors="*{fechaFinalizacion}">Fecha incorrecta</span>
+            </div>
+        </div>
+      
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-default">Guardar</button>
+            </div>
+        </div>
+       
+    </fieldset>
+</form>
+    
+</body>
+</html>

@@ -84,5 +84,15 @@ public class CursoFormacionService {
 		cursoFormacionRepository.save(curso);
 		
 	}
+		
+	public void  delete(Long id) {
+		cursoFormacionRepository.delete(id);
+		
+	}
+	
+	public CursoFormacion  findOne(Long id) {
+		return cursoFormacionRepository.findOne(id);
+		
+	}
 	
 	}

@@ -1,4 +1,4 @@
-package es.uned.ped14.titulacion;
+package es.uned.ped14.curso;
 
 import java.util.List;
 
@@ -19,52 +19,52 @@ import es.uned.ped14.account.*;
 import es.uned.ped14.support.web.*;
 
 @Controller
-@RequestMapping("/titulacion")
-public class TitulacionController {
+@RequestMapping("/curso")
+public class CursoFormacionController {
 
-    private static final String CREATE_VIEW_NAME = "titulacion/create";
-    private static final String LIST_VIEW_NAME = "titulacion/list";
+    private static final String CREATE_VIEW_NAME = "curso/create";
+    private static final String LIST_VIEW_NAME = "curso/list";
 
 	@Autowired
-	private TitulacionService titulacionService;
+	private CursoFormacionService cursoFormacionService;
 	
-	@RequestMapping(value = "/create")
-	public String titulacion(Model model) {
-		model.addAttribute("titulacionForm", new TitulacionForm());
+	@RequestMapping(value = "create")
+	public String create(Model model) {
+		model.addAttribute("cursoForm", new CursoFormacionForm());
         return CREATE_VIEW_NAME;
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Valid @ModelAttribute("titulacionForm") TitulacionForm titulacionForm, Errors errors, RedirectAttributes ra) {
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public String create(@Valid @ModelAttribute("cursoForm") CursoFormacionForm cursoForm, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return CREATE_VIEW_NAME;
 		}
-		titulacionService.save(titulacionForm.createTitulacion());
+		cursoFormacionService.save(cursoForm.createCursoFormacion());
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "redirect:/titulacion/list";
+		return "redirect:/curso/list";
 	}
 	
 	 @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
-	 	  ModelAndView mav = new ModelAndView("titulacion/edit");
-	 	  Titulacion titulacion = titulacionService.findOne(id);
-	 	  mav.addObject("titulacion", titulacion);
+	 	  ModelAndView mav = new ModelAndView("curso/edit");
+	 	  CursoFormacion curso = cursoFormacionService.findOne(id);
+	 	  mav.addObject("curso", curso);
 	 	  return mav;
 	 	 }
 	 	  
 	 	 @RequestMapping(value="/update", method=RequestMethod.POST)
-	 	 public String update(@Valid @ModelAttribute("titulacion")Titulacion titulacion, Errors errors, BindingResult result, SessionStatus status)
+	 	 public String update(@Valid @ModelAttribute("curso")CursoFormacion curso, Errors errors, BindingResult result, SessionStatus status)
 	 	 {
 	 	
 	 	  if (errors.hasErrors()) {
-	 	   return "titulacion/edit";
+	 	   return "curso/edit";
 	 	  }
-	 	  titulacionService.save(titulacion);
+	 	  cursoFormacionService.save(curso);
 	 	  status.setComplete();
-	 	  return "redirect:/titulacion/list";
+	 	  return "redirect:/curso/list";
 	 	 }
 	 
 	
@@ -72,20 +72,20 @@ public class TitulacionController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 		
-		titulacionService.delete(id);
+		cursoFormacionService.delete(id);
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "redirect:/titulacion/list";
+		return "redirect:/curso/list";
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(ModelMap model) throws TitulacionNotFoundException  {
+	public String list(ModelMap model) throws CursoFormacionNotFoundException  {
 		
-		 model.addAttribute("titulaciones", titulacionService.findAll());
+		 model.addAttribute("cursos", cursoFormacionService.findAll());
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "titulacion/list";
+		return "curso/list";
 	}
 	
 }
