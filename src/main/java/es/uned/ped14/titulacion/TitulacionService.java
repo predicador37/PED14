@@ -86,4 +86,14 @@ public class TitulacionService {
 		
 	}
 	
+	public void  delete(Long id) {
+		titulacionRepository.delete(id);
+		
+	}
+	
+	public Titulacion  findOne(Long id) {
+		return titulacionRepository.findOne(id);
+		
+	}
+	
 	}
