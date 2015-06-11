@@ -30,3 +30,9 @@ a:hover{color:#04D6A1!important;text-decoration: none;}
 .form-horizontal .control-label {color:#00533F;}
 .contenedor-botones-inferiores-formulario{border-top:1px solid #DDD;padding-top:12px;}
 .boton-aceptar{width:100%;}
+
+.contenedor-principal{margin-top:30px;min-height: 480px;}
+.cabecera-menu-principal-izquierda{color:#00533F;}
+.menu-principal-izquierda{}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {background-color: #B7E2D8; border-color: #DDD;}
+.contenedor-cuerpo{}
