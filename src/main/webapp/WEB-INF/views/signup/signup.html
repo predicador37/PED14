@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registro. PED14</title>
+    <title>Registro PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
@@ -15,7 +15,7 @@
         <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
     </th:block>
     <fieldset>
-        <legend>Please Sign Up</legend>
+        <legend>Por favor, regístrese:</legend>
         <div class="form-group" th:classappend="${#fields.hasErrors('usuario')}? 'has-error'">
             <label for="usuario" class="col-lg-2 control-label">Login</label>
             <div class="col-lg-10">

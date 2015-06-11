@@ -26,11 +26,11 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                <li th:if="${#authentication}?${#authorization.expression('!isAuthenticated()')}">
                     <a class="pull-right" href="/signup" th:href="@{/signup}">Registrate</a>                    
                     <a class="pull-right" href="/signin" th:href="@{/signin}">Iniciar sesion</a>
                 </li>
-                <li th:if="${#authorization.expression('isAuthenticated()')}">
+                <li th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
