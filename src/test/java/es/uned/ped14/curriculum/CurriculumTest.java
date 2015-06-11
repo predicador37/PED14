@@ -40,7 +40,7 @@ public class CurriculumTest {
 			
 			curriculumRepository.save(demoCurriculum1);
 			
-			assertThat(demoCurriculum1.getExperiencia()).isEqualTo(85);
+			assertThat(demoCurriculum1.getExperiencia()).isEqualTo(7);
 		
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

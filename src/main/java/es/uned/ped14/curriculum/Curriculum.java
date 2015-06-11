@@ -338,7 +338,7 @@ public class Curriculum implements java.io.Serializable {
 	}
 
 	public Integer getExperiencia() {
-		return experiencia;
+		return experiencia/12;
 	}
 
 }

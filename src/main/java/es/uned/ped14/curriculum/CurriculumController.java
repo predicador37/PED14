@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +18,29 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.*;
+import es.uned.ped14.curso.CursoFormacion;
+import es.uned.ped14.curso.CursoFormacionNotFoundException;
+import es.uned.ped14.curso.CursoFormacionService;
+import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.experiencia.ExperienciaProfesionalNotFoundException;
+import es.uned.ped14.experiencia.ExperienciaProfesionalService;
 import es.uned.ped14.support.web.*;
 
 @Controller
 @RequestMapping("/curriculum")
 public class CurriculumController {
-
+	Logger logger = LoggerFactory.getLogger(CurriculumController.class);
     private static final String CREATE_VIEW_NAME = "curriculum/create";
     private static final String LIST_VIEW_NAME = "curriculum/list";
 
 	@Autowired
 	private CurriculumService curriculumService;
+	
+	@Autowired
+	private CursoFormacionService cursoFormacionService;
+	
+	@Autowired
+	private ExperienciaProfesionalService experienciaProfesionalService;
 	
 	@RequestMapping(value = "/create")
 	public String curriculum(Model model) {
@@ -86,6 +100,31 @@ public class CurriculumController {
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
 		return "curriculum/list";
+	}
+	
+	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
+	public ModelAndView show(@PathVariable("id")Long id) throws CurriculumNotFoundException {
+		
+		 ModelAndView mav = new ModelAndView("curriculum/show");
+		 Curriculum curriculum = curriculumService.findOne(id);
+		try{
+		 List<CursoFormacion> cursos = cursoFormacionService.findByCurriculum(curriculum);
+		 mav.addObject("cursos", cursos);
+		}
+		catch (CursoFormacionNotFoundException e) {
+			logger.info("No hay cursos que mostrar");
+		}
+		try{
+			 List<ExperienciaProfesional> experiencias =experienciaProfesionalService.findByCurriculum(curriculum);
+			 mav.addObject("experiencias", experiencias);
+			}
+			catch (ExperienciaProfesionalNotFoundException e) {
+				logger.info("No hay cursos que mostrar");
+			}
+	 	 mav.addObject("curriculum", curriculum);
+	 	
+	 	 return mav;
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
 	}
 	
 }
