@@ -25,9 +25,9 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	@Column
 	private String descripcion;
 	@Column
-	private Date fecha_inicio;
+	private Date fechaInicio;
 	@Column
-	private Date fecha_fin;
+	private Date fechaFin;
 	@Column(columnDefinition = "int default 0")
 	private Integer numeroLikes;
 	
@@ -52,13 +52,13 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	}
 
 	public ExperienciaProfesional(String cargo, String empresa, 
-			String descripcion, Date date, Date date2) {
+			String descripcion, Date fechaInicio, Date fechaFin) {
 		super();
 		this.cargo = cargo;
 		this.empresa = empresa;
 		this.descripcion = descripcion;
-		this.fecha_inicio = date;
-		this.fecha_fin = date2;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 	}
 
 
@@ -91,20 +91,20 @@ public class ExperienciaProfesional implements java.io.Serializable {
 		this.empresa = empresa;
 	}
 
-	public Date getFecha_inicio() {
-		return fecha_inicio;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 
 	public Date getFecha_fin() {
-		return fecha_fin;
+		return fechaFin;
 	}
 
-	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 	public Curriculum getCurriculum() {

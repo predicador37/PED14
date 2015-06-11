@@ -78,4 +78,15 @@ public class ExperienciaProfesionalService {
 		
 	}
 	
+	
+	public void  delete(Long id) {
+		experienciaProfesionalRepository.delete(id);
+		
+	}
+	
+	public ExperienciaProfesional  findOne(Long id) {
+		return experienciaProfesionalRepository.findOne(id);
+		
+	}
+	
 	}
