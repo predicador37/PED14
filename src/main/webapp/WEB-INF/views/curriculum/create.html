@@ -19,8 +19,29 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('nombre')}? 'has-error'">
             <label for="nombre" class="col-lg-2 control-label">Nombre</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="nombre" placeholder="Ej: Héctor Garnacho" th:field="*{nombre}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Descripción incorrecta</span>
+                <input type="text" class="form-control" id="nombre" placeholder="Ej: Héctor" th:field="*{nombre}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre incorrecto</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('apellidos')}? 'has-error'">
+            <label for="apellidos" class="col-lg-2 control-label">Apellidos</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="apellidos" placeholder="Ej: Garnacho" th:field="*{apellidos}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}">Apellidos incorrectos</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('pais')}? 'has-error'">
+            <label for="pais" class="col-lg-2 control-label">País</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="pais" placeholder="Ej: España" th:field="*{pais}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">País incorrecto</span>
+            </div>
+        </div>
+         <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
+            <label for="ciudad" class="col-lg-2 control-label">Ciudad</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="ciudad" placeholder="Ej: Valladolid" th:field="*{ciudad}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">Ciudad incorrecta</span>
             </div>
         </div>
       
