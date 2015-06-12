@@ -19,6 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.*;
+import es.uned.ped14.conocimiento.Conocimiento;
+import es.uned.ped14.conocimiento.ConocimientoNotFoundException;
+import es.uned.ped14.conocimiento.ConocimientoService;
 import es.uned.ped14.curso.CursoFormacion;
 import es.uned.ped14.curso.CursoFormacionNotFoundException;
 import es.uned.ped14.curso.CursoFormacionService;
@@ -42,6 +45,9 @@ public class CurriculumController {
 	
 	@Autowired
 	private CursoFormacionService cursoFormacionService;
+	
+	@Autowired
+	private ConocimientoService conocimientoService;
 	
 	@Autowired
 	private TitulacionService titulacionService;
@@ -141,6 +147,13 @@ public class CurriculumController {
 			}
 			catch (TitulacionNotFoundException e) {
 				logger.info("No hay titulaciones que mostrar");
+			}
+		try{
+			 List<Conocimiento> conocimientos = conocimientoService.findByCurriculum(curriculum);
+			 mav.addObject("conocimientos", conocimientos);
+			}
+			catch (ConocimientoNotFoundException e) {
+				logger.info("No hay conocimientos que mostrar");
 			}
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	    // mav.addObject("dates", dateFormat);

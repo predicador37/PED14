@@ -57,6 +57,8 @@ public class TitulacionController {
 		try {
 			Titulacion titulacion = titulacionForm.createTitulacion();
 			 curriculum = curriculumService.findOne(titulacionForm.getCurriculumId());
+			 logger.info("curriculo id: " + curriculum.getId());
+			 logger.info("titulacion id: " + titulacion.getId());
 			 curriculum.addTitulacion(titulacion);
 			 curriculumService.save(curriculum);
 		} catch (CurriculumNotFoundException e) {
@@ -113,7 +115,8 @@ public class TitulacionController {
 				curriculumId = curriculum.getId();
 				curriculum.removeTitulacion(titulacion);
 				curriculumService.save(curriculum);
-				//(titulacionService.delete(titulacion);
+				titulacionService.delete(titulacion);
+				curriculumService.flush();
 			} catch (TitulacionNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -19,6 +19,7 @@ import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
 import es.uned.ped14.account.UserService;
 import es.uned.ped14.conocimiento.Conocimiento;
+import es.uned.ped14.conocimiento.ConocimientoRepositoryInterface;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
@@ -32,6 +33,9 @@ public class TitulacionService {
 	 
 	@Autowired
 	private TitulacionRepositoryInterface titulacionRepository;
+	
+	@Autowired
+	private ConocimientoRepositoryInterface conocimientoRepository;
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -49,12 +53,13 @@ public class TitulacionService {
 		Curriculum curriculum = new Curriculum("Don José", "Pérez", "España", "Oviedo", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		curriculum.setUser(user1);
 		Titulacion titulacion = new Titulacion("Ingeniero de obras públicas", 2008);
-		
+		Conocimiento conocimiento = new Conocimiento("unix", NivelConocimiento.ALTO);
 		accountRepository.save(user1);
-		
+		conocimientoRepository.save(conocimiento);
 		titulacionRepository.save(titulacion);
 		curriculumRepository.save(curriculum);
 		curriculum.addTitulacion(titulacion);
+		curriculum.addConocimiento(conocimiento);
 		titulacionRepository.save(titulacion);
 		curriculumRepository.save(curriculum);
 

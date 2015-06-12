@@ -37,20 +37,20 @@ public class ConocimientoService {
 	}
 	 
 	
-	public Conocimiento findByCurriculum(Curriculum curriculum) throws ConocimientoNotFoundException {
-		Conocimiento conocimiento = conocimientoRepository.findByCurriculum(curriculum);
-		if(conocimiento == null) {
+	public List<Conocimiento> findByCurriculum(Curriculum curriculum) throws ConocimientoNotFoundException {
+		List<Conocimiento> conocimientos = conocimientoRepository.findByCurriculum(curriculum);
+		if(conocimientos.isEmpty()) {
 			throw new ConocimientoNotFoundException("Conocimiento no encontrado.");
 		}
-		return conocimiento;
+		return conocimientos;
 	}
 	
-	public Conocimiento findByDescripcion(String descripcion) throws ConocimientoNotFoundException {
-		Conocimiento conocimiento = conocimientoRepository.findByDescripcion(descripcion);
-		if(conocimiento == null) {
+	public List<Conocimiento> findByDescripcion(String descripcion) throws ConocimientoNotFoundException {
+		List<Conocimiento> conocimientos = conocimientoRepository.findByDescripcion(descripcion);
+		if(conocimientos.isEmpty()) {
 			throw new ConocimientoNotFoundException("Conocimiento no encontrado.");
 		}
-		return conocimiento;
+		return conocimientos;
 	}
 	
 	public List<Conocimiento> findAll() throws ConocimientoNotFoundException {
@@ -64,6 +64,26 @@ public class ConocimientoService {
 	public void  save(Conocimiento conocimiento) {
 		conocimientoRepository.save(conocimiento);
 		
+	}
+	
+	public void  delete(Conocimiento conocimiento) {
+		
+		conocimientoRepository.delete(conocimiento);
+		
+	}
+	
+public void  flush() {
+		
+		conocimientoRepository.flush();
+		
+	}
+	
+	public Conocimiento  findOne(Long id) throws ConocimientoNotFoundException {
+		Conocimiento conocimiento = conocimientoRepository.findOne(id);
+		if (conocimiento == null) {
+			throw new ConocimientoNotFoundException("Conocimiento no encontrado");
+		}
+		return conocimiento;
 	}
 	
 	}

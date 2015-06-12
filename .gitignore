@@ -20,3 +20,5 @@ target
 /.apt_generated/
 
 .project
+.settings
+/target/

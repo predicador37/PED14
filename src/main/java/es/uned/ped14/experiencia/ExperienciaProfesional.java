@@ -54,7 +54,7 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
 
-    protected ExperienciaProfesional() {
+    public ExperienciaProfesional() {
 
 	}
 

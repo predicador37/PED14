@@ -2,13 +2,15 @@ package es.uned.ped14.conocimiento;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Proxy;
+
 import es.uned.ped14.curriculum.Curriculum;
 
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "conocimiento")
-
+@Proxy(lazy=false)
 public class Conocimiento implements java.io.Serializable {
 
 
@@ -26,6 +28,10 @@ public class Conocimiento implements java.io.Serializable {
 	@Column(columnDefinition = "int default 0")
 	private Integer numeroLikes;
 	
+	public Conocimiento() {
+		
+	}
+	
 	public Integer getNumeroLikes() {
 		return numeroLikes;
 	}
@@ -42,13 +48,9 @@ public class Conocimiento implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
-	
-    protected Conocimiento() {
-
-	}
 
 	public Conocimiento(String descripcion,NivelConocimiento nivelConocimiento) {
 		super();

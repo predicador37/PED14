@@ -66,7 +66,7 @@
                     </div>    
                 </div>
 
-              <div  th:if="${experiencias != null}">
+             
 
 
                 <div class="panel panel-default">
@@ -80,6 +80,7 @@
                         </div>
                       </div>
                     </div>
+                     <div  th:if="${experiencias != null}">
                     <div class="panel-body">
                       <table class="tabla-ficha table table-striped table-bordered">
                         <tbody>
@@ -119,7 +120,7 @@
 
               </div>  
 
-              <div  th:if="${titulaciones != null}">
+          
 
                 <div class="panel panel-default">
                     <div class="panel-heading" style="height:68px;">
@@ -132,6 +133,7 @@
                         </div>
                       </div>
                     </div>
+                     <div  th:if="${titulaciones != null}">
                     <div class="panel-body">
                         <table class="tabla-ficha table table-striped table-bordered">
                           <tbody>
@@ -153,8 +155,8 @@
                     </div>
                 </div>
               </div>
-
-              <div  th:if="${cursos != null}">
+ 			
+             
 
                 <div class="panel panel-default">
                     <div class="panel-heading" style="height:68px;">
@@ -167,6 +169,7 @@
                         </div>
                       </div>
                     </div>
+                     <div  th:if="${cursos != null}">
                     <div class="panel-body">
                         <table class="tabla-ficha table table-striped table-bordered">
                           <tbody>
@@ -189,7 +192,41 @@
                         </table>                          
                     </div>
                 </div>
-              </div>            
+              </div> 
+              
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height:68px;">
+                      <div>
+                        <div class="col-lg-9 pull-left">
+                          <h3 class="titulo-contenedor-formulario-login">Conocimientos</h3>
+                        </div>
+                        <div class="col-lg-3 pull-right">
+                          <a th:href="@{/conocimiento/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nuevo conocimiento</a>
+                        </div>
+                      </div>
+                    </div>
+                     <div  th:if="${conocimientos != null}">
+                    <div class="panel-body">
+                        <table class="tabla-ficha table table-striped table-bordered">
+                          <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descripción</th>
+                                <th>Nivel</th>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                            <tr th:each="conocimiento : ${conocimientos}">
+                              <td th:text="${conocimiento.id}"></td>
+                              <td th:text="${conocimiento.descripcion}"></td>
+                              <td th:text="${conocimiento.nivelConocimiento}"></td>
+                              <td><a th:href="@{/conocimiento/edit/} + ${conocimiento.id}"><span>Editar</span></a></td>
+                              <td><a th:href="@{/conocimiento/delete/} + ${conocimiento.id}"><span>Eliminar</span></a></td>
+                            </tr>                          
+                          </tbody>
+                        </table>                          
+                    </div>
+                </div>
+              </div>                     
             </div>
         </div>    
     </div>

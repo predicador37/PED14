@@ -35,7 +35,7 @@ public class CursoFormacion implements java.io.Serializable {
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
 	
-    protected CursoFormacion() {
+    public CursoFormacion() {
 
 	}
 	

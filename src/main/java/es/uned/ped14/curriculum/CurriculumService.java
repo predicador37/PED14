@@ -83,19 +83,7 @@ public class CurriculumService {
 		
 		accountRepository.save(user1);
 		accountRepository.save(user2);
-		titulacionRepository.save(titulacion1);
-		titulacionRepository.save(titulacion2);
-		titulacionRepository.save(titulacion1);
-		titulacionRepository.save(titulacion2);
-		curriculumRepository.save(demoCurriculum1);
-		curriculumRepository.save(demoCurriculum2);
-		curriculumRepository.save(demoCurriculum3);
-		curriculumRepository.save(demoCurriculum4);
-		curriculumRepository.save(demoCurriculum5);
-		
-		
-		
-		
+				
 		demoCurriculum1.setUser(user1);
 		demoCurriculum1.addExperiencia(experiencia1);
 		demoCurriculum1.addTitulacion(titulacion2);
