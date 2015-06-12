@@ -1,57 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Signup</title>
+    <title>Red social profesional. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<form class="form-narrow form-horizontal" method="post" th:action="@{/curriculum/create}" th:object="${curriculumForm}">
-    <!--/* Show general error message when form contains errors */-->
-    <th:block th:if="${#fields.hasErrors('${curriculumForm.*}')}">
-        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
-    </th:block>
-    <fieldset>
-        <legend>Introduzca los datos requeridos:</legend>
-        <div class="form-group" th:classappend="${#fields.hasErrors('nombre')}? 'has-error'">
-            <label for="nombre" class="col-lg-2 control-label">Nombre</label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="nombre" placeholder="Ej: Héctor" th:field="*{nombre}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre incorrecto</span>
+<div th:replace="fragments/header :: usuario">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <!-- /* Handle the flash message */-->
+        <th:block th:if="${message != null}">
+            <!-- /* The message code is returned from the @Controller */ -->
+            <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
+        </th:block>
+        
+        <div class="row contenedor-principal">
+            <div class="col-md-3">
+               <div class="list-group">
+                    <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
+                    <a href="#" class="list-group-item active" th:href="@{/}">Mi curriculum</a>
+                    <a href="/userOut" th:href="@{/}" class="list-group-item">Darme de baja</a>
+                    <a class="list-group-item" href="/enableFields" th:href="@{/enableFields}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
+                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesion</a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
+                </div>
+            </div> 
+
+            <div class="col-md-9">
+                <h2 class="titulo-pagina">Nuevo curriculum</h2>
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="titulo-contenedor-formulario-login">Datos del curriculum</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curriculum/create}" th:object="${curriculumForm}">
+                            <!--/* Show general error message when form contains errors */-->
+                            <th:block th:if="${#fields.hasErrors('${curriculumForm.*}')}">
+                                <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+                            </th:block>
+                            <fieldset>
+                                <div class="form-group" th:classappend="${#fields.hasErrors('nombre')}? 'has-error'">
+                                    <label for="nombre" class="col-lg-2 control-label">Nombre</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="nombre" placeholder="Introduce el nombre" th:field="*{nombre}" autofocus="autofocus"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre incorrecto</span>
+                                    </div>
+                                </div>
+                                <div class="form-group" th:classappend="${#fields.hasErrors('apellidos')}? 'has-error'">
+                                    <label for="apellidos" class="col-lg-2 control-label">Apellidos</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="apellidos" placeholder="Introduce los apellidos" th:field="*{apellidos}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}">Apellidos incorrectos</span>
+                                    </div>
+                                </div>
+                                <div class="form-group" th:classappend="${#fields.hasErrors('pais')}? 'has-error'">
+                                    <label for="pais" class="col-lg-2 control-label">Pais</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="pais" placeholder="Introduce el pais" th:field="*{pais}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">Pais incorrecto</span>
+                                    </div>
+                                </div>
+                                 <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
+                                    <label for="ciudad" class="col-lg-2 control-label">Ciudad</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="ciudad" placeholder="Introduce la ciudad" th:field="*{ciudad}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">Ciudad incorrecta</span>
+                                    </div>
+                                </div>
+                              
+                                 <div class="form-group" >
+                                    <label for="imagen" class="col-lg-2 control-label">Imagen</label>
+                                    <div class="col-lg-10">
+                                        <input type="file" class="form-control file subir-archivo" id="urlImagen"/>
+                              
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label for="archivo" class="col-lg-2 control-label">Archivo</label>
+                                    <div class="col-lg-10">
+                                        <input type="file" class="form-control file subir-archivo" id="urlArchivo"/>                             
+                                    </div>
+                                </div>
+
+                                <div class="contenedor-botones-inferiores-formulario"> 
+                                    <div class="form-group">
+                                            <button type="submit" class="btn btn-success pull-right" style="margin-right:10px">Guardar</button>
+                                    </div>
+                                </div>
+                                                                 
+                            </fieldset>
+                        </form>                        
+                    </div>    
+                </div>    
             </div>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('apellidos')}? 'has-error'">
-            <label for="apellidos" class="col-lg-2 control-label">Apellidos</label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="apellidos" placeholder="Ej: Garnacho" th:field="*{apellidos}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}">Apellidos incorrectos</span>
-            </div>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('pais')}? 'has-error'">
-            <label for="pais" class="col-lg-2 control-label">País</label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="pais" placeholder="Ej: España" th:field="*{pais}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">País incorrecto</span>
-            </div>
-        </div>
-         <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
-            <label for="ciudad" class="col-lg-2 control-label">Ciudad</label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="ciudad" placeholder="Ej: Valladolid" th:field="*{ciudad}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">Ciudad incorrecta</span>
-            </div>
-        </div>
-      
-        <div class="form-group">
-            <div class="col-lg-offset-2 col-lg-10">
-                <button type="submit" class="btn btn-default">Guardar</button>
-            </div>
-        </div>
-       
-    </fieldset>
-</form>
+        </div>    
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>    
+</div>   
 </body>
 </html>
