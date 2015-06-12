@@ -24,6 +24,9 @@ public class Titulacion implements java.io.Serializable {
 
 	 @Column(unique = true)
 	private String descripcion;
+	 
+	@Column
+	private Integer anyoFinalizacion;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "titulacion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -35,9 +38,10 @@ public class Titulacion implements java.io.Serializable {
 
 	}
 	
-	public Titulacion(String descripcion) {
+	public Titulacion(String descripcion, Integer anyoFinalizacion) {
 		super();
 		this.descripcion = descripcion;
+		this.anyoFinalizacion = anyoFinalizacion;
 	}
 
 	public Long getId() {
@@ -60,7 +64,14 @@ public class Titulacion implements java.io.Serializable {
 	public String toString() {
 		return this.descripcion;
 	}
-	
+
+	public Integer getAnyoFinalizacion() {
+		return anyoFinalizacion;
+	}
+
+	public void setAnyoFinalizacion(Integer anyoFinalizacion) {
+		this.anyoFinalizacion = anyoFinalizacion;
+	}
 
 	public Collection<AsociacionTitulacion> getCurriculos() {
 		return new ArrayList<AsociacionTitulacion>(curriculos);

@@ -23,6 +23,13 @@
                 <span class="help-block" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Descripción incorrecta</span>
             </div>
         </div>
+         <div class="form-group" th:classappend="${#fields.hasErrors('anyoFinalizacion')}? 'has-error'">
+            <label for="anyoFinalizacion" class="col-lg-2 control-label">Año de finalización</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="anyoFinalizacion" placeholder="Ej: 2004" th:field="*{anyoFinalizacion}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('anyoFinalizacion')}" th:errors="*{anyoFinalizacion}">Descripción incorrecta</span>
+            </div>
+        </div>
       
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">

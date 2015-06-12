@@ -52,8 +52,8 @@
         <td th:text="${experiencia.cargo}"></td>
         <td th:text="${experiencia.empresa}"></td>
         <td th:text="${experiencia.descripcion}"></td>
-         <td th:text="${experiencia.fechaInicio}"></td>
-         <td th:text="${experiencia.fechaFin}"></td>
+         <td th:text="${#calendars.format(experiencia.fechaInicio,'dd/MM/yyyy')}"></td>
+         <td th:text="${#calendars.format(experiencia.fechaFin, 'dd/MM/yyyy')}"></td>
         <td><a th:href="@{/experiencia/edit/} + ${experiencia.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/experiencia/delete/} + ${experiencia.id}"><span>Eliminar</span></a></td>
       </tr>
@@ -65,11 +65,12 @@
       <tr>
         <th>Id</th>
         <th>Descripción</th>
+        <th>Año de finalización</th>
       </tr>
       <tr th:each="titulacion : ${titulaciones}">
         <td th:text="${titulacion.id}"></td>
         <td th:text="${titulacion.descripcion}"></td>
-        
+        <td th:text="${titulacion.anyoFinalizacion}"></td>
         <td><a th:href="@{/titulacion/curriculum/} + ${curriculum.id} + @{/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
       </tr>
@@ -89,7 +90,7 @@
         <td th:text="${curso.id}"></td>
         <td th:text="${curso.descripcion}"></td>
         <td th:text="${curso.numeroHoras}"></td>
-        <td th:text="${curso.fechaFinalizacion}"></td>
+        <td th:text="${#calendars.format(curso.fechaFinalizacion, 'dd/MM/yyyy')}"></td>
         <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
       </tr>

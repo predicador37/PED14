@@ -61,8 +61,8 @@ public class CurriculumService {
 		ExperienciaProfesional experiencia5 = new ExperienciaProfesional("Presidenta del Consejo de Administración", "Banco Santander", "Dueña del banco",  formatoFecha.parse("01/07/2010"), formatoFecha.parse("27/04/2015"));
 		ExperienciaProfesional experiencia6 = new ExperienciaProfesional("Becario", "ACME", "Gestión de cadena de producción", formatoFecha.parse("14/10/2008"), formatoFecha.parse("31/12/2012"));
 		
-		Titulacion titulacion1 = new Titulacion("Ingeniero Informático");
-		Titulacion titulacion2 = new Titulacion("Ingeniero de Telecomunicaciones");
+		Titulacion titulacion1 = new Titulacion("Ingeniero Informático", 2005);
+		Titulacion titulacion2 = new Titulacion("Ingeniero de Telecomunicaciones", 2004);
 		//Titulacion titulacion3 = new Titulacion("Ingeniero Informático");
 		//Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones");
 		

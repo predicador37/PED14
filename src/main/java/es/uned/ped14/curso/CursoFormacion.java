@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import es.uned.ped14.curriculum.Curriculum;
 
 @SuppressWarnings("serial")
@@ -22,6 +24,8 @@ public class CursoFormacion implements java.io.Serializable {
 	@Column
 	private Integer numeroHoras;
 	@Column
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date fechaFinalizacion;
 	@Column(columnDefinition = "int default 0")
 	private Integer numeroLikes;

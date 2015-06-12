@@ -55,7 +55,7 @@ public class TitulacionService {
 		Account user1 = new Account("jose@gmail.com", "jose", "ROLE_USER");
 		Curriculum curriculum = new Curriculum("Don José", "Pérez", "España", "Oviedo", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		curriculum.setUser(user1);
-		Titulacion titulacion = new Titulacion("Ingeniero de obras públicas");
+		Titulacion titulacion = new Titulacion("Ingeniero de obras públicas", 2008);
 		
 		accountRepository.save(user1);
 		

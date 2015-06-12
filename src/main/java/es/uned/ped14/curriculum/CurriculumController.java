@@ -1,5 +1,6 @@
 package es.uned.ped14.curriculum;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -134,6 +135,8 @@ public class CurriculumController {
 			catch (TitulacionNotFoundException e) {
 				logger.info("No hay titulaciones que mostrar");
 			}
+		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	    // mav.addObject("dates", dateFormat);
 	 	 mav.addObject("curriculum", curriculum);
 	 	
 	 	 return mav;

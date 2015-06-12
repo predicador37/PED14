@@ -22,7 +22,7 @@
         <td th:text="${curso.id}"></td>
         <td th:text="${curso.descripcion}"></td>
         <td th:text="${curso.numeroHoras}"></td>
-        <td th:text="${curso.fechaFinalizacion}"></td>
+        <td th:text="${#calendars.format(curso.fechaFinalizacion, 'dd/MM/yyyy')}"></td>
         <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
       </tr>

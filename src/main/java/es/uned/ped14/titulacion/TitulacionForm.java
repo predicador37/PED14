@@ -10,6 +10,7 @@ public class TitulacionForm {
 
     @NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
+    private Integer anyoFinalizacion;
 
  
 	public String getDescripcion() {
@@ -19,10 +20,17 @@ public class TitulacionForm {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public Integer getAnyoFinalizacion() {
+		return anyoFinalizacion;
+	}
 
+	public void setAnyoFinalizacion(Integer anyoFinalizacion) {
+		this.anyoFinalizacion = anyoFinalizacion;
+	}
 
 	public Titulacion createTitulacion() {
-        return new Titulacion(getDescripcion());
+        return new Titulacion(getDescripcion(), getAnyoFinalizacion());
 	}
 
 

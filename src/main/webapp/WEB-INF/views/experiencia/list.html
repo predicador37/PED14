@@ -25,8 +25,8 @@
          <td th:text="${experiencia.cargo}"></td>
          <td th:text="${experiencia.empresa}"></td>
         <td th:text="${experiencia.descripcion}"></td>
-        <td th:text="${experiencia.fechaInicio}"></td>
-        <td th:text="${experiencia.fechaFin}"></td>
+        <td th:text="${#calendars.format(experiencia.fechaInicio, 'dd/MM/yyyy')}"></td>
+        <td th:text="${#calendars.format(experiencia.fechaFin, 'dd/MM/yyyy')}"></td>
         <td><a th:href="@{/experiencia/edit/} + ${experiencia.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/experiencia/delete/} + ${experiencia.id}"><span>Eliminar</span></a></td>
       </tr>

@@ -15,10 +15,12 @@
       <tr>
         <th>Id</th>
         <th>Descripción</th>
+        <th>Año de finalización</th>
       </tr>
       <tr th:each="titulacion : ${titulaciones}">
         <td th:text="${titulacion.id}"></td>
         <td th:text="${titulacion.descripcion}"></td>
+        <td th:text="${titulacion.anyoFinalizacion}"></td>
         <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
       </tr>
