@@ -46,7 +46,6 @@ public class CursoFormacionServiceTest {
 		Curriculum curriculum = curriculumService.findByUserEmail("miguel@gmail.com");
 		// act
 		
-		CursoFormacion curso = cursoService.findByCurriculum(curriculum);
 		List<CursoFormacion> cursos = cursoService.findByCurriculum(curriculum);
 		// assert
 		assertThat(cursos.iterator().next().getDescripcion()).isEqualTo("Curso de desarrollo ágil de software");

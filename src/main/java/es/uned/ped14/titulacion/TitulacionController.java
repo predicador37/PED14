@@ -51,9 +51,6 @@ public class TitulacionController {
       
 		return "redirect:titulacion/list";
 	}
-	@RequestMapping(value = "titulacion/list", method = RequestMethod.GET)
-		return "redirect:/titulacion/list";
-	}
 	
 	 @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
