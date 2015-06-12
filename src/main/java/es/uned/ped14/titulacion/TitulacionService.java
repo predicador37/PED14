@@ -32,16 +32,9 @@ public class TitulacionService {
 	 
 	@Autowired
 	private TitulacionRepositoryInterface titulacionRepository;
-	
-	@Autowired
-	private TitulacionRepository titulacionRepositoryImpl;
 
 	@Autowired
 	private AccountRepository accountRepository;
-	
-
-	@Autowired
-	private AsociacionTitulacionRepositoryInterface asociacionTitulacionRepository;
 	
 	@Autowired
 	private CurriculumRepositoryInterface curriculumRepository;
@@ -61,7 +54,7 @@ public class TitulacionService {
 		
 		titulacionRepository.save(titulacion);
 		curriculumRepository.save(curriculum);
-		curriculum.addTitulacion(titulacion, 0);
+		curriculum.addTitulacion(titulacion);
 		titulacionRepository.save(titulacion);
 		curriculumRepository.save(curriculum);
 
@@ -93,13 +86,17 @@ public class TitulacionService {
 		
 	}
 	
-	public Titulacion  findOne(Long id) {
-		return titulacionRepository.findOne(id);
-		
+	
+	public Titulacion  findOne(Long id) throws TitulacionNotFoundException {
+		Titulacion titulacion = titulacionRepository.findOne(id);
+		if(titulacion == null) {
+			throw new TitulacionNotFoundException("titulacion not found");
+		}
+		return titulacion;
 	}
 	
 	public List<Titulacion> findByCurriculum(Curriculum curriculum) throws TitulacionNotFoundException {
-		List<Titulacion> titulaciones = titulacionRepositoryImpl.findByCurriculum(curriculum);
+		List<Titulacion> titulaciones = titulacionRepository.findByCurriculum(curriculum);
 		if(titulaciones.isEmpty()) {
 			throw new TitulacionNotFoundException("No se encontraron titulaciones");
 		}

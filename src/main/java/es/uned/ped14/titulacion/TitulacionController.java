@@ -61,8 +61,15 @@ public class TitulacionController {
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
 	 	  ModelAndView mav = new ModelAndView("titulacion/edit");
-	 	  Titulacion titulacion = titulacionService.findOne(id);
-	 	  mav.addObject("titulacion", titulacion);
+	 	  Titulacion titulacion;
+		try {
+			titulacion = titulacionService.findOne(id);
+			  mav.addObject("titulacion", titulacion);
+		} catch (TitulacionNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.error("No se encuentra titulacion");
+		}
+	 	
 	 	  return mav;
 	 	 }
 	 
@@ -70,8 +77,15 @@ public class TitulacionController {
  	 public ModelAndView editByUser(@PathVariable("id")Long id, @PathVariable("curriculumId")Long curriculumId)
  	 {
  	  ModelAndView mav = new ModelAndView("titulacion/editByCurriculum");
- 	  Titulacion titulacion = titulacionService.findOne(id);
- 	  mav.addObject("titulacion", titulacion);
+ 	
+	try {
+		Titulacion titulacion = titulacionService.findOne(id);
+		  mav.addObject("titulacion", titulacion);
+	} catch (TitulacionNotFoundException e) {
+		// TODO Auto-generated catch block
+		logger.error("No se encuentra titulacion");
+	}
+ 	
  	  mav.addObject("curriculumId", curriculumId);
  	  return mav;
  	 }
@@ -105,13 +119,24 @@ public class TitulacionController {
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
+	
 		
-		titulacionService.delete(id);
+			titulacionService.delete(id);
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
 		return "redirect:/titulacion/list";
 	}
+	
+	@RequestMapping(value = "/curriculum/{curriculumId}/remove/{id}", method = RequestMethod.GET)
+	public String removeFromUser(@PathVariable("curriculumId") Long curriculumId, @PathVariable("id") Long id) {
+	
+		
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+      
+		return "redirect:/titulacion/list";
+	}
+	
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(ModelMap model) throws TitulacionNotFoundException  {

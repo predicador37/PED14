@@ -29,8 +29,6 @@ import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.experiencia.ExperienciaProfesionalRepository;
-import es.uned.ped14.titulacion.AsociacionTitulacion;
-import es.uned.ped14.titulacion.AsociacionTitulacionRepositoryInterface;
 import es.uned.ped14.titulacion.Titulacion;
 
 import org.slf4j.Logger;
@@ -145,7 +143,7 @@ public class CurriculumServiceTest {
 		// assert
 		
 		assertThat("Pepito").isEqualTo(curriculumService.findByUserEmail("nuevo.usuario@gmail.com").getNombre());
-		logger.info("titulación del usuario cuyo currículo está asociado al email de test: " + curriculumService.findByUserEmail("nuevo.usuario@gmail.com").getTitulaciones().iterator().next().getTitulacion().getDescripcion());
+		logger.info("titulación del usuario cuyo currículo está asociado al email de test: " + curriculumService.findByUserEmail("nuevo.usuario@gmail.com").getTitulaciones().iterator().next().getDescripcion());
 		//assertThat("Miguel").isEqualTo(curriculos.get(1).getNombre());
 		//assertThat(curriculos.size()).isEqualTo(2);
 	}

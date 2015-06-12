@@ -34,7 +34,7 @@ public class TitulacionServiceTest {
 	private TitulacionService titulacionService;
 	
 	@Autowired
-	private TitulacionRepository titulacionRepository;
+	private TitulacionRepositoryInterface titulacionRepository;
 	
 	@Autowired
 	private CurriculumService curriculumService;

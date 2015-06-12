@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.experiencia.ExperienciaProfesionalRepositoryInterface;
-import es.uned.ped14.titulacion.AsociacionTitulacion;
-import es.uned.ped14.titulacion.AsociacionTitulacionRepositoryInterface;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.titulacion.TitulacionRepositoryInterface;
 import es.uned.ped14.account.Account;
@@ -32,9 +30,6 @@ public class CurriculumService {
 	
 	@Autowired
 	private TitulacionRepositoryInterface titulacionRepository;
-	
-	@Autowired
-	private AsociacionTitulacionRepositoryInterface asociacionTitulacionRepository;
 	
 	@Autowired
 	private ExperienciaProfesionalRepositoryInterface experienciaProfesionalRepository;
@@ -63,8 +58,8 @@ public class CurriculumService {
 		
 		Titulacion titulacion1 = new Titulacion("Ingeniero Informático", 2005);
 		Titulacion titulacion2 = new Titulacion("Ingeniero de Telecomunicaciones", 2004);
-		//Titulacion titulacion3 = new Titulacion("Ingeniero Informático");
-		//Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones");
+		Titulacion titulacion3 = new Titulacion("Ingeniero Informático", 2005);
+		Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones", 2004);
 		
 		Conocimiento conocimiento1 = new Conocimiento("java", NivelConocimiento.ALTO);
 		Conocimiento conocimiento2 = new Conocimiento("unix", NivelConocimiento.ALTO);
@@ -97,19 +92,19 @@ public class CurriculumService {
 		
 		demoCurriculum1.setUser(user1);
 		demoCurriculum1.addExperiencia(experiencia1);
-		demoCurriculum1.addTitulacion(titulacion2, 0);
+		demoCurriculum1.addTitulacion(titulacion2);
 		demoCurriculum1.addConocimiento(conocimiento2);
 		demoCurriculum2.addExperiencia(experiencia2);
-		demoCurriculum2.addTitulacion(titulacion1, 0);
+		demoCurriculum2.addTitulacion(titulacion1);
 		demoCurriculum2.addConocimiento(conocimiento1);
 		demoCurriculum1.addExperiencia(experiencia3);
 		demoCurriculum4.addExperiencia(experiencia4);
 		demoCurriculum4.setUser(user2);
-		demoCurriculum4.addTitulacion(titulacion2, 0);
+		demoCurriculum4.addTitulacion(titulacion4);
 		demoCurriculum4.addConocimiento(conocimiento4);
 		demoCurriculum4.addExperiencia(experiencia5);
 		demoCurriculum5.addExperiencia(experiencia6);
-		demoCurriculum3.addTitulacion(titulacion1, 0);
+		demoCurriculum3.addTitulacion(titulacion3);
 		demoCurriculum3.addConocimiento(conocimiento3);
 		
 		//accountRepository.save(user1);
@@ -196,7 +191,7 @@ public class CurriculumService {
 		if (titulacion != null){
 		titulacionRepository.save(titulacion);
 		curriculumRepository.save(curriculum);
-		curriculum.addTitulacion(titulacion, 0);
+		curriculum.addTitulacion(titulacion);
 		}
 		if (conocimiento != null){
 		curriculum.addConocimiento(conocimiento);

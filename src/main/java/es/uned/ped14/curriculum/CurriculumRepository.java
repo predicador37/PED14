@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.Conocimiento_;
-import es.uned.ped14.titulacion.AsociacionTitulacion;
-import es.uned.ped14.titulacion.AsociacionTitulacion_;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.titulacion.Titulacion_;
 
@@ -91,11 +89,9 @@ public class CurriculumRepository{
 		}
 		
 		if (titulacion != null) {
-			Root<Titulacion> titulacionRoot = criteriaQuery.from(Titulacion.class);
-			Join<Curriculum, AsociacionTitulacion> titulaciones = curriculumRoot.join(Curriculum_.titulaciones);
-			Join<Titulacion, AsociacionTitulacion> curriculos = titulacionRoot.join(Titulacion_.curriculos);
+			Join<Curriculum, Titulacion> titulaciones = curriculumRoot.join(Curriculum_.titulaciones);
 			Predicate predicate4 = builder.like(builder.lower(
-		              titulaciones.get(AsociacionTitulacion_.titulacion).get(Titulacion_.descripcion)),
+		              titulaciones.get(Titulacion_.descripcion)),
 		              "%" + titulacion.toLowerCase() + "%");
 			predicates.add(predicate4);
 			

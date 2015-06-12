@@ -25,7 +25,6 @@ import es.uned.ped14.account.Account;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.curso.CursoFormacion;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
-import es.uned.ped14.titulacion.AsociacionTitulacion;
 import es.uned.ped14.titulacion.Titulacion;
 
 @SuppressWarnings("serial")
@@ -59,10 +58,9 @@ public class Curriculum implements java.io.Serializable {
 	
 	@OneToOne
 	private Account user;
+	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
- 
-
 	private Collection<ExperienciaProfesional> experiencias = new ArrayList<ExperienciaProfesional>();
 	
 	public Account getUser() {
@@ -74,10 +72,8 @@ public class Curriculum implements java.io.Serializable {
 	}
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "curriculum", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, 
-		    org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
-	private Collection<AsociacionTitulacion> titulaciones = new ArrayList<AsociacionTitulacion>();
+	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
+	private Collection<Titulacion> titulaciones = new ArrayList<Titulacion>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
@@ -201,9 +197,10 @@ public class Curriculum implements java.io.Serializable {
 	 *
 	 * @return una coleccion de titulaciones asociadas al currículum
 	 */
-	public Collection<AsociacionTitulacion> getTitulaciones() {
-		return new ArrayList<AsociacionTitulacion>(titulaciones);
-	}
+	//public Collection<AsociacionTitulacion> getTitulaciones() {
+	//	return new ArrayList<AsociacionTitulacion>(titulaciones);
+	//}
+	
 
 	/**
 	 * Añade una nueva titulación al currículum. Este método mantiene la
@@ -211,15 +208,23 @@ public class Curriculum implements java.io.Serializable {
 	 * titulación en concreto
 	 * @param Titulacion titulacion
 	 */
-	public void addTitulacion(Titulacion titulacion, Integer likes) {
+	public void addTitulacion(Titulacion titulacion) {
 		
-		 AsociacionTitulacion asociacion = new AsociacionTitulacion(this, titulacion);
-		 asociacion.setLikes(likes);
-		 this.titulaciones.add(asociacion);
-		    // Also add the association object
-		 if (!titulacion.getCurriculos().contains(asociacion)){
-			 titulacion.addCurriculum(this, 0);
-		 }
+		// prevenir bucle infinito
+				if (titulaciones.contains(titulacion))
+					return;
+				// añadir nueva experiencia
+				titulaciones.add(titulacion);
+				// asociar este currículo con la experiencia
+				titulacion.setCurriculum(this);
+	}
+
+	public Collection<Titulacion> getTitulaciones() {
+		return titulaciones;
+	}
+
+	public void setTitulaciones(Collection<Titulacion> titulaciones) {
+		this.titulaciones = titulaciones;
 	}
 
 	/**
@@ -230,15 +235,14 @@ public class Curriculum implements java.io.Serializable {
 	 */
 	public void removeTitulacion(Titulacion titulacion) {
 		// prevent endless loop
-		AsociacionTitulacion asociacion = new AsociacionTitulacion(this,titulacion);
-		if (!titulaciones.contains(asociacion))
-			return;
-		// remove the account
-		titulaciones.remove(asociacion);
-		// remove myself from the twitter account
-		 if (titulacion.getCurriculos().contains(asociacion)){
-			 titulacion.removeCurriculum(this);
-		 }
+	
+		// prevent endless loop
+				if (!titulaciones.contains(titulacion))
+					return;
+				// remove the account
+				conocimientos.remove(titulacion);
+				// remove myself from the twitter account
+				titulacion.setCurriculum(null);
 	}
 	
 	/**
