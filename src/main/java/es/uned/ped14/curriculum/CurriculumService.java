@@ -218,6 +218,12 @@ public class CurriculumService {
 		
 	}
 	
+
+	public void  flush() {
+		curriculumRepositoryInterface.flush();
+		
+	}
+	
 	public Curriculum  findOne(Long id) throws CurriculumNotFoundException {
 		
 		Curriculum curriculum = curriculumRepositoryInterface.findOne(id);

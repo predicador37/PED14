@@ -15,8 +15,11 @@ public class CursoFormacionForm {
 
     private Integer numeroHoras;
     private Date fechaFinalizacion;
-
-
+    private Long curriculumId;
+    
+    public CursoFormacionForm() {
+    	
+    }
 	public CursoFormacion createCursoFormacion() {
         return new CursoFormacion(getDescripcion(), getNumeroHoras(), getFechaFinalizacion());
 	}
@@ -43,6 +46,12 @@ public class CursoFormacionForm {
 
 	public void setFechaFinalizacion(Date fechaFinalizacion) {
 		this.fechaFinalizacion = fechaFinalizacion;
+	}
+	public Long getCurriculumId() {
+		return curriculumId;
+	}
+	public void setCurriculumId(Long curriculumId) {
+		this.curriculumId = curriculumId;
 	}
 
 

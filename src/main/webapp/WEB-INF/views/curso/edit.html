@@ -12,6 +12,7 @@
 <form class="form-narrow form-horizontal" method="post" th:action="@{/curso/update}" th:object="${curso}">
     <!--/* Show general error message when form contains errors */-->
     <input type="text" hidden="hidden" data-th-value="*{id}" data-th-field="*{id}" />
+    <input type="text" hidden="hidden" data-th-value="*{curriculum.id}" data-th-field="*{curriculum.id}" />
      <th:block th:if="${#fields.hasErrors('${curso.*}')}">
         <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
     </th:block>

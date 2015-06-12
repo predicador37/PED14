@@ -84,13 +84,18 @@ public class CursoFormacionService {
 		
 	}
 		
-	public void  delete(Long id) {
-		cursoFormacionRepository.delete(id);
+	public void  delete(CursoFormacion curso) {
+		cursoFormacionRepository.delete(curso);
 		
 	}
 	
-	public CursoFormacion  findOne(Long id) {
-		return cursoFormacionRepository.findOne(id);
+	public CursoFormacion  findOne(Long id) throws CursoFormacionNotFoundException {
+		
+		CursoFormacion curso = cursoFormacionRepository.findOne(id);
+		if (curso == null) {
+			throw new CursoFormacionNotFoundException("Curso de formación no encontrado");
+		}
+		return curso;
 		
 	}
 	

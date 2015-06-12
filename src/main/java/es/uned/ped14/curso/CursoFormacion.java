@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import es.uned.ped14.curriculum.Curriculum;
@@ -11,7 +12,7 @@ import es.uned.ped14.curriculum.Curriculum;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "curso_formacion")
-
+@Proxy(lazy=false)
 public class CursoFormacion implements java.io.Serializable {
 
 
@@ -30,7 +31,7 @@ public class CursoFormacion implements java.io.Serializable {
 	@Column(columnDefinition = "int default 0")
 	private Integer numeroLikes;
 
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
 	
