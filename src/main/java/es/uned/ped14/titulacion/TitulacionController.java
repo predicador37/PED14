@@ -38,19 +38,22 @@ public class TitulacionController {
 	@Autowired
 	private CurriculumService curriculumService;
 	
-	@RequestMapping(value = "/create")
-	public String titulacion(Model model) {
-		model.addAttribute(new TitulacionForm());
+	@RequestMapping(value = "/create/{id}")
+	public String titulacion(@PathVariable("id")Long id, Model model) {
+		model.addAttribute("titulacion", new TitulacionForm());
+		model.addAttribute("curriculumId",id);
         return CREATE_VIEW_NAME;
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Valid @ModelAttribute TitulacionForm titulacionForm, Errors errors, RedirectAttributes ra) {
+	public String create(@Valid @ModelAttribute("titulacion") TitulacionForm titulacionForm,  @ModelAttribute("curriculumId") Long curriculumId, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return CREATE_VIEW_NAME;
 		}
-	
-		titulacionService.save(titulacionForm.createTitulacion());
+	    Titulacion titulacion = titulacionForm.createTitulacion();
+	    titulacion.setCurriculum(curriculumService.findOne(curriculumId));
+	    System.out.println("id del curriculum asociado a la nueva titulacion: " + titulacion.getCurriculum().getId());
+		titulacionService.save(titulacion);
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
@@ -61,71 +64,55 @@ public class TitulacionController {
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
 	 	  ModelAndView mav = new ModelAndView("titulacion/edit");
-	 	  Titulacion titulacion;
+	 	
 		try {
-			titulacion = titulacionService.findOne(id);
+			  Titulacion titulacion = titulacionService.findOne(id);
 			  mav.addObject("titulacion", titulacion);
+
 		} catch (TitulacionNotFoundException e) {
 			// TODO Auto-generated catch block
 			logger.error("No se encuentra titulacion");
 		}
-	 	
+		 
 	 	  return mav;
 	 	 }
-	 
-	 @RequestMapping(value="/curriculum/{curriculumId}/edit/{id}", method=RequestMethod.GET)
- 	 public ModelAndView editByUser(@PathVariable("id")Long id, @PathVariable("curriculumId")Long curriculumId)
- 	 {
- 	  ModelAndView mav = new ModelAndView("titulacion/editByCurriculum");
- 	
-	try {
-		Titulacion titulacion = titulacionService.findOne(id);
-		  mav.addObject("titulacion", titulacion);
-	} catch (TitulacionNotFoundException e) {
-		// TODO Auto-generated catch block
-		logger.error("No se encuentra titulacion");
-	}
- 	
- 	  mav.addObject("curriculumId", curriculumId);
- 	  return mav;
- 	 }
-	 
 	 	  
 	 	 @RequestMapping(value="/update", method=RequestMethod.POST)
-	 	 public String update(@Valid @ModelAttribute("titulacion")Titulacion titulacion, Errors errors, BindingResult result, SessionStatus status)
+	 	 public String update(@Valid @ModelAttribute("titulacion")Titulacion titulacion, Errors errors, RedirectAttributes ra)
 	 	 {
-	 	
 	 	  if (errors.hasErrors()) {
 	 	   return "titulacion/edit";
 	 	  }
 	 	  titulacionService.save(titulacion);
-	 	  status.setComplete();
-	 	  return "redirect:/titulacion/list";
+	 	 
+	 	  return "redirect:/curriculum/show/"+titulacion.getCurriculum().getId();
 	 	 }
 	 	 
-	 	 @RequestMapping(value="/update/curriculum", method=RequestMethod.POST)
-	 	 public String updateCurriculum(@Valid @ModelAttribute("titulacion")Titulacion titulacion, @ModelAttribute("curriculumId")String curriculumId, Errors errors, BindingResult result, SessionStatus status, RedirectAttributes ra)
-	 	 {
-	 	
-	 	  if (errors.hasErrors()) {
-	 	   return "titulacion/editByCurriculum";
-	 	  }
-	 	  titulacionService.save(titulacion);
-	 	  status.setComplete();
-	 	  return "redirect:/curriculum/show/" + curriculumId;
-	 	 }
 	 
+	 	
 	
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 	
+		    Long curriculumId = null;
+			try {
+				Titulacion titulacion = titulacionService.findOne(id);
+				Curriculum curriculum = titulacion.getCurriculum();
+				curriculumId = curriculum.getId();
+				curriculum.removeTitulacion(titulacion);
+				curriculumService.save(curriculum);
+				//(titulacionService.delete(titulacion);
+			} catch (TitulacionNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
 		
-			titulacionService.delete(id);
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "redirect:/titulacion/list";
+		return "redirect:/curriculum/show/"+curriculumId;
 	}
 	
 	@RequestMapping(value = "/curriculum/{curriculumId}/remove/{id}", method = RequestMethod.GET)

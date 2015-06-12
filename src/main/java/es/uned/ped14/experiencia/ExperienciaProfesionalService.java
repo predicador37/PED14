@@ -65,7 +65,7 @@ public class ExperienciaProfesionalService {
 	public List<ExperienciaProfesional> findAll() throws ExperienciaProfesionalNotFoundException {
 		List<ExperienciaProfesional> experiencias = experienciaProfesionalRepository.findAll();
 		if(experiencias.isEmpty()) {
-			throw new ExperienciaProfesionalNotFoundException("No se encontraron titulaciones");
+			throw new ExperienciaProfesionalNotFoundException("No se encontraron experiencias profesionales");
 		}
 		return experiencias;
 	}
@@ -81,9 +81,12 @@ public class ExperienciaProfesionalService {
 		
 	}
 	
-	public ExperienciaProfesional  findOne(Long id) {
-		return experienciaProfesionalRepository.findOne(id);
-		
+	public ExperienciaProfesional  findOne(Long id) throws ExperienciaProfesionalNotFoundException {
+		ExperienciaProfesional experiencia = experienciaProfesionalRepository.findOne(id);
+		if (experiencia == null){
+			throw new ExperienciaProfesionalNotFoundException("No se encontraron experiencias profesionales");
+		}
+		return experiencia;
 	}
 	
 	}

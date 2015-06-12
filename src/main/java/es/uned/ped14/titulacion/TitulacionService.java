@@ -81,8 +81,8 @@ public class TitulacionService {
 		
 	}
 	
-	public void  delete(Long id) {
-		titulacionRepository.delete(id);
+	public void  delete(Titulacion titulacion) {
+		titulacionRepository.delete(titulacion);
 		
 	}
 	

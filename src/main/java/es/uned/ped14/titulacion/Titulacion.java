@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
 
 import es.uned.ped14.curriculum.Curriculum;
 
@@ -14,7 +15,7 @@ import es.uned.ped14.curriculum.Curriculum;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "titulacion")
-
+@Proxy(lazy=false)
 public class Titulacion implements java.io.Serializable {
 
 	@Id
@@ -28,7 +29,7 @@ public class Titulacion implements java.io.Serializable {
 	private Integer anyoFinalizacion;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
 

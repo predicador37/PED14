@@ -20,6 +20,7 @@ import es.uned.ped14.account.AccountRepository;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
+import es.uned.ped14.curso.CursoFormacion;
 
 @Service
 public class CurriculumService {
@@ -61,10 +62,15 @@ public class CurriculumService {
 		Titulacion titulacion3 = new Titulacion("Ingeniero Informático", 2005);
 		Titulacion titulacion4 = new Titulacion("Ingeniero de Telecomunicaciones", 2004);
 		
+		CursoFormacion curso1 = new CursoFormacion("Curso de desarrollo ágil de software",(Integer) 20 , formatoFecha.parse("05/06/2015"));
+		CursoFormacion curso2 = new CursoFormacion("Curso de java",(Integer) 20 , formatoFecha.parse("05/06/2015"));
+		
 		Conocimiento conocimiento1 = new Conocimiento("java", NivelConocimiento.ALTO);
 		Conocimiento conocimiento2 = new Conocimiento("unix", NivelConocimiento.ALTO);
 		Conocimiento conocimiento3 = new Conocimiento("java", NivelConocimiento.BAJO);
 		Conocimiento conocimiento4 = new Conocimiento("unix", NivelConocimiento.BAJO);
+		
+		
 		
 		Account user1 = new Account("miguel.exposito@gmail.com", "miguel", "ROLE_USER");
 		Account user2 = new Account("anapa@gmail.com", "anapa", "ROLE_USER");
@@ -96,6 +102,7 @@ public class CurriculumService {
 		demoCurriculum1.addConocimiento(conocimiento2);
 		demoCurriculum2.addExperiencia(experiencia2);
 		demoCurriculum2.addTitulacion(titulacion1);
+		demoCurriculum2.addCurso(curso1);
 		demoCurriculum2.addConocimiento(conocimiento1);
 		demoCurriculum1.addExperiencia(experiencia3);
 		demoCurriculum4.addExperiencia(experiencia4);

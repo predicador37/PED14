@@ -82,7 +82,7 @@ public class Curriculum implements java.io.Serializable {
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<CursoFormacion> cursos = new ArrayList<CursoFormacion>();
 
-	protected Curriculum() {
+	public Curriculum() {
 
 	}
 

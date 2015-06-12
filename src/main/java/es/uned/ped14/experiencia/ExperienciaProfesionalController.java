@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +18,24 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.*;
+import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.curriculum.CurriculumRepository;
+import es.uned.ped14.curriculum.CurriculumService;
 import es.uned.ped14.support.web.*;
 
 @Controller
 @RequestMapping("/experiencia")
 public class ExperienciaProfesionalController {
-
-    private static final String CREATE_VIEW_NAME = "experiencia/create";
+	Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
+    
+	private static final String CREATE_VIEW_NAME = "experiencia/create";
     private static final String LIST_VIEW_NAME = "experiencia/list";
 
 	@Autowired
 	private ExperienciaProfesionalService experienciaService;
+	
+	@Autowired
+	private CurriculumService curriculumService;
 	
 	@RequestMapping(value = "/create")
 	public String experiencia(Model model) {
@@ -50,8 +59,14 @@ public class ExperienciaProfesionalController {
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
 	 	  ModelAndView mav = new ModelAndView("experiencia/edit");
-	 	  ExperienciaProfesional experiencia = experienciaService.findOne(id);
-	 	  mav.addObject("experiencia", experiencia);
+	 	 
+		try {
+			 ExperienciaProfesional experiencia = experienciaService.findOne(id);
+			mav.addObject("experiencia", experiencia);
+		} catch (ExperienciaProfesionalNotFoundException e) {
+			logger.error("Experiencia profesional no encontrada");
+		}
+	 	  
 	 	  return mav;
 	 	 }
 	 	  
@@ -64,7 +79,7 @@ public class ExperienciaProfesionalController {
 	 	  }
 	 	  experienciaService.save(experiencia);
 	 	  status.setComplete();
-	 	  return "redirect:/experiencia/list";
+	 	  return "redirect:/curriculum/show/"+experiencia.getCurriculum().getId();
 	 	 }
 	 
 	
@@ -72,11 +87,24 @@ public class ExperienciaProfesionalController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 		
-		experienciaService.delete(id);
-		
-        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
-      
-		return "redirect:/experiencia/list";
+		Long curriculumId = null;
+		try {
+			ExperienciaProfesional experiencia = experienciaService.findOne(id);
+			Curriculum curriculum = experiencia.getCurriculum();
+			curriculumId = curriculum.getId();
+			curriculum.removeExperiencia(experiencia);
+			curriculumService.save(curriculum);
+			//(titulacionService.delete(titulacion);
+		} catch (ExperienciaProfesionalNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 
+	
+	
+    // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+  
+	return "redirect:/curriculum/show/"+curriculumId;
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
