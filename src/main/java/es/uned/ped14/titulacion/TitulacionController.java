@@ -39,14 +39,14 @@ public class TitulacionController {
 	private CurriculumService curriculumService;
 	
 	@RequestMapping(value = "/create/{id}")
-	public String titulacion(@PathVariable("id")Long id, Model model) {
+	public String create(@PathVariable("id")Long id, Model model) {
 		model.addAttribute("titulacion", new TitulacionForm());
 		model.addAttribute("curriculumId",id);
         return CREATE_VIEW_NAME;
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Valid @ModelAttribute("titulacion") TitulacionForm titulacionForm,  @ModelAttribute("curriculumId") Long curriculumId, Errors errors, RedirectAttributes ra) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String add(@Valid @ModelAttribute("titulacion") TitulacionForm titulacionForm,  @ModelAttribute("curriculumId") Long curriculumId, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return CREATE_VIEW_NAME;
 		}
