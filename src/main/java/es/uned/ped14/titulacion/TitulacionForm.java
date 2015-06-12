@@ -11,8 +11,11 @@ public class TitulacionForm {
     @NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
     private Integer anyoFinalizacion;
+    private Long curriculumId;
 
- 
+    public TitulacionForm() {
+    	
+    }
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -31,6 +34,14 @@ public class TitulacionForm {
 
 	public Titulacion createTitulacion() {
         return new Titulacion(getDescripcion(), getAnyoFinalizacion());
+	}
+
+	public Long getCurriculumId() {
+		return curriculumId;
+	}
+
+	public void setCurriculumId(Long curriculumId) {
+		this.curriculumId = curriculumId;
 	}
 
 

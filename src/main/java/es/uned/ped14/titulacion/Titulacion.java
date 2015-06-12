@@ -33,7 +33,7 @@ public class Titulacion implements java.io.Serializable {
 	@JoinColumn(name="curriculum_id")
 	private Curriculum curriculum;
 
-    protected Titulacion() {
+    public Titulacion() {
 
 	}
 	

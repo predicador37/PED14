@@ -218,9 +218,13 @@ public class CurriculumService {
 		
 	}
 	
-	public Curriculum  findOne(Long id) {
-		return curriculumRepositoryInterface.findOne(id);
+	public Curriculum  findOne(Long id) throws CurriculumNotFoundException {
 		
+		Curriculum curriculum = curriculumRepositoryInterface.findOne(id);
+		if (curriculum == null){
+			throw new CurriculumNotFoundException("No se encuentra el curriculum especificado");
+		}
+		return curriculum;
 	}
 
 }

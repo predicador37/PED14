@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.*;
 import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumRepository;
 import es.uned.ped14.curriculum.CurriculumService;
 import es.uned.ped14.support.web.*;
@@ -40,24 +41,34 @@ public class TitulacionController {
 	
 	@RequestMapping(value = "/create/{id}")
 	public String create(@PathVariable("id")Long id, Model model) {
-		model.addAttribute("titulacion", new TitulacionForm());
-		model.addAttribute("curriculumId",id);
+		TitulacionForm titulacionForm = new TitulacionForm();
+		titulacionForm.setCurriculumId(id);
+		model.addAttribute("titulacionForm", titulacionForm);
         return CREATE_VIEW_NAME;
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("titulacion") TitulacionForm titulacionForm,  @ModelAttribute("curriculumId") Long curriculumId, Errors errors, RedirectAttributes ra) {
+	public String add(@Valid @ModelAttribute("titulacionForm") TitulacionForm titulacionForm,  Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return CREATE_VIEW_NAME;
 		}
-	    Titulacion titulacion = titulacionForm.createTitulacion();
-	    titulacion.setCurriculum(curriculumService.findOne(curriculumId));
-	    System.out.println("id del curriculum asociado a la nueva titulacion: " + titulacion.getCurriculum().getId());
-		titulacionService.save(titulacion);
+	    
+	   Curriculum curriculum = new Curriculum();
+		try {
+			Titulacion titulacion = titulacionForm.createTitulacion();
+			 curriculum = curriculumService.findOne(titulacionForm.getCurriculumId());
+			 curriculum.addTitulacion(titulacion);
+			 curriculumService.save(curriculum);
+		} catch (CurriculumNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.error("Curriculum no encontrado");
+			e.printStackTrace();
+		}
+	    
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "redirect:titulacion/list";
+		return "redirect:/curriculum/show/"+curriculum.getId();
 	}
 	
 	 @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -106,6 +117,7 @@ public class TitulacionController {
 			} catch (TitulacionNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				logger.error("Titulación no encontrada");
 			}
 		 
 		
@@ -136,8 +148,16 @@ public class TitulacionController {
 	
 	@RequestMapping(value = "/list/user/{id}", method = RequestMethod.GET)
 	public String listByUser(@PathVariable("id") Long id, ModelMap model) throws TitulacionNotFoundException  {
-		 Curriculum curriculum = curriculumService.findOne(id);
-		 model.addAttribute("titulaciones", titulacionService.findByCurriculum(curriculum));
+		 Curriculum curriculum;
+		try {
+			curriculum = curriculumService.findOne(id);
+			 model.addAttribute("titulaciones", titulacionService.findByCurriculum(curriculum));
+		} catch (CurriculumNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.error("Curriculum no encontrado");
+			e.printStackTrace();
+		}
+		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
 		return "titulacion/list";

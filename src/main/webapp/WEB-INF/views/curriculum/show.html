@@ -128,7 +128,7 @@
                           <h3 class="titulo-contenedor-formulario-login">Titulaciones</h3>
                         </div>
                         <div class="col-lg-3 pull-right">
-                          <a th:href="@{'/titulacion/create/'${curriculum.id}}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nueva titulación</a>
+                          <a th:href="@{/titulacion/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nueva titulación</a>
                         </div>
                       </div>
                     </div>
@@ -145,7 +145,7 @@
                               <td th:text="${titulacion.id}"></td>
                               <td th:text="${titulacion.descripcion}"></td>
                               <td th:text="${titulacion.anyoFinalizacion}"></td>
-                              <td><a th:href="@{/titulacion/curriculum/} + ${curriculum.id} + @{/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
+                              <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
                             </tr>
                           </tbody>
