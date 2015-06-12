@@ -37,3 +37,6 @@ a:hover{color:#04D6A1!important;text-decoration: none;}
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {background-color: #B7E2D8; border-color: #DDD;}
 .titulo-pagina{margin-top:0px;}
 .subir-archivo{border: none;box-shadow: none;padding: 0px;}
+
+.columna-30{width: 30%;}
+.columna-70{width: 70%;}
