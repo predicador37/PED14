@@ -32,6 +32,9 @@ public class TitulacionService {
 	 
 	@Autowired
 	private TitulacionRepositoryInterface titulacionRepository;
+	
+	@Autowired
+	private TitulacionRepository titulacionRepositoryImpl;
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -93,6 +96,14 @@ public class TitulacionService {
 	public Titulacion  findOne(Long id) {
 		return titulacionRepository.findOne(id);
 		
+	}
+	
+	public List<Titulacion> findByCurriculum(Curriculum curriculum) throws TitulacionNotFoundException {
+		List<Titulacion> titulaciones = titulacionRepositoryImpl.findByCurriculum(curriculum);
+		if(titulaciones.isEmpty()) {
+			throw new TitulacionNotFoundException("No se encontraron titulaciones");
+		}
+		return titulaciones;
 	}
 	
 	}

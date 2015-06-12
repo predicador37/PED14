@@ -78,9 +78,11 @@ public class Curriculum implements java.io.Serializable {
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, 
 		    org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	private Collection<AsociacionTitulacion> titulaciones = new ArrayList<AsociacionTitulacion>();
+	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
+	
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<CursoFormacion> cursos = new ArrayList<CursoFormacion>();
 

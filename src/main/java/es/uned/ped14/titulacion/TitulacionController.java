@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.*;
+import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumRepository;
+import es.uned.ped14.curriculum.CurriculumService;
 import es.uned.ped14.support.web.*;
 
 @Controller
@@ -32,6 +34,9 @@ public class TitulacionController {
 
 	@Autowired
 	private TitulacionService titulacionService;
+	
+	@Autowired
+	private CurriculumService curriculumService;
 	
 	@RequestMapping(value = "/create")
 	public String titulacion(Model model) {
@@ -60,6 +65,17 @@ public class TitulacionController {
 	 	  mav.addObject("titulacion", titulacion);
 	 	  return mav;
 	 	 }
+	 
+	 @RequestMapping(value="/curriculum/{curriculumId}/edit/{id}", method=RequestMethod.GET)
+ 	 public ModelAndView editByUser(@PathVariable("id")Long id, @PathVariable("curriculumId")Long curriculumId)
+ 	 {
+ 	  ModelAndView mav = new ModelAndView("titulacion/editByCurriculum");
+ 	  Titulacion titulacion = titulacionService.findOne(id);
+ 	  mav.addObject("titulacion", titulacion);
+ 	  mav.addObject("curriculumId", curriculumId);
+ 	  return mav;
+ 	 }
+	 
 	 	  
 	 	 @RequestMapping(value="/update", method=RequestMethod.POST)
 	 	 public String update(@Valid @ModelAttribute("titulacion")Titulacion titulacion, Errors errors, BindingResult result, SessionStatus status)
@@ -71,6 +87,18 @@ public class TitulacionController {
 	 	  titulacionService.save(titulacion);
 	 	  status.setComplete();
 	 	  return "redirect:/titulacion/list";
+	 	 }
+	 	 
+	 	 @RequestMapping(value="/update/curriculum", method=RequestMethod.POST)
+	 	 public String updateCurriculum(@Valid @ModelAttribute("titulacion")Titulacion titulacion, @ModelAttribute("curriculumId")String curriculumId, Errors errors, BindingResult result, SessionStatus status, RedirectAttributes ra)
+	 	 {
+	 	
+	 	  if (errors.hasErrors()) {
+	 	   return "titulacion/editByCurriculum";
+	 	  }
+	 	  titulacionService.save(titulacion);
+	 	  status.setComplete();
+	 	  return "redirect:/curriculum/show/" + curriculumId;
 	 	 }
 	 
 	
@@ -89,6 +117,15 @@ public class TitulacionController {
 	public String list(ModelMap model) throws TitulacionNotFoundException  {
 		
 		 model.addAttribute("titulaciones", titulacionService.findAll());
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+      
+		return "titulacion/list";
+	}
+	
+	@RequestMapping(value = "/list/user/{id}", method = RequestMethod.GET)
+	public String listByUser(@PathVariable("id") Long id, ModelMap model) throws TitulacionNotFoundException  {
+		 Curriculum curriculum = curriculumService.findOne(id);
+		 model.addAttribute("titulaciones", titulacionService.findByCurriculum(curriculum));
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
 		return "titulacion/list";

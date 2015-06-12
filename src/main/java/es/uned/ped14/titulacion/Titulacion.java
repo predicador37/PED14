@@ -18,7 +18,6 @@ import es.uned.ped14.curriculum.Curriculum;
 
 public class Titulacion implements java.io.Serializable {
 
-
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -53,6 +52,10 @@ public class Titulacion implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return this.descripcion;

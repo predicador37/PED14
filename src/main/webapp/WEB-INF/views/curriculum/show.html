@@ -59,6 +59,22 @@
       </tr>
     </table>
     </div>
+      <div  th:if="${titulaciones != null}">
+     <h2>Titulaciones</h2>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Descripción</th>
+      </tr>
+      <tr th:each="titulacion : ${titulaciones}">
+        <td th:text="${titulacion.id}"></td>
+        <td th:text="${titulacion.descripcion}"></td>
+        
+        <td><a th:href="@{/titulacion/curriculum/} + ${curriculum.id} + @{/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
+        <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
+      </tr>
+    </table>
+    </div>
     <div  th:if="${cursos != null}">
    <h2>Cursos de formación</h2>
   
@@ -79,6 +95,7 @@
       </tr>
     </table>
   </div>
+  
     <p>
       <a href="../home.html" th:href="@{/}">Página principal</a>
     </p>

@@ -25,6 +25,9 @@ import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.experiencia.ExperienciaProfesionalNotFoundException;
 import es.uned.ped14.experiencia.ExperienciaProfesionalService;
 import es.uned.ped14.support.web.*;
+import es.uned.ped14.titulacion.Titulacion;
+import es.uned.ped14.titulacion.TitulacionNotFoundException;
+import es.uned.ped14.titulacion.TitulacionService;
 
 @Controller
 @RequestMapping("/curriculum")
@@ -38,6 +41,9 @@ public class CurriculumController {
 	
 	@Autowired
 	private CursoFormacionService cursoFormacionService;
+	
+	@Autowired
+	private TitulacionService titulacionService;
 	
 	@Autowired
 	private ExperienciaProfesionalService experienciaProfesionalService;
@@ -120,6 +126,13 @@ public class CurriculumController {
 			}
 			catch (ExperienciaProfesionalNotFoundException e) {
 				logger.info("No hay cursos que mostrar");
+			}
+		try{
+			 List<Titulacion> titulaciones = titulacionService.findByCurriculum(curriculum);
+			 mav.addObject("titulaciones", titulaciones);
+			}
+			catch (TitulacionNotFoundException e) {
+				logger.info("No hay titulaciones que mostrar");
 			}
 	 	 mav.addObject("curriculum", curriculum);
 	 	

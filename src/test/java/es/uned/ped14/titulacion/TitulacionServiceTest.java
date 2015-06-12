@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +34,7 @@ public class TitulacionServiceTest {
 	private TitulacionService titulacionService;
 	
 	@Autowired
-	private AsociacionTitulacionRepositoryInterface asociacionTitulacionRepository;
+	private TitulacionRepository titulacionRepository;
 	
 	@Autowired
 	private CurriculumService curriculumService;
@@ -47,12 +48,11 @@ public class TitulacionServiceTest {
 		
 		Curriculum curriculum = curriculumService.findByUserEmail("jose@gmail.com");
 		// act
-		AsociacionTitulacion asociacion = asociacionTitulacionRepository.findByCurriculum(curriculum);
+		List<Titulacion> titulaciones = titulacionRepository.findByCurriculum(curriculum);
 		
-		Titulacion titulacion = asociacion.getTitulacion();
 
 		// assert
-		assertThat(titulacion.getDescripcion()).isEqualTo("Ingeniero de obras públicas");
+		assertThat(titulaciones.iterator().next().getDescripcion()).isEqualTo("Ingeniero de obras públicas");
 		
 	}
 	
