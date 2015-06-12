@@ -9,18 +9,38 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<h1>Titulaciones disponibles</h1>
+<h1>Resultados de búsqueda</h1>
   
     <table>
       <tr>
         <th>Id</th>
         <th>Nombre</th>
         <th>Apellidos</th>
+        <th>Experiencia</th>
+        <th>Titulaciones</th>
+        <th>Conocimientos</th>
       </tr>
       <tr th:each="curriculum : ${curriculos}">
         <td th:text="${curriculum.id}"></td>
         <td th:text="${curriculum.nombre}"></td>
         <td th:text="${curriculum.apellidos}"></td>
+        <td th:text="${curriculum.experiencia}"></td>
+        <td>
+        <table>
+        <tr th:each="titulacion : ${curriculum.titulaciones}">
+   			 <td th:text="${titulacion.descripcion}"></td>
+    	</tr>
+    	</table>
+    	</td>
+    	<td>
+    	<table>
+    	<tr th:each="conocimiento : ${curriculum.conocimientos}">
+   			 <td th:text="${conocimiento.descripcion}"></td>
+   			 <td th:text="${conocimiento.nivelConocimiento}"></td>
+    	</tr>
+    	</table>
+        </td>
+         <td><a th:href="@{/curriculum/show/} + ${curriculum.id}"><span>Ver detalle</span></a></td>
         <td><a th:href="@{/curriculum/edit/} + ${curriculum.id}"><span>Editar</span></a></td>
         <td><a th:href="@{/curriculum/delete/} + ${curriculum.id}"><span>Eliminar</span></a></td>
       </tr>

@@ -163,4 +163,32 @@ public class CurriculumController {
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
 	}
 	
+	@RequestMapping(value = "/search")
+	public String search(Model model) {
+		model.addAttribute("curriculumSearchForm", new CurriculumSearchForm());
+        return "curriculum/search";
+	}
+	
+	@RequestMapping(value = "/results", method = RequestMethod.POST)
+	public String results(@Valid @ModelAttribute("curriculumForm") CurriculumSearchForm curriculumSearchForm, ModelMap model, Errors errors, RedirectAttributes ra) {
+		if (errors.hasErrors()) {
+			return "curriculum/search";
+		}
+		
+		try {
+			List<Curriculum> curriculos = curriculumService.findByOptionalParameters(curriculumSearchForm.getPais(), 
+											curriculumSearchForm.getCiudad(), curriculumSearchForm.getExperiencia(), 
+											curriculumSearchForm.getTitulacion(), curriculumSearchForm.getConocimiento());
+			model.addAttribute("curriculos", curriculos);
+		} catch (CurriculumNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.error("No se encontraron currículos para la búsqueda");
+		}
+		
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+		
+		return "curriculum/list";
+	}
+	
 }
