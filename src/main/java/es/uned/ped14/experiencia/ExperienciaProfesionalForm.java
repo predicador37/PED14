@@ -16,6 +16,11 @@ public class ExperienciaProfesionalForm {
     private String empresa;
     private Date fechaInicio;
     private Date fechaFin;
+    private Long curriculumId;
+    
+    public ExperienciaProfesionalForm(){
+    	
+    }
  
 	public String getDescripcion() {
 		return descripcion;
@@ -62,7 +67,15 @@ public class ExperienciaProfesionalForm {
 		this.fechaFin = fechaFin;
 	}
 
+	public Long getCurriculumId() {
+		return curriculumId;
+	}
 
+	public void setCurriculumId(Long curriculumId) {
+		this.curriculumId = curriculumId;
+	}
+
+	
 
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.*;
 import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumRepository;
 import es.uned.ped14.curriculum.CurriculumService;
 import es.uned.ped14.support.web.*;
@@ -26,9 +27,10 @@ import es.uned.ped14.support.web.*;
 @Controller
 @RequestMapping("/experiencia")
 public class ExperienciaProfesionalController {
-	Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
+
+    private static final String CREATE_VIEW_NAME = "experiencia/create";
+    Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
     
-	private static final String CREATE_VIEW_NAME = "experiencia/create";
     private static final String LIST_VIEW_NAME = "experiencia/list";
 
 	@Autowired
@@ -37,80 +39,125 @@ public class ExperienciaProfesionalController {
 	@Autowired
 	private CurriculumService curriculumService;
 	
-	@RequestMapping(value = "/create")
-	public String experiencia(Model model) {
-		model.addAttribute(new ExperienciaProfesionalForm());
+	@RequestMapping(value = "/create/{id}")
+	public String create(@PathVariable("id")Long id, Model model) {
+		ExperienciaProfesionalForm experienciaForm = new ExperienciaProfesionalForm();
+		experienciaForm.setCurriculumId(id);
+		model.addAttribute("experienciaForm", experienciaForm);
         return CREATE_VIEW_NAME;
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Valid @ModelAttribute ExperienciaProfesionalForm experienciaForm, Errors errors, RedirectAttributes ra) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String add(@Valid @ModelAttribute("experienciaForm") ExperienciaProfesionalForm experienciaForm,  Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return CREATE_VIEW_NAME;
 		}
-		experienciaService.save(experienciaForm.createExperienciaProfesional());
+	    
+	   Curriculum curriculum = new Curriculum();
+		try {
+			ExperienciaProfesional experiencia = experienciaForm.createExperienciaProfesional();
+			 curriculum = curriculumService.findOne(experienciaForm.getCurriculumId());
+			 curriculum.addExperiencia(experiencia);
+			 curriculumService.save(curriculum);
+		} catch (CurriculumNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.error("Curriculum no encontrado");
+			e.printStackTrace();
+		}
+	    
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "redirect:/experiencia/list";
+		return "redirect:/curriculum/show/"+curriculum.getId();
 	}
 	
 	 @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
 	 	  ModelAndView mav = new ModelAndView("experiencia/edit");
-	 	 
+	 	
 		try {
-			 ExperienciaProfesional experiencia = experienciaService.findOne(id);
-			mav.addObject("experiencia", experiencia);
+			  ExperienciaProfesional experiencia = experienciaService.findOne(id);
+			  mav.addObject("experiencia", experiencia);
+
 		} catch (ExperienciaProfesionalNotFoundException e) {
-			logger.error("Experiencia profesional no encontrada");
+			// TODO Auto-generated catch block
+			logger.error("No se encuentra experiencia");
 		}
-	 	  
+		 
 	 	  return mav;
 	 	 }
 	 	  
 	 	 @RequestMapping(value="/update", method=RequestMethod.POST)
-	 	 public String update(@Valid @ModelAttribute("experiencia")ExperienciaProfesional experiencia, Errors errors, BindingResult result, SessionStatus status)
+	 	 public String update(@Valid @ModelAttribute("experiencia")ExperienciaProfesional experiencia, Errors errors, RedirectAttributes ra)
 	 	 {
-	 	
 	 	  if (errors.hasErrors()) {
 	 	   return "experiencia/edit";
 	 	  }
 	 	  experienciaService.save(experiencia);
-	 	  status.setComplete();
+	 	 
 	 	  return "redirect:/curriculum/show/"+experiencia.getCurriculum().getId();
 	 	 }
+	 	 
 	 
+	 	
 	
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
+	
+		    Long curriculumId = null;
+			try {
+				ExperienciaProfesional experiencia = experienciaService.findOne(id);
+				Curriculum curriculum = experiencia.getCurriculum();
+				curriculumId = curriculum.getId();
+				curriculum.removeExperiencia(experiencia);
+				curriculumService.save(curriculum);
+				experienciaService.delete(experiencia);
+			} catch (ExperienciaProfesionalNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				logger.error("Titulación no encontrada");
+			}
+		 
 		
-		Long curriculumId = null;
-		try {
-			ExperienciaProfesional experiencia = experienciaService.findOne(id);
-			Curriculum curriculum = experiencia.getCurriculum();
-			curriculumId = curriculum.getId();
-			curriculum.removeExperiencia(experiencia);
-			curriculumService.save(curriculum);
-			//(titulacionService.delete(titulacion);
-		} catch (ExperienciaProfesionalNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	 
-	
-	
-    // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
-  
-	return "redirect:/curriculum/show/"+curriculumId;
+		
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+      
+		return "redirect:/curriculum/show/"+curriculumId;
 	}
+	
+	@RequestMapping(value = "/curriculum/{curriculumId}/remove/{id}", method = RequestMethod.GET)
+	public String removeFromUser(@PathVariable("curriculumId") Long curriculumId, @PathVariable("id") Long id) {
+	
+		
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+      
+		return "redirect:/experiencia/list";
+	}
+	
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(ModelMap model) throws ExperienciaProfesionalNotFoundException  {
 		
-		 model.addAttribute("experienciaes", experienciaService.findAll());
+		 model.addAttribute("experiencias", experienciaService.findAll());
+        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+      
+		return "experiencia/list";
+	}
+	
+	@RequestMapping(value = "/list/user/{id}", method = RequestMethod.GET)
+	public String listByUser(@PathVariable("id") Long id, ModelMap model) throws ExperienciaProfesionalNotFoundException  {
+		 Curriculum curriculum;
+		try {
+			curriculum = curriculumService.findOne(id);
+			 model.addAttribute("experiencias", experienciaService.findByCurriculum(curriculum));
+		} catch (CurriculumNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.error("Curriculum no encontrado");
+			e.printStackTrace();
+		}
+		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
 		return "experiencia/list";

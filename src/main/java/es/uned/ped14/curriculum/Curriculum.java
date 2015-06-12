@@ -79,6 +79,7 @@ public class Curriculum implements java.io.Serializable {
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
 	private Collection<CursoFormacion> cursos = new ArrayList<CursoFormacion>();
 

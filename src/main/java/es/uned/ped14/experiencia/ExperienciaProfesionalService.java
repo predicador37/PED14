@@ -76,8 +76,8 @@ public class ExperienciaProfesionalService {
 	}
 	
 	
-	public void  delete(Long id) {
-		experienciaProfesionalRepository.delete(id);
+	public void  delete(ExperienciaProfesional experiencia) {
+		experienciaProfesionalRepository.delete(experiencia);
 		
 	}
 	
