@@ -9,18 +9,26 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<h1>Titulaciones disponibles</h1>
+<h1>Experiencia Profesional</h1>
   
     <table>
       <tr>
         <th>Id</th>
+        <th>Cargo</th>
+        <th>Empresa</th>
         <th>Descripción</th>
+        <th>Fecha inicio</th>
+        <th>Fecha fin</th>
       </tr>
-      <tr th:each="titulacion : ${titulaciones}">
-        <td th:text="${titulacion.id}"></td>
-        <td th:text="${titulacion.descripcion}"></td>
-        <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
-        <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
+      <tr th:each="experiencia : ${experiencias}">
+        <td th:text="${experiencia.id}"></td>
+         <td th:text="${experiencia.cargo}"></td>
+         <td th:text="${experiencia.empresa}"></td>
+        <td th:text="${experiencia.descripcion}"></td>
+        <td th:text="${experiencia.fechaInicio}"></td>
+        <td th:text="${experiencia.fechaFin}"></td>
+        <td><a th:href="@{/experiencia/edit/} + ${experiencia.id}"><span>Editar</span></a></td>
+        <td><a th:href="@{/experiencia/delete/} + ${experiencia.id}"><span>Eliminar</span></a></td>
       </tr>
     </table>
   

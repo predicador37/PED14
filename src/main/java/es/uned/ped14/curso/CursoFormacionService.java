@@ -55,12 +55,12 @@ public class CursoFormacionService {
 
 	}
 	 
-	public CursoFormacion findByCurriculum(Curriculum curriculum) throws CursoFormacionNotFoundException {
-		CursoFormacion curso = cursoFormacionRepository.findByCurriculum(curriculum);
-		if(curso == null) {
+	public List<CursoFormacion> findByCurriculum(Curriculum curriculum) throws CursoFormacionNotFoundException {
+		List<CursoFormacion> cursos = cursoFormacionRepository.findByCurriculum(curriculum);
+		if(cursos.isEmpty()) {
 			throw new CursoFormacionNotFoundException("curso not found");
 		}
-		return curso;
+		return cursos;
 	}
 	
 	public CursoFormacion findByDescripcion(String descripcion) throws CursoFormacionNotFoundException {
@@ -81,6 +81,16 @@ public class CursoFormacionService {
 	
 	public void  save(CursoFormacion curso) {
 		cursoFormacionRepository.save(curso);
+		
+	}
+		
+	public void  delete(Long id) {
+		cursoFormacionRepository.delete(id);
+		
+	}
+	
+	public CursoFormacion  findOne(Long id) {
+		return cursoFormacionRepository.findOne(id);
 		
 	}
 	

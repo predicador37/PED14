@@ -9,9 +9,9 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<form class="form-narrow form-horizontal" method="post" th:action="@{/titulacion/create}" th:object="${titulacionForm}">
+<form class="form-narrow form-horizontal" method="post" th:action="@{/curso/create}" th:object="${cursoForm}">
     <!--/* Show general error message when form contains errors */-->
-    <th:block th:if="${#fields.hasErrors('${titulacionForm.*}')}">
+    <th:block th:if="${#fields.hasErrors('${cursoForm.*}')}">
         <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
     </th:block>
     <fieldset>
@@ -19,8 +19,22 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('descripcion')}? 'has-error'">
             <label for="descripcion" class="col-lg-2 control-label">Descripción</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="descripcion" placeholder="Ej: Ingeniería Informática" th:field="*{descripcion}"/>
+                <input type="text" class="form-control" id="descripcion" placeholder="Ej: Curso de java" th:field="*{descripcion}"/>
                 <span class="help-block" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Descripción incorrecta</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('numeroHoras')}? 'has-error'">
+            <label for="numeroHoras" class="col-lg-2 control-label">Número de horas</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="descripcion" placeholder="Ej: 20" th:field="*{numeroHoras}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('numeroHoras')}" th:errors="*{numeroHoras}">Número incorrecto</span>
+            </div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('fechaFinalizacion')}? 'has-error'">
+            <label for="fechaFinalizacion" class="col-lg-2 control-label">Fecha de finalización</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="fechaFinalizacion" placeholder="Ej: 5/5/2014" th:field="*{fechaFinalizacion}"/>
+                <span class="help-block" th:if="${#fields.hasErrors('fechaFinalizacion')}" th:errors="*{fechaFinalizacion}">Fecha incorrecta</span>
             </div>
         </div>
       

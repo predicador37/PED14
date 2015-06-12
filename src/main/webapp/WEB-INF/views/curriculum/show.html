@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<h1>Detalle del Currículum</h1>
+<table>
+      <tr>
+        <th>Id</th>
+         <td th:text="${curriculum.id}"></td>
+      </tr>
+       <tr>
+        <th>Nombre</th>
+         <td th:text="${curriculum.nombre}"></td>
+      </tr>
+       <tr>
+        <th>Apellidos</th>
+         <td th:text="${curriculum.apellidos}"></td>
+      </tr>
+       <tr>
+        <th>País</th>
+         <td th:text="${curriculum.pais}"></td>
+      </tr>
+       <tr>
+        <th>Ciudad</th>
+         <td th:text="${curriculum.ciudad}"></td>
+      </tr>
+    
+    </table>
+
+
+<div  th:if="${experiencias != null}">
+     <h2>Experiencia profesional</h2>
+  <p>Experiencia total: <span th:text="${curriculum.experiencia}"></span><span> años</span></p>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Cargo</th>
+        <th>Empresa</th>
+        <th>Descripción</th>
+        <th>Fecha inicio</th>
+        <th>Fecha fin</th>
+      </tr>
+      <tr th:each="experiencia : ${experiencias}">
+        <td th:text="${experiencia.id}"></td>
+        <td th:text="${experiencia.cargo}"></td>
+        <td th:text="${experiencia.empresa}"></td>
+        <td th:text="${experiencia.descripcion}"></td>
+         <td th:text="${experiencia.fechaInicio}"></td>
+         <td th:text="${experiencia.fechaFin}"></td>
+        <td><a th:href="@{/experiencia/edit/} + ${experiencia.id}"><span>Editar</span></a></td>
+        <td><a th:href="@{/experiencia/delete/} + ${experiencia.id}"><span>Eliminar</span></a></td>
+      </tr>
+    </table>
+    </div>
+    <div  th:if="${cursos != null}">
+   <h2>Cursos de formación</h2>
+  
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Descripción</th>
+        <th>Nº de horas</th>
+        <th>Fecha finalización</th>
+      </tr>
+      <tr th:each="curso : ${cursos}">
+        <td th:text="${curso.id}"></td>
+        <td th:text="${curso.descripcion}"></td>
+        <td th:text="${curso.numeroHoras}"></td>
+        <td th:text="${curso.fechaFinalizacion}"></td>
+        <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
+        <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
+      </tr>
+    </table>
+  </div>
+    <p>
+      <a href="../home.html" th:href="@{/}">Página principal</a>
+    </p>
+
+</body>
+</html>

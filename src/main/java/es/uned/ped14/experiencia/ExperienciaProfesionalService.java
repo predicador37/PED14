@@ -38,12 +38,12 @@ public class ExperienciaProfesionalService {
 	}
 	 
 	
-	public ExperienciaProfesional findByCurriculum(Curriculum curriculum) throws ExperienciaProfesionalNotFoundException {
-		ExperienciaProfesional experiencia = experienciaProfesionalRepository.findByCurriculum(curriculum);
-		if(experiencia == null) {
+	public List<ExperienciaProfesional> findByCurriculum(Curriculum curriculum) throws ExperienciaProfesionalNotFoundException {
+		List<ExperienciaProfesional> experiencias = experienciaProfesionalRepository.findByCurriculum(curriculum);
+		if(experiencias.isEmpty()) {
 			throw new ExperienciaProfesionalNotFoundException("Experiencia not found");
 		}
-		return experiencia;
+		return experiencias;
 	}
 	
 	public ExperienciaProfesional findByEmpresa(String empresa) throws ExperienciaProfesionalNotFoundException {
@@ -72,6 +72,17 @@ public class ExperienciaProfesionalService {
 	
 	public void  save(ExperienciaProfesional experiencia) {
 		experienciaProfesionalRepository.save(experiencia);
+		
+	}
+	
+	
+	public void  delete(Long id) {
+		experienciaProfesionalRepository.delete(id);
+		
+	}
+	
+	public ExperienciaProfesional  findOne(Long id) {
+		return experienciaProfesionalRepository.findOne(id);
 		
 	}
 	

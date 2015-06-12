@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,9 +47,9 @@ public class CursoFormacionServiceTest {
 		// act
 		
 		CursoFormacion curso = cursoService.findByCurriculum(curriculum);
-
+		List<CursoFormacion> cursos = cursoService.findByCurriculum(curriculum);
 		// assert
-		assertThat(curso.getDescripcion()).isEqualTo("Curso de desarrollo ágil de software");
+		assertThat(cursos.iterator().next().getDescripcion()).isEqualTo("Curso de desarrollo ágil de software");
 		
 	}
 

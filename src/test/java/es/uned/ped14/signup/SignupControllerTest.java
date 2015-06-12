@@ -18,8 +18,8 @@ public class SignupControllerTest extends WebAppConfigurationAware {
                 .andExpect(view().name("signup/signup"))
                 .andExpect(content().string(
                         allOf(
-                                containsString("<title>Signup</title>"),
-                                containsString("<legend>Please Sign Up</legend>")
+                                containsString("<title>Registro PED14</title>")//,
+                                //containsString("<h3>Nuevo usuario</h3>")
                         ))
                 );
     }

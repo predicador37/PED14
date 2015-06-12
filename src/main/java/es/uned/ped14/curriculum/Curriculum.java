@@ -51,9 +51,9 @@ public class Curriculum implements java.io.Serializable {
 	@Column
 	private String ciudad;
 	@Column
-	private String url_imagen;
+	private String urlImagen;
 	@Column
-	private String url_archivo;
+	private String urlArchivo;
 	@Column
 	private Integer experiencia;
 	
@@ -89,14 +89,14 @@ public class Curriculum implements java.io.Serializable {
 	}
 
 	public Curriculum(String nombre, String apellidos, String pais,
-			String ciudad, String url_imagen, String url_archivo) {
+			String ciudad, String urlImagen, String urlArchivo) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.pais = pais;
 		this.ciudad = ciudad;
-		this.url_imagen = url_imagen;
-		this.url_archivo = url_archivo;
+		this.urlImagen = urlImagen;
+		this.urlArchivo = urlArchivo;
 	}
 
 	public Long getId() {
@@ -135,20 +135,20 @@ public class Curriculum implements java.io.Serializable {
 		this.ciudad = ciudad;
 	}
 
-	public String getUrl_imagen() {
-		return url_imagen;
+	public String getUrlImagen() {
+		return urlImagen;
 	}
 
-	public void setUrl_imagen(String url_imagen) {
-		this.url_imagen = url_imagen;
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 
-	public String getUrl_archivo() {
-		return url_archivo;
+	public String getUrlArchivo() {
+		return urlArchivo;
 	}
 
-	public void setUrl_archivo(String url_archivo) {
-		this.url_archivo = url_archivo;
+	public void setUrlArchivo(String urlArchivo) {
+		this.urlArchivo = urlArchivo;
 	}
 
 	/**
@@ -341,16 +341,16 @@ public class Curriculum implements java.io.Serializable {
 		Integer mesesExperiencia = 0;
 		for (ExperienciaProfesional e : experiencias) {
 			mesesExperiencia = mesesExperiencia
-					+ ((e.getFecha_fin().getYear() * 12 + e.getFecha_fin()
+					+ ((e.getFechaFin().getYear() * 12 + e.getFechaFin()
 							.getMonth())
-							- (e.getFecha_inicio().getYear() * 12 + e
-									.getFecha_inicio().getMonth()) + 1);
+							- (e.getFechaInicio().getYear() * 12 + e
+									.getFechaInicio().getMonth()) + 1);
 		}
 		experiencia = mesesExperiencia;
 	}
 
 	public Integer getExperiencia() {
-		return experiencia;
+		return experiencia/12;
 	}
 	
 	@Override

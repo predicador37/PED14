@@ -44,6 +44,9 @@ public class CurriculumService {
 	private CurriculumRepository curriculumRepositoryImp;
 	
 	@Autowired
+	private CurriculumRepositoryInterface curriculumRepositoryInterface;
+	
+	@Autowired
 	private AccountRepository accountRepository;
 	
 	@PostConstruct	
@@ -203,7 +206,18 @@ public class CurriculumService {
 	}
 	
 	public void  save(Curriculum curriculum) {
-		curriculumRepository.save(curriculum);
+		curriculumRepositoryInterface.save(curriculum);
+		
+	}
+	
+
+	public void  delete(Long id) {
+		curriculumRepositoryInterface.delete(id);
+		
+	}
+	
+	public Curriculum  findOne(Long id) {
+		return curriculumRepositoryInterface.findOne(id);
 		
 	}
 
