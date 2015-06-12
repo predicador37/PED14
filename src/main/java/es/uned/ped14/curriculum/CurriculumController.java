@@ -71,8 +71,15 @@ public class CurriculumController {
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
 	 	  ModelAndView mav = new ModelAndView("curriculum/edit");
-	 	  Curriculum curriculum = curriculumService.findOne(id);
-	 	  mav.addObject("curriculum", curriculum);
+	 	 
+		try {
+			 Curriculum curriculum = curriculumService.findOne(id);
+			 mav.addObject("curriculum", curriculum);
+		} catch (CurriculumNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 	  
 	 	  return mav;
 	 	 }
 	 	  
