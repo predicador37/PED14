@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Detalle de curriculum. PED14</title>
+    <title>Detalle de currículum. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
@@ -23,19 +23,19 @@
             <div class="col-md-3">
                <div class="list-group">
                     <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
-                    <a class="list-group-item active" href="../home/curriculum/create.html" th:href="@{/curriculum/create}">Mi curriculum</a>
+                    <a class="list-group-item active" href="../home/curriculum/create.html" th:href="@{/curriculum/create}">Mi currículum</a>
                     <a href="/userOut" th:href="@{/}" class="list-group-item">Darme de baja</a>
                     <a class="list-group-item" href="/enableFields" th:href="@{/enableFields}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
-                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesion</a>
+                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
                 </div>
             </div> 
 
             <div class="col-md-9">
-                <h2 class="titulo-pagina">Detalle de curriculum</h2>
+                <h2 class="titulo-pagina">Detalle de currículum</h2>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="titulo-contenedor-formulario-login">Informacion general</h3>
+                        <h3 class="titulo-contenedor-formulario-login">Información general</h3>
                     </div>
                     <div class="panel-body">
                       <table class="tabla-ficha table table-striped table-bordered">
@@ -53,7 +53,7 @@
                             <td class="columna-70 td-small" th:text="${curriculum.apellidos}"></td>
                           </tr>
                           <tr>
-                            <td class="columna-30 td-small">Pais</td>
+                            <td class="columna-30 td-small">País</td>
                             <td class="columna-70 td-small" th:text="${curriculum.pais}"></td>
                           </tr>
                           <tr>
