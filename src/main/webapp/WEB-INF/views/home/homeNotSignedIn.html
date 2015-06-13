@@ -10,6 +10,18 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
+
+<script type="text/javascript">
+    //Gestionamos los focos en las pestañas
+    $(document).ready(function () 
+    {
+        $('#opciones-edicion').on('shown.bs.collapse', function () {
+            //HECTOR:paso el foco al primer elemento del formulario al desplegar el collapse
+            $('#pais').focus();
+        })
+    });
+</script>
+
 <div th:replace="fragments/header :: header">Header</div>
 <div class="container">
     <div class="row">
@@ -44,37 +56,37 @@
                             <fieldset>
                                 
                                 <div class="form-group" th:classappend="${#fields.hasErrors('pais')}? 'has-error'">
-                                    <label for="pais" class="col-lg-2 control-label">Pais</label>
+                                    <label for="pais" class="col-lg-2 control-label">País</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="pais" placeholder="Ej.: España" th:field="*{pais}"/>
+                                        <input type="text" class="form-control" id="pais" placeholder="Introduce el país" th:field="*{pais}" autofocus="autofocus"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">Pais incorrecto</span>
                                     </div>
                                 </div>
                                  <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
                                     <label for="ciudad" class="col-lg-2 control-label">Ciudad</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="ciudad" placeholder="Ej.: Santander" th:field="*{ciudad}"/>
+                                        <input type="text" class="form-control" id="ciudad" placeholder="Introduce la ciudad" th:field="*{ciudad}"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">Ciudad incorrecta</span>
                                     </div>
                                 </div>
                               <div class="form-group" th:classappend="${#fields.hasErrors('experiencia')}? 'has-error'">
                                     <label for="experiencia" class="col-lg-2 control-label">Experiencia</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Ej: 5" th:field="*{experiencia}" autofocus="autofocus"/>
+                                        <input type="text" class="form-control" id="nombre" placeholder="Introduce la experiencia" th:field="*{experiencia}" />
                                         <span class="help-block" th:if="${#fields.hasErrors('experiencia')}" th:errors="*{experiencia}">Experiencia incorrecta</span>
                                     </div>
                                 </div>
                                 <div class="form-group" th:classappend="${#fields.hasErrors('titulacion')}? 'has-error'">
                                     <label for="titulacion" class="col-lg-2 control-label">Titulación</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="titulacion" placeholder="Ej.: Grado en Ingeniería Informática" th:field="*{titulacion}"/>
+                                        <input type="text" class="form-control" id="titulacion" placeholder="Introduce la titulación" th:field="*{titulacion}"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('titulacion')}" th:errors="*{titulacion}">TItulación incorrecta</span>
                                     </div>
                                 </div>
                                  <div class="form-group" th:classappend="${#fields.hasErrors('conocimiento')}? 'has-error'">
                                     <label for="conocimiento" class="col-lg-2 control-label">Conocimiento</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="conocimiento" placeholder="Ej.: unix" th:field="*{conocimiento}"/>
+                                        <input type="text" class="form-control" id="conocimiento" placeholder="Introduce el conocimiento" th:field="*{conocimiento}"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('conocimiento')}" th:errors="*{conocimiento}">Conocimiento incorrecto</span>
                                     </div>
                                 </div>
