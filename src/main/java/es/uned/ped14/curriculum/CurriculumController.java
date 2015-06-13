@@ -1,5 +1,6 @@
 package es.uned.ped14.curriculum;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -50,27 +53,43 @@ public class CurriculumController {
 	private ConocimientoService conocimientoService;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private TitulacionService titulacionService;
 	
 	@Autowired
 	private ExperienciaProfesionalService experienciaProfesionalService;
 	
 	@RequestMapping(value = "/create")
-	public String curriculum(Model model) {
+	public String create(Model model, Authentication authentication,RedirectAttributes ra) {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		Account account = userService.findByEmail(userDetails.getUsername());
+		if (account.getCurriculum() != null){
+			MessageHelper.addErrorAttribute(ra,"curriculum.exists");
+			return "redirect:/";
+		} 
 		model.addAttribute("curriculumForm", new CurriculumForm());
         return CREATE_VIEW_NAME;
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Valid @ModelAttribute("curriculumForm") CurriculumForm curriculumForm, Errors errors, RedirectAttributes ra) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String add(@Valid @ModelAttribute("curriculumForm") CurriculumForm curriculumForm, Authentication authentication, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return CREATE_VIEW_NAME;
 		}
-		curriculumService.save(curriculumForm.createCurriculum());
+		logger.info("Creando currículo y asociando a usuario");
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		Curriculum curriculum = curriculumForm.createCurriculum();
+		Account account = userService.findByEmail(userDetails.getUsername());
+		curriculum.setUser(account);
+		curriculumService.save(curriculum);
+		curriculumService.flush();
+		
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
-		return "redirect:/curriculum/list";
+		return "redirect:/curriculum/show/"+curriculum.getId();
 	}
 	
 	 @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)

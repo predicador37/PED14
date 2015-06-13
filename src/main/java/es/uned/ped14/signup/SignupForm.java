@@ -18,9 +18,6 @@ public class SignupForm {
     @NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
 	private String password;
     
-    @NotBlank(message = SignupForm.USUARIO_MESSAGE)
-	private String usuario;
-    
     @NotBlank(message = SignupForm.PROVINCIA_MESSAGE)
 	private String provincia;
 
@@ -38,14 +35,6 @@ public class SignupForm {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
 	}
 	
 	public String getProvincia() {

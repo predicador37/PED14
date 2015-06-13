@@ -23,15 +23,9 @@
                 <div th:replace="fragments/alert :: alert (type='danger', message='Los datos son incorrectos. Por favor, vuelve a intentarlo.')">Alert</div>
             </th:block>
             <fieldset>
-                <div class="form-group" th:classappend="${#fields.hasErrors('usuario')}? 'has-error'">
-                    <label for="usuario" class="col-lg-3 control-label">Login</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="usuario" placeholder="Login Usuario" th:field="*{usuario}" autofocus="autofocus"/>
-                        <span class="help-block" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}">Login incorrecto</span>
-                    </div>
-                </div>
+               
                 <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
-                    <label for="email" class="col-lg-3 control-label">Email</label>
+                    <label for="email" class="col-lg-3 control-label">Login(e-mail)</label>
                     <div class="col-lg-9">
                         <input type="text" class="form-control" id="email" placeholder="Email" th:field="*{email}" />
                         <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email incorrecto</span>

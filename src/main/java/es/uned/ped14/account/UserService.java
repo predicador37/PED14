@@ -18,6 +18,9 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	@Autowired
+	private AccountRepositoryInterface accountRepositoryInterface;
+	
 	@PostConstruct	
 	protected void initialize() {
 		accountRepository.save(new Account("user", "demo", "ROLE_USER"));
@@ -31,6 +34,15 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException("user not found");
 		}
 		return createUser(account);
+	}
+	
+	
+	public Account findByEmail(String username) throws UsernameNotFoundException {
+		Account account = accountRepository.findByEmail(username);
+		if(account == null) {
+			throw new UsernameNotFoundException("user not found");
+		}
+		return account;
 	}
 	
 	public void signin(Account account) {
@@ -51,6 +63,11 @@ public class UserService implements UserDetailsService {
 	
 	public void  save(Account user) {
 		accountRepository.save(user);
+		
+	}
+	
+	public void  flush() {
+		accountRepositoryInterface.flush();
 		
 	}
 

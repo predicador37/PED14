@@ -35,9 +35,10 @@ public class SignupController {
 			return SIGNUP_VIEW_NAME;
 		}
 		Account account = accountRepository.save(signupForm.createAccount());
+		userService.flush();
 		userService.signin(account);
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
         MessageHelper.addSuccessAttribute(ra, "signup.success");
-		return "redirect:/";
+		return "redirect:/curriculum/create";
 	}
 }
