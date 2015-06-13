@@ -241,7 +241,7 @@ public class Curriculum implements java.io.Serializable {
 				if (!titulaciones.contains(titulacion))
 					return;
 				// remove the account
-				conocimientos.remove(titulacion);
+				titulaciones.remove(titulacion);
 				// remove myself from the twitter account
 				titulacion.setCurriculum(null);
 	}

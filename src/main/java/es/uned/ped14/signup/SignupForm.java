@@ -3,6 +3,7 @@ package es.uned.ped14.signup;
 import org.hibernate.validator.constraints.*;
 
 import es.uned.ped14.account.Account;
+import es.uned.ped14.account.Role;
 
 public class SignupForm {
 
@@ -46,7 +47,10 @@ public class SignupForm {
 	}
 
 	public Account createAccount() {
-        return new Account(getEmail(), getPassword(), "ROLE_USER");
+		Role role = new Role("ROLE_USER");
+		Account user = new Account(getEmail(), getPassword());
+		user.addRole(role);
+        return user;
 	}
 
 }

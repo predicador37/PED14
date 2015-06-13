@@ -17,6 +17,8 @@ import es.uned.ped14.experiencia.ExperienciaProfesionalNotFoundException;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.Role;
+import es.uned.ped14.account.RoleRepositoryInterface;
 import es.uned.ped14.account.UserService;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
@@ -38,13 +40,17 @@ public class CursoFormacionService {
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	@Autowired
+	private RoleRepositoryInterface roleRepository;
+	
 	
 	@PostConstruct	
 	protected void initialize() throws ParseException {
 		logger.info("Inicializar data para servicio de cursos");
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-		
-		Account user1 = new Account("miguel@gmail.com", "miguel", "ROLE_USER");
+		Role role1 = new Role("ROLE_USER");
+		Account user1 = new Account("miguel@gmail.com", "miguel");
+		user1.addRole(role1);
 		Curriculum curriculum = new Curriculum("Manuel", "Gutiérrez", "España", "Valladolid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		curriculum.setUser(user1);
 		CursoFormacion curso = new CursoFormacion("Curso de desarrollo ágil de software",(Integer) 20 , formatoFecha.parse("05/06/2015"));

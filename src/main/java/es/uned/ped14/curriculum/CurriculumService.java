@@ -17,6 +17,8 @@ import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.titulacion.TitulacionRepositoryInterface;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.Role;
+import es.uned.ped14.account.RoleRepositoryInterface;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
@@ -35,6 +37,8 @@ public class CurriculumService {
 	@Autowired
 	private ExperienciaProfesionalRepositoryInterface experienciaProfesionalRepository;
 	
+	@Autowired
+	private RoleRepositoryInterface roleRepository;
 	
 	@Autowired
 	private CurriculumRepository curriculumRepositoryImp;
@@ -70,10 +74,14 @@ public class CurriculumService {
 		Conocimiento conocimiento3 = new Conocimiento("java", NivelConocimiento.BAJO);
 		Conocimiento conocimiento4 = new Conocimiento("unix", NivelConocimiento.BAJO);
 		
-		
-		
-		Account user1 = new Account("miguel.exposito@gmail.com", "miguel", "ROLE_USER");
-		Account user2 = new Account("anapa@gmail.com", "anapa", "ROLE_USER");
+		Role role1 = new Role("ROLE_USER");
+		Role role2 = new Role("ROLE_CREATE");
+		Role role3 = new Role("ROLE_USER");
+		Account user1 = new Account("miguel.exposito@gmail.com", "miguel");
+		Account user2 = new Account("anapa@gmail.com", "anapa");
+		user1.addRole(role1);
+		user2.addRole(role2);
+		user2.addRole(role3);
 		
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito", "España", "Santander", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		Curriculum demoCurriculum2 = new Curriculum("Héctor", "Garnacho", "España", "Valladolid", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");

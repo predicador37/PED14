@@ -1,6 +1,8 @@
 package es.uned.ped14.account;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -19,12 +21,21 @@ public class UserService implements UserDetailsService {
 	private AccountRepository accountRepository;
 	
 	@Autowired
+	private RoleRepositoryInterface roleRepository;
+	
+	@Autowired
 	private AccountRepositoryInterface accountRepositoryInterface;
 	
 	@PostConstruct	
 	protected void initialize() {
-		accountRepository.save(new Account("user", "demo", "ROLE_USER"));
-		accountRepository.save(new Account("admin@admin.com", "admin", "ROLE_ADMIN"));
+		Role role1 = new Role("ROLE_ADMIN");
+		Role role2 = new Role("ROLE_USER");
+		Account user1 = new Account("user", "demo");
+		Account user2 = new Account("admin@admin.com", "admin");
+		user1.addRole(role1);
+		user2.addRole(role2);
+		accountRepository.save(user1);
+		accountRepository.save(user2);
 	}
 	
 	@Override
@@ -50,15 +61,19 @@ public class UserService implements UserDetailsService {
 	}
 	
 	private Authentication authenticate(Account account) {
-		return new UsernamePasswordAuthenticationToken(createUser(account), null, Collections.singleton(createAuthority(account)));		
+		return new UsernamePasswordAuthenticationToken(createUser(account), null, createAuthority(account));		
 	}
 	
 	private User createUser(Account account) {
-		return new User(account.getEmail(), account.getPassword(), Collections.singleton(createAuthority(account)));
+		return new User(account.getEmail(), account.getPassword(), createAuthority(account));
 	}
 
-	private GrantedAuthority createAuthority(Account account) {
-		return new SimpleGrantedAuthority(account.getRole());
+	private List<GrantedAuthority> createAuthority(Account account) {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (Role role : account.getRoles()){
+			authorities.add(new SimpleGrantedAuthority(role.toString()));
+		}
+		return authorities;
 	}
 	
 	public void  save(Account user) {

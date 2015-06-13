@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@Secured("ROLE_USER")
+@Secured({"ROLE_USER", "ROLE_RESTRICTED"})
 class AccountController {
 
     private AccountRepository accountRepository;

@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.Role;
 import es.uned.ped14.config.ApplicationConfig;
 import es.uned.ped14.config.JpaConfig;
 import es.uned.ped14.config.SecurityConfig;
@@ -136,7 +137,9 @@ public class CurriculumServiceTest {
 		ExperienciaProfesional experiencia = new ExperienciaProfesional("Project Manager", "EuroDisney", "Gestión de proyectos", formatoFecha.parse("14/10/2000"), formatoFecha.parse("31/12/2014"));
 		Titulacion titulacion = new Titulacion("Licenciado en Administración y Dirección de Empresas", 2006);
 		Conocimiento conocimiento = new Conocimiento("gestión de proyectos", NivelConocimiento.ALTO);
-		Account usuario = accountRepository.save(new Account("nuevo.usuario@gmail.com", "usuario", "ROLE_USER"));
+		Role role = new Role("ROLE_USER");
+		Account usuario = accountRepository.save(new Account("nuevo.usuario@gmail.com", "usuario"));
+		usuario.addRole(role);
 		// act
 		curriculumService.save(curriculum, usuario, experiencia, titulacion, conocimiento);
 		

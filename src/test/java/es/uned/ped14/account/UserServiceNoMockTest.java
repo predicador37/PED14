@@ -38,7 +38,9 @@ public class UserServiceNoMockTest {
 	@Test
 	public void shouldReturnUserDetails() {
 		// arrange
-		Account demoUser = new Account("user@example.com", "demo", "ROLE_USER");
+		Role demoRole = new Role("ROLE_USER");
+		Account demoUser = new Account("user@example.com", "demo");
+		demoUser.addRole(demoRole);
 		accountRepository.save(demoUser);
 		// act
 		UserDetails userDetails = userService.loadUserByUsername("user@example.com");
@@ -46,7 +48,7 @@ public class UserServiceNoMockTest {
 		// assert
 		assertThat(demoUser.getEmail()).isEqualTo(userDetails.getUsername());
 		assertThat(demoUser.getPassword()).isEqualTo(userDetails.getPassword());
-        assertThat(hasAuthority(userDetails, demoUser.getRole()));
+        assertThat(hasAuthority(userDetails, demoUser.getRoles().iterator().next().toString()));
 	}
 
 	private boolean hasAuthority(UserDetails userDetails, String role) {

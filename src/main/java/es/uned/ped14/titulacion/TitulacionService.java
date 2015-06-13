@@ -17,6 +17,7 @@ import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.Role;
 import es.uned.ped14.account.UserService;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.ConocimientoRepositoryInterface;
@@ -48,8 +49,9 @@ public class TitulacionService {
 	protected void initialize() throws ParseException {
 		logger.info("Inicializar data para servicio de titulaciones");
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-		
-		Account user1 = new Account("jose@gmail.com", "jose", "ROLE_USER");
+		Role role1 = new Role("ROLE_USER");
+		Account user1 = new Account("jose@gmail.com", "jose");
+		user1.addRole(role1);
 		Curriculum curriculum = new Curriculum("Don José", "Pérez", "España", "Oviedo", "htp://localhost/imagen.png", "http://localhost/archivo.pdf");
 		curriculum.setUser(user1);
 		Titulacion titulacion = new Titulacion("Ingeniero de obras públicas", 2008);

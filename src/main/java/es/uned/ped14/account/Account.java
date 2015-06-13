@@ -1,10 +1,17 @@
 package es.uned.ped14.account;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.experiencia.ExperienciaProfesional;
+import es.uned.ped14.titulacion.Titulacion;
 
 @SuppressWarnings("serial")
 @Entity
@@ -36,7 +43,9 @@ public class Account implements java.io.Serializable {
 	@JsonIgnore
 	private String password;
 
-	private String role = "ROLE_USER";
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Collection<Role> roles = new ArrayList<Role>();
 	
 	@OneToOne(mappedBy="user")
 	private Curriculum curriculum;
@@ -45,10 +54,9 @@ public class Account implements java.io.Serializable {
 
 	}
 	
-	public Account(String email, String password, String role) {
+	public Account(String email, String password) {
 		this.email = email;
 		this.password = password;
-		this.role = role;
 	}
 
 	public Long getId() {
@@ -71,11 +79,46 @@ public class Account implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	/**
+	 * Añade una nueva titulación al currículum. Este método mantiene la
+	 * consistencia entre las relaciones. Este currículum se asocia a la
+	 * titulación en concreto
+	 * @param Role role
+	 */
+	public void addRole(Role role) {
+		
+		// prevenir bucle infinito
+				if (roles.contains(role))
+					return;
+				// añadir nueva experiencia
+				roles.add(role);
+				// asociar este currículo con la experiencia
+				role.setUser(this);
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRolees(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
+	/**
+	 * Elimina una titulación de un currículum. Este método mantiene la
+	 * consistencia entre las relaciones. La titulación no estára asociada al
+	 * currículo a partir de ahora.
+	 * @param Role role
+	 */
+	public void removeRole(Role role) {
+		// prevent endless loop
+	
+		// prevent endless loop
+				if (!roles.contains(role))
+					return;
+				// remove the account
+				roles.remove(role);
+				// remove myself from the twitter account
+				role.setUser(null);
 	}
 }
