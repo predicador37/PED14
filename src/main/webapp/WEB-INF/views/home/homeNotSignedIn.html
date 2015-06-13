@@ -13,6 +13,12 @@
 <div th:replace="fragments/header :: header">Header</div>
 <div class="container">
     <div class="row">
+        <!-- /* Handle the flash message */-->
+        <th:block th:if="${message != null}">
+            <!-- /* The message code is returned from the @Controller */ -->
+            <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
+        </th:block>
+
         <h1>Bienvenido a la red social profesional</h1>
         <div class="alert alert-success" role="alert">
             <h4>Registrate y publica tu propio curriculum</h4>
@@ -30,7 +36,58 @@
             </a>
             <div class="collapse" id="opciones-edicion">
             <div class="formulario-opciones-filtrado">
-                ...
+                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curriculum/results}" th:object="${curriculumSearchForm}">
+                            <!--/* Show general error message when form contains errors */-->
+                            <th:block th:if="${#fields.hasErrors('${curriculumSearchForm.*}')}">
+                                <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+                            </th:block>
+                            <fieldset>
+                                
+                                <div class="form-group" th:classappend="${#fields.hasErrors('pais')}? 'has-error'">
+                                    <label for="pais" class="col-lg-2 control-label">Pais</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="pais" placeholder="Ej.: España" th:field="*{pais}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">Pais incorrecto</span>
+                                    </div>
+                                </div>
+                                 <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
+                                    <label for="ciudad" class="col-lg-2 control-label">Ciudad</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="ciudad" placeholder="Ej.: Santander" th:field="*{ciudad}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">Ciudad incorrecta</span>
+                                    </div>
+                                </div>
+                              <div class="form-group" th:classappend="${#fields.hasErrors('experiencia')}? 'has-error'">
+                                    <label for="experiencia" class="col-lg-2 control-label">Experiencia</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="nombre" placeholder="Ej: 5" th:field="*{experiencia}" autofocus="autofocus"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('experiencia')}" th:errors="*{experiencia}">Experiencia incorrecta</span>
+                                    </div>
+                                </div>
+                                <div class="form-group" th:classappend="${#fields.hasErrors('titulacion')}? 'has-error'">
+                                    <label for="titulacion" class="col-lg-2 control-label">Titulación</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="titulacion" placeholder="Ej.: Grado en Ingeniería Informática" th:field="*{titulacion}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('titulacion')}" th:errors="*{titulacion}">TItulación incorrecta</span>
+                                    </div>
+                                </div>
+                                 <div class="form-group" th:classappend="${#fields.hasErrors('conocimiento')}? 'has-error'">
+                                    <label for="conocimiento" class="col-lg-2 control-label">Conocimiento</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="conocimiento" placeholder="Ej.: unix" th:field="*{conocimiento}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('conocimiento')}" th:errors="*{conocimiento}">Conocimiento incorrecto</span>
+                                    </div>
+                                </div>
+                                 
+                                <div class="contenedor-botones-inferiores-formulario"> 
+                                    <div class="form-group">
+                                            <button type="submit" class="btn btn-success pull-right" style="margin-right:10px">Buscar</button>
+                                    </div>
+                                </div>
+                                                                 
+                            </fieldset>
+                        </form>                        
+                
             </div>
             </div>
         </div>        
@@ -38,39 +95,43 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Pais</th>
-                    <th>Ciudad</th>
-                    <th></th>
+                  <th>Id</th>
+                  <th>Usuario</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Experiencia</th>
+                  <th>Titulaciones</th>
+                  <th>Conocimientos</th>
                 </tr>
             </thead>
             <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>Portugal</td>
-                      <td>Lisboa</td>
-                      <td><a class="btn btn-success btn-xs pull-right" href="#ver?id=1">Ver curriculum</a></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>Italia</td>
-                      <td>Milan</td>
-                      <td><a  class="btn btn-success btn-xs pull-right" href="#ver?id=2">Ver curriculum</a></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>Alemania</td>
-                      <td>Munich</td>
-                      <td><a  class="btn btn-success btn-xs pull-right" href="#ver?id=2">Ver curriculum</a></td>
-                    </tr>
+
+              <tr th:each="curriculum : ${curriculos}">
+                <td th:text="${curriculum.id}"></td>
+                <td th:text="${curriculum.user != null} ? ${curriculum.user.email} : 'Ninguno'">-</td>
+                <td th:text="${curriculum.nombre}"></td>
+                <td th:text="${curriculum.apellidos}"></td>
+                <td th:text="${curriculum.experiencia}"></td>
+                <td>
+                <table>
+                <tr th:each="titulacion : ${curriculum.titulaciones}">
+                 <td th:text="${titulacion.descripcion}"></td>
+              </tr>
+              </table>
+              </td>
+              <td>
+              <table>
+              <tr th:each="conocimiento : ${curriculum.conocimientos}">
+                 <td th:text="${conocimiento.descripcion}"></td>
+                 <td th:text="${conocimiento.nivelConocimiento}"></td>
+              </tr>
+              </table>
+                </td>
+                 <td><a th:href="@{/curriculum/show/} + ${curriculum.id}"><span>Ver detalle</span></a></td>
+                <td><a th:href="@{/curriculum/edit/} + ${curriculum.id}"><span>Editar</span></a></td>
+                <td><a th:href="@{/curriculum/delete/} + ${curriculum.id}"><span>Eliminar</span></a></td>
+              </tr>
+
             </tbody>            
         </table>
    

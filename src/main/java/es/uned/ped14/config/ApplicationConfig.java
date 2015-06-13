@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import es.uned.ped14.Application;
 
@@ -20,6 +22,12 @@ public class ApplicationConfig {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 		ppc.setLocation(new ClassPathResource("/persistence.properties"));
 		return ppc;
+	}
+	@Bean
+	   public MultipartResolver multipartResolver() {
+	   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	   multipartResolver.setMaxUploadSize(500000000);
+	   return multipartResolver;
 	}
 	
 }

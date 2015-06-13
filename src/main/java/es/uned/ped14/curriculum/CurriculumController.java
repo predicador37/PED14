@@ -1,5 +1,8 @@
 package es.uned.ped14.curriculum;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -18,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -207,7 +211,75 @@ public class CurriculumController {
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
 		
-		return "curriculum/list";
+		return "home/homeNotSignedIn";
 	}
+	
+	@RequestMapping(value = "/ajaxuploadFile", method = RequestMethod.POST)
+    public @ResponseBody Boolean ajaxUploadFile(@RequestParam("archivo") MultipartFile file, Authentication authentication) {
+
+        logger.info("reached ajaxuploadFile");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		Account user = userService.findByEmail(userDetails.getUsername());
+		//if !(validateImage(file));
+        
+
+        return(saveFile(file, user));
+    }
+	
+	@RequestMapping(value = "/ajaxuploadImage", method = RequestMethod.POST)
+    public @ResponseBody Boolean ajaxUploadImage(@RequestParam("imagen") MultipartFile imagen, Authentication authentication) {
+
+        logger.info("reached ajaxuploadImage");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		Account user = userService.findByEmail(userDetails.getUsername());
+		//if !(validateImage(file));
+        
+
+        return(saveFile(imagen, user));
+    }
+	
+	private Boolean validateImage(MultipartFile image) {
+		if (!image.getContentType().equals("image/jpeg")) {
+		return false;
+		}
+		return true;
+		}
+	
+	private Boolean saveFile(MultipartFile file, Account user) {
+		if (!file.isEmpty())
+        {
+            logger.info("not empty");
+            try {
+                byte[] bytes = file.getBytes();
+                String[] parts = (file.getOriginalFilename()).split("\\.");
+                
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                logger.info("catalina home: " + rootPath);
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists())
+                    dir.mkdirs();
+
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + user.getId() + "." + parts[1]);
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+
+                logger.info("Uploaded file to "+  serverFile.getAbsolutePath());
+            } catch (Exception e) {
+                logger.info("You failed to upload " + user.getId() + " => " + e.getMessage());
+                return false;
+            }
+        } else {
+            logger.info("You failed to upload " + user.getId()
+                    + " because the file was empty.");
+            return false;
+        }
+		return true;
+	}
+
 	
 }

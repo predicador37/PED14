@@ -3,11 +3,15 @@
 <head>
     <title>Red social profesional. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
     <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    
 </head>
 <body>
 <div th:replace="fragments/header :: usuario">&nbsp;</div>
@@ -74,19 +78,8 @@
                                     </div>
                                 </div>
                               
-                                 <div class="form-group" >
-                                    <label for="imagen" class="col-lg-2 control-label">Imagen</label>
-                                    <div class="col-lg-10">
-                                        <input type="file" class="form-control file subir-archivo" id="urlImagen"/>
-                              
-                                    </div>
-                                </div>
-                                <div class="form-group" >
-                                    <label for="archivo" class="col-lg-2 control-label">Archivo</label>
-                                    <div class="col-lg-10">
-                                        <input type="file" class="form-control file subir-archivo" id="urlArchivo"/>                             
-                                    </div>
-                                </div>
+                                
+                               
 
                                 <div class="contenedor-botones-inferiores-formulario"> 
                                     <div class="form-group">
@@ -95,13 +88,55 @@
                                 </div>
                                                                  
                             </fieldset>
-                        </form>                        
+                        </form>
+                        <form id="single_file_form_1" th:action="@{/curriculum/ajaxuploadImage}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" enctype="multipart/form-data" method="post">
+       
+       					 <div class="form-group" >
+       	                            <label for="imagen" class="col-lg-2 control-label">Imagen</label>
+                                    <div class="col-lg-10">
+                                        <input type="file" name="imagen" class="form-control file subir-archivo" id="urlImagen"/>
+                              
+                                    </div>
+                                     <input id="ajax-upload-button" type="submit" value="Upload"/> Press here to upload the file!
+                                </div>
+            				</form> 
+            				<form id="single_file_form_2" th:action="@{/curriculum/ajaxuploadFile}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" enctype="multipart/form-data" method="post">
+       
+       					 <div class="form-group" >
+       	                            <label for="archivo" class="col-lg-2 control-label">Archivo</label>
+                                    <div class="col-lg-10">
+                                        <input type="file" name="archivo" class="form-control file subir-archivo" id="urlArchivo"/>
+                              
+                                    </div>
+                                     <input id="ajax-upload-button" type="submit" value="Upload"/> Press here to upload the file!
+                                </div>
+            				</form>                                   
                     </div>    
                 </div>    
             </div>
         </div>    
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>    
-</div>   
+</div>
+<script type="text/javascript">
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+
+    $('#single_file_form_1').ajaxForm({
+        success: function(data) {
+            alert('sent');
+        }
+    });
+    $('#single_file_form_2').ajaxForm({
+        success: function(data) {
+            alert('sent');
+        }
+    })
+</script>
 </body>
 </html>
