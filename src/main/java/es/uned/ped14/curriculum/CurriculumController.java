@@ -203,6 +203,7 @@ public class CurriculumController {
 											curriculumSearchForm.getCiudad(), curriculumSearchForm.getExperiencia(), 
 											curriculumSearchForm.getTitulacion(), curriculumSearchForm.getConocimiento());
 			model.addAttribute("curriculos", curriculos);
+			ra.addFlashAttribute("curriculos", curriculos);
 		} catch (CurriculumNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,7 +212,7 @@ public class CurriculumController {
 		
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
 		
-		return "home/homeNotSignedIn";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/ajaxuploadFile", method = RequestMethod.POST)
