@@ -23,7 +23,6 @@
                 <li class="active"><a href="#" th:href="@{/}">Inicio</a></li>
                 <li><a href="#memoria">Memoria</a></li>
                 <li><a href="#grupo">Grupo</a></li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${#authentication}?${#authorization.expression('!isAuthenticated()')}">
@@ -41,6 +40,7 @@
 </div>
 
 <!-- Si entra un usuario que esta dado de alta en el sistema podra modificar su cv, darse de baja o buscar cv de otros usuarios -->
+
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="usuario">
     <div class="container">
         <div class="navbar-header">
@@ -49,26 +49,24 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a class="navbar-brand" href="#"><img class="logo" src="../../../resources/images/uned.png"></img>Red social profesional</a>
+            <a class="navbar-brand" href="#"><img class="logo" src="../../../resources/images/uned.png"></img>Red social profesional</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">				
-				<li class="active"><a href="#" th:href="@{/}">Home</a></li>
-                <li><a href="modcv" th:href="@{/}">Modificar CV</a></li>
-                <li><a href="/userOut" th:href="@{/}">Dar de baja usuario</a></li>
-				<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-				<a href="/enableFields" th:href="@{/enableFields}">Activar/Desactivar funcion</a></li>
+            <ul class="nav navbar-nav">             
+                <li class="active"><a href="#" th:href="@{/}">Inicio</a></li>
+                <li><a href="#memoria">Memoria</a></li>
+                <li><a href="#grupo">Grupo</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">                
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesion</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
-            </ul>			
-			<!--
-			<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-				This will only be displayed if authenticated user has role ROLE_ADMIN.
-			</div> -->
+            </ul>           
+            <!--
+            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                This will only be displayed if authenticated user has role ROLE_ADMIN.
+            </div> -->
         </div>
         <!--/.nav-collapse -->
     </div>

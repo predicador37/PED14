@@ -40,3 +40,5 @@ a:hover{color:#04D6A1!important;text-decoration: none;}
 
 .columna-30{width: 30%;}
 .columna-70{width: 70%;}
+
+.formulario-opciones-filtrado .form-narrow{background: transparent;margin-top:12px; border:1px solid #fff;padding:17px;}
