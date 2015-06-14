@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -84,5 +85,18 @@ public void setUser(Account user) {
 public Account getUser() {
 	return user;
 }
+@PreRemove
+public void preRemove() {
+setUser(null);
+}
+ 
+  public boolean equals(Object object) {
+    if (object instanceof Role) {
+      Role otherId = (Role) object;
+      return (otherId.id == this.id && otherId.descripcion == this.descripcion);
+    }
+    return false;
+  }
+
 
 }

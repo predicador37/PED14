@@ -12,9 +12,10 @@ import org.springframework.security.core.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.*;
+import org.springframework.stereotype.Service;
 
 import es.uned.ped14.curriculum.Curriculum;
-
+@Service
 public class RoleService {
 
 	
@@ -32,9 +33,26 @@ public class RoleService {
 		
 	}
 	
+	public Role  findOne(Long id) {
+		return roleRepository.findOne(id);
+		
+	}
+	
 	public void  flush() {
 		roleRepository.flush();
 		
 	}
+	
+	public void  delete(Role role) {
+		roleRepository.delete(role);
+		
+	}
 
+	public Role findByDescripcionAndUser(String descripcion, Account user) {
+		return roleRepository.findByDescripcionAndUser(descripcion, user);
+	}
+	
+	public List<Role> findByDescripcion(String descripcion) {
+		return roleRepository.findByDescripcion(descripcion);
+	}
 }

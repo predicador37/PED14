@@ -24,6 +24,14 @@ public class AccountRepository {
 		return account;
 	}
 	
+
+	@Transactional
+	public Account merge(Account account) {
+		account.setPassword(passwordEncoder.encode(account.getPassword()));
+		entityManager.merge(account);
+		return account;
+	}
+	
 	public Account findByEmail(String email) {
 		try {
 			return entityManager.createNamedQuery(Account.FIND_BY_EMAIL, Account.class)

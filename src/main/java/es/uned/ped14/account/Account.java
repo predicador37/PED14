@@ -8,7 +8,10 @@ import javax.persistence.*;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import es.uned.ped14.admin.AdminController;
 import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
@@ -18,7 +21,8 @@ import es.uned.ped14.titulacion.Titulacion;
 @Table(name = "account")
 @NamedQuery(name = Account.FIND_BY_EMAIL, query = "select a from Account a where a.email = :email")
 public class Account implements java.io.Serializable {
-
+	
+	
 	public static final String FIND_BY_EMAIL = "Account.findByEmail";
 
 	@Id
@@ -44,7 +48,7 @@ public class Account implements java.io.Serializable {
 	private String password;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,  orphanRemoval=true)
 	private Collection<Role> roles = new ArrayList<Role>();
 	
 	@OneToOne(mappedBy="user")
@@ -100,7 +104,7 @@ public class Account implements java.io.Serializable {
 		return roles;
 	}
 
-	public void setRolees(Collection<Role> roles) {
+	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
 
@@ -112,7 +116,8 @@ public class Account implements java.io.Serializable {
 	 */
 	public void removeRole(Role role) {
 		// prevent endless loop
-	
+		for (Role r : roles){
+		}
 		// prevent endless loop
 				if (!roles.contains(role))
 					return;
