@@ -1,5 +1,7 @@
 package es.uned.ped14.config;
-
+/**
+ * Clase con parámetros de inicialización de la aplicación web
+ */
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

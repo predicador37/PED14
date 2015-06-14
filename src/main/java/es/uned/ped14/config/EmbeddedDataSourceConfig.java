@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 /**
- * The data source config that can be used in integration tests.
+ * Configuración del datasource con la bbdd empotrada HSQLDB que se puede usar en pruebas de integración.
  */
 @Configuration
 @Profile("test")

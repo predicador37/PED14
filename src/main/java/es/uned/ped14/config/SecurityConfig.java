@@ -14,7 +14,11 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 import es.uned.ped14.account.UserService;
-
+/**
+ * 
+ * Configuración de spring security donde se definen las autorizaciones por URL y rol a la aplicación.
+ *
+ */
 @Configuration
 @EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

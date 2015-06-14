@@ -12,7 +12,11 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import es.uned.ped14.Application;
-
+/**
+ * 
+ * Configuración general de beans de spring para la aplicación
+ *
+ */
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({Controller.class, Configuration.class}))
 public class ApplicationConfig {
