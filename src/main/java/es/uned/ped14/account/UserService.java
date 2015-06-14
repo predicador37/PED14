@@ -43,8 +43,8 @@ public class UserService implements UserDetailsService {
 		Role role5 = new Role("ROLE_DELETE");
 		Account user1 = new Account("user", "demo");
 		Account user2 = new Account("admin@admin.com", "admin");
-		user1.addRole(role1);
-		user2.addRole(role2);
+		user1.addRole(role2);
+		user2.addRole(role1);
 		user2.addRole(role3);
 		user2.addRole(role4);
 		user2.addRole(role5);
