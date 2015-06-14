@@ -61,7 +61,7 @@ public class ConocimientoController {
 	}
 
 	/**
-	 * Acción que permite añadir un nuevo currículum, complementaria de la
+	 * Acción que permite añadir un nuevo conocimiento, complementaria de la
 	 * anterior.
 	 *
 	 * @param conocimientoForm
@@ -165,10 +165,10 @@ public class ConocimientoController {
 	}
 
 	/**
-	 * Acción que permite borrar un currículo.
+	 * Acción que permite borrar un conocimiento.
 	 *
 	 * @param id
-	 *            , identificador del currículum asociado.
+	 *            , identificador del conocimiento asociado.
 	 * @return cadena de texto con el nombre de la vista.
 	 */
 

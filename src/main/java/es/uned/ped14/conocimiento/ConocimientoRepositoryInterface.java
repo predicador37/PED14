@@ -25,7 +25,7 @@ public interface ConocimientoRepositoryInterface extends
 	List<Conocimiento> findByCurriculum(Curriculum curriculum);
 
 	/**
-	 * Find by curriculum. Encuentra una serie de conocimientos dada la
+	 * Find by descripcion. Encuentra una serie de conocimientos dada la
 	 * descripción asociada a los mismos.
 	 * 
 	 * @param descripcionm

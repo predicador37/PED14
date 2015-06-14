@@ -2,28 +2,32 @@ package es.uned.ped14.curso;
 
 import java.util.Date;
 
-import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.NotBlank;
 
-import es.uned.ped14.account.Account;
-
+/**
+ * Clase CursoFormacionForm, que representa el objeto DTO para la edición de
+ * cursos.
+ */
 public class CursoFormacionForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
-    @NotBlank(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
+	@NotBlank(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
 
-    private Integer numeroHoras;
-    private Date fechaFinalizacion;
-    private Long curriculumId;
-    
-    public CursoFormacionForm() {
-    	
-    }
-	public CursoFormacion createCursoFormacion() {
-        return new CursoFormacion(getDescripcion(), getNumeroHoras(), getFechaFinalizacion());
+	private Integer numeroHoras;
+	private Date fechaFinalizacion;
+	private Long curriculumId;
+
+	public CursoFormacionForm() {
+
 	}
-	
+
+	public CursoFormacion createCursoFormacion() {
+		return new CursoFormacion(getDescripcion(), getNumeroHoras(),
+				getFechaFinalizacion());
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -47,14 +51,13 @@ public class CursoFormacionForm {
 	public void setFechaFinalizacion(Date fechaFinalizacion) {
 		this.fechaFinalizacion = fechaFinalizacion;
 	}
+
 	public Long getCurriculumId() {
 		return curriculumId;
 	}
+
 	public void setCurriculumId(Long curriculumId) {
 		this.curriculumId = curriculumId;
 	}
 
-
-
-	
 }
