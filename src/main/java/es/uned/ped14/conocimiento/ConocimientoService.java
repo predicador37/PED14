@@ -147,5 +147,21 @@ public class ConocimientoService {
 		}
 		return conocimiento;
 	}
+	
+	/**
+	 * Like. Incrementa el número de likes del elemento.
+	 * 
+	 * @param conocimiento
+	 *            , objeto de clase Conocimiento cuyo número de likes se incrementará.
+	 * @return entero con el número de likes.
+	 * @throws ConocimientoNotFoundException
+	 *             , excepción lanzada en caso de no encontrar ningún conocimiento.
+	 */
+	public Integer like(Conocimiento conocimiento) {
+		
+		conocimiento.like();
+		conocimientoRepository.save(conocimiento);
+		return conocimiento.getLikes();
+	}
 
 }

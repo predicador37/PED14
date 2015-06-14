@@ -338,8 +338,8 @@ public class CurriculumController {
 	 * @return booleano que indica el resultado de la acción.
 	 */
 	@RequestMapping(value = "/ajaxuploadFile", method = RequestMethod.POST)
-	public @ResponseBody Boolean ajaxUploadFile(
-			@RequestParam("archivo") MultipartFile file,
+	public @ResponseBody String ajaxUploadFile(
+			@RequestParam("file") MultipartFile file,
 			Authentication authentication, HttpServletRequest request) {
 
 		logger.info("reached ajaxuploadFile");
@@ -348,12 +348,11 @@ public class CurriculumController {
 		// if !(validateImage(file));
 
 		if (saveFile(file, user, request)) {
+			logger.info("archivo guardado");
 			String[] parts = (file.getOriginalFilename()).split("\\.");
-			user.getCurriculum().setUrlImagen(user.getId() + "." + parts[1]);
-			curriculumService.save(user.getCurriculum());
-			return true;
+			return "../../../resources/files/" + user.getId() + "_file." + parts[1];
 		} else
-			return false;
+			return "";
 	}
 
 	/**
@@ -368,7 +367,7 @@ public class CurriculumController {
 	 * @return booleano que indica el resultado de la acción.
 	 */
 	@RequestMapping(value = "/ajaxuploadImage", method = RequestMethod.POST)
-	public @ResponseBody Boolean ajaxUploadImage(
+	public @ResponseBody String ajaxUploadImage(
 			@RequestParam("imagen") MultipartFile imagen,
 			Authentication authentication, HttpServletRequest request) {
 
@@ -378,12 +377,11 @@ public class CurriculumController {
 		// if !(validateImage(file));
 
 		if (saveFile(imagen, user, request)) {
+			logger.info("archivo guardado");
 			String[] parts = (imagen.getOriginalFilename()).split("\\.");
-			user.getCurriculum().setUrlImagen(user.getId() + "." + parts[1]);
-			curriculumService.save(user.getCurriculum());
-			return true;
+			return "../../../resources/files/" + user.getId() + "_img." + parts[1];
 		} else
-			return false;
+			return "";
 	}
 
 	/**

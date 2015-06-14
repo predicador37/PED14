@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -138,5 +139,14 @@ public class Conocimiento implements java.io.Serializable {
 	private boolean sameAsFormer(Curriculum nuevoCurriculum) {
 		return curriculum == null ? nuevoCurriculum == null : curriculum
 				.equals(nuevoCurriculum);
+	}
+	
+	public void like(){
+		this.likes++;
+	}
+	
+	@PrePersist
+	void preInsert() {
+	   this.likes = 0;
 	}
 }

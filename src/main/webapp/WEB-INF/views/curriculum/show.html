@@ -162,7 +162,7 @@
                               <td th:text="${titulacion.anyoFinalizacion}"></td>
                               <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion\');'"><span>Me gusta</span></a><span id="numeroLikesTitulacion" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span>Me gusta</span></a><span th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
                             </tr>
                           </tbody>
                         </table>                          
@@ -201,7 +201,7 @@
                               <td th:text="${#calendars.format(curso.fechaFinalizacion, 'dd/MM/yyyy')}"></td>
                               <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso\');'"><span>Me gusta</span></a><span id="numeroLikesCurso" th:text="${curso.likes != null and titulacion.likes !=0} ? ${curso.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso' + ${curso.id} + '\');'"><span>Me gusta</span></a><span th:id="numeroLikesCurso + ${curso.id}" th:text="${curso.likes != null and curso.likes !=0} ? ${curso.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          
@@ -236,6 +236,7 @@
                               <td th:text="${conocimiento.nivelConocimiento}"></td>
                               <td><a th:href="@{/conocimiento/edit/} + ${conocimiento.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/conocimiento/delete/} + ${conocimiento.id}"><span>Eliminar</span></a></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span>Me gusta</span></a><span th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          

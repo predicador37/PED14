@@ -11,7 +11,12 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
-    
+    <script th:inline="javascript">
+	//$(document).ready(function() {
+	//  $("#imagen").on("click", uploadFile([[@{/curriculum/ajaxuploadImage}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}]]));
+	//});
+	
+	</script>
 </head>
 <body>
 <div th:replace="fragments/header :: usuario">&nbsp;</div>
@@ -43,7 +48,7 @@
                         <h3 class="titulo-contenedor-formulario-login">Datos del curriculum</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curriculum/add}" th:object="${curriculumForm}">
+                        <form id ="upload-file-form" class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curriculum/add}" th:object="${curriculumForm}">
                             <!--/* Show general error message when form contains errors */-->
                             <th:block th:if="${#fields.hasErrors('${curriculumForm.*}')}">
                                 <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
@@ -86,31 +91,24 @@
                                             <button type="submit" class="btn btn-success pull-right" style="margin-right:10px">Guardar</button>
                                     </div>
                                 </div>
-                                                                 
-                            </fieldset>
-                        </form>
-                        <form id="single_file_form_1" th:action="@{/curriculum/ajaxuploadImage}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" enctype="multipart/form-data" method="post">
-       
-       					 <div class="form-group" >
+                                <div class="form-group" >
        	                            <label for="imagen" class="col-lg-2 control-label">Imagen</label>
                                     <div class="col-lg-10">
-                                        <input type="file" name="imagen" class="form-control file subir-archivo" id="urlImagen"/>
+                                        <input type="file" name="imagen" class="form-control file subir-archivo" id="imagen"/>
+                                        <input type="hidden" th:field="*{urlImagen}" class="form-control" id="urlImagen"/>
                               
                                     </div>
-                                     <input id="ajax-upload-button" type="submit" value="Upload"/> Press here to upload the file!
                                 </div>
-            				</form> 
-            				<form id="single_file_form_2" th:action="@{/curriculum/ajaxuploadFile}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" enctype="multipart/form-data" method="post">
-       
-       					 <div class="form-group" >
-       	                            <label for="archivo" class="col-lg-2 control-label">Archivo</label>
+                                <div class="form-group" >
+       	                            <label for="file" class="col-lg-2 control-label">Archivo</label>
                                     <div class="col-lg-10">
-                                        <input type="file" name="archivo" class="form-control file subir-archivo" id="urlArchivo"/>
-                              
+                                        <input type="file" name="file" class="form-control file subir-archivo" id="file"/>
+                              			<input type="hidden" th:field="*{urlArchivo}" class="form-control" id="urlArchivo"/>
                                     </div>
-                                     <input id="ajax-upload-button" type="submit" value="Upload"/> Press here to upload the file!
                                 </div>
-            				</form>                                   
+                                                                 
+                            </fieldset>       
+                            </form>                  
                     </div>    
                 </div>    
             </div>
@@ -118,7 +116,8 @@
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>    
 </div>
-<script type="text/javascript">
+<script th:inline="javascript">
+	
     $(function () {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
@@ -126,17 +125,27 @@
             xhr.setRequestHeader(header, token);
         });
     });
-
-    $('#single_file_form_1').ajaxForm({
-        success: function(data) {
-            alert('sent');
-        }
-    });
-    $('#single_file_form_2').ajaxForm({
-        success: function(data) {
-            alert('sent');
-        }
-    })
+    $( "#imagen" ).change(function() {
+		 uploadFile([[@{/curriculum/ajaxuploadImage}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}]], "#urlImagen")
+	 });
+    $( "#file" ).change(function() {
+		 uploadFile([[@{/curriculum/ajaxuploadFile}+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}]], "#urlArchivo")
+	 });
+	function uploadFile(url, elemento) {
+     	$.ajax({
+       url: url,
+       data: new FormData($("#upload-file-form")[0]),
+       type: "POST",
+       enctype: 'multipart/form-data',
+       processData: false,
+       contentType: false,
+       cache: false,
+       success: function(data) {
+    	   $(elemento).val(data);
+       }
+     });
+   };
+    
 </script>
 </body>
 </html>

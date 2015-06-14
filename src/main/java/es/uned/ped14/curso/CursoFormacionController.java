@@ -234,7 +234,7 @@ public class CursoFormacionController {
 	 *            , el modelo.
 	 * @param request
 	 *            , la petición HTTP asociada.
-	 * @throws CursoFormacionNotFoundException, en caso de no encontrar ningún elemento titulación.
+	 * @throws CursoFormacionNotFoundException, en caso de no encontrar ningún elemento curso.
 	 * @return String con el número de "me gusta"
 	 */
 	@RequestMapping(value = "/like", method = RequestMethod.GET)
