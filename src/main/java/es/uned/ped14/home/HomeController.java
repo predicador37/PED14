@@ -58,4 +58,9 @@ public class HomeController {
 		
 		return principal != null ? "redirect:/curriculum/show/" + user.getId() : "home/homeNotSignedIn";
 	}
+	
+	@RequestMapping(value = "/grupo", method = RequestMethod.GET)
+	public String grupo() {
+		return "home/grupo";
+	}
 }
