@@ -170,13 +170,23 @@ public class TitulacionController {
       
 		return "titulacion/list";
 	}
-	
+	/**
+	 * Acción que permite incrementar el número de "me gusta" utilizando AJAX.
+	 *
+	 * @param id
+	 *            , identificador del elemento cuyo contador de "me gusta" se incrementará.
+	 * @param authentication
+	 *            , datos del usuario.
+	 * @param model
+	 *            , el modelo.
+	 * @param request
+	 *            , la petición HTTP asociada.
+	 * @throws TitulacionNotFoundException, en caso de no encontrar ningún elemento titulación.
+	 * @return String con el número de "me gusta"
+	 */
 	@RequestMapping(value = "/like", method = RequestMethod.GET)
 	public @ResponseBody String like(@RequestParam("id") Long id, ModelMap model, Authentication authentication) throws TitulacionNotFoundException {
 		logger.info("Starting like controller...");
-		
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		Account usuario = userService.findByEmail(userDetails.getUsername());
 		Titulacion titulacion = titulacionService.findOne(id);
 		return titulacionService.like(titulacion).toString();
 		

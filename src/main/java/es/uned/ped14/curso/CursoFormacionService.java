@@ -17,6 +17,7 @@ import es.uned.ped14.account.Role;
 import es.uned.ped14.account.RoleRepositoryInterface;
 import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumRepositoryInterface;
+import es.uned.ped14.titulacion.Titulacion;
 
 /**
  * Clase CursoFormacionService, servicio que encapsula la lógica de negocio de
@@ -163,6 +164,22 @@ public class CursoFormacionService {
 		}
 		return curso;
 
+	}
+	
+	/**
+	 * Like. Incrementa el número de likes del elemento.
+	 * 
+	 * @param curso
+	 *            , objeto de clase Curso cuyo número de likes se incrementará.
+	 * @return entero con el número de likes.
+	 * @throws CursoFormacionNotFoundException
+	 *             , excepción lanzada en caso de no encontrar ningún curso.
+	 */
+	public Integer like(CursoFormacion curso) {
+		
+		curso.like();
+		cursoFormacionRepository.save(curso);
+		return curso.getLikes();
 	}
 
 }
