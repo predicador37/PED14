@@ -6,6 +6,9 @@ package es.uned.ped14.conocimiento;
  */
 public class ConocimientoForm {
 
+	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
+
+    @NotBlank(message = ConocimientoForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
 	private NivelConocimiento nivelConocimiento;
 	private Long curriculumId;

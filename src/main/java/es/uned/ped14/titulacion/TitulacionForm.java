@@ -10,6 +10,7 @@ public class TitulacionForm {
 
     @NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
+    @NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
     private Integer anyoFinalizacion;
     private Long curriculumId;
 

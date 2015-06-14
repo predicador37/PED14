@@ -12,9 +12,13 @@ public class ExperienciaProfesionalForm {
 
     @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
+    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
     private String cargo;
+    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)    
     private String empresa;
+    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)    
     private Date fechaInicio;
+    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)    
     private Date fechaFin;
     private Long curriculumId;
     

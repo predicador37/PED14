@@ -14,8 +14,9 @@ public class CursoFormacionForm {
 
 	@NotBlank(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
-
+	@NotBlank(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
 	private Integer numeroHoras;
+	@NotBlank(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
 	private Date fechaFinalizacion;
 	private Long curriculumId;
 
