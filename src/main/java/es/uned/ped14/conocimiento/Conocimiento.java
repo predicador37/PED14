@@ -129,7 +129,7 @@ public class Conocimiento implements java.io.Serializable {
 
 	/**
 	 * Same as former. Método que comprueba si el currículum a añadir es el
-	 * mismo queya estaba.
+	 * mismo que ya estaba.
 	 * 
 	 * @param nuevoCurriculum
 	 *            , currículum a comprobar.
