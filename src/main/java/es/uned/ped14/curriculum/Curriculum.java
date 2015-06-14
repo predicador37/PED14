@@ -2,6 +2,7 @@ package es.uned.ped14.curriculum;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +25,6 @@ import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.curso.CursoFormacion;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
 import es.uned.ped14.titulacion.Titulacion;
-
 
 /**
  * Clase Curriculum, POJO que modela la entidad currículum así como sus
@@ -405,11 +405,19 @@ public class Curriculum implements java.io.Serializable {
 
 		Integer mesesExperiencia = 0;
 		for (ExperienciaProfesional e : experiencias) {
-			mesesExperiencia = mesesExperiencia
-					+ ((e.getFechaFin().getYear() * 12 + e.getFechaFin()
-							.getMonth())
-							- (e.getFechaInicio().getYear() * 12 + e
-									.getFechaInicio().getMonth()) + 1);
+			if (e.getFechaFin() != null) {
+				mesesExperiencia = mesesExperiencia
+						+ ((e.getFechaFin().getYear() * 12 + e.getFechaFin()
+								.getMonth())
+								- (e.getFechaInicio().getYear() * 12 + e
+										.getFechaInicio().getMonth()) + 1);
+			} else { // esta trabajando actualmente en la empresa
+				Date today = new Date();
+				mesesExperiencia = mesesExperiencia
+						+ ((today.getYear() * 12 + today.getMonth())
+								- (e.getFechaInicio().getYear() * 12 + e
+										.getFechaInicio().getMonth()) + 1);
+			}
 		}
 		experiencia = mesesExperiencia;
 	}

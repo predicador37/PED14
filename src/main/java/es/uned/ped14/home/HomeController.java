@@ -64,20 +64,20 @@ public class HomeController {
 		} else {
 			model.addAttribute("curriculos", curriculos);
 		}
-
+		if (principal != null) {
 		Account user = userService.findByEmail(principal.getName());
 		if (user.getCurriculum() != null) {
 			model.addAttribute("hasCurriculum", true);
+			model.addAttribute("curriculumId", user.getCurriculum().getId());
+			return "redirect:/curriculum/show/" + user.getId();
 		} else {
 			model.addAttribute("hasCurriculum", false);
-			return principal != null ? "home/homeSignedIn"
-					: "home/homeNotSignedIn";
+			return "home/homeSignedIn";
 		}
-
+		}
 		model.addAttribute("curriculumSearchForm", new CurriculumSearchForm());
 
-		return principal != null ? "redirect:/curriculum/show/" + user.getId()
-				: "home/homeNotSignedIn";
+		return "home/homeNotSignedIn";
 	}
 
 	/**
