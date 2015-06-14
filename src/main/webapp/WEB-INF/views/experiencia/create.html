@@ -75,6 +75,7 @@
                                         <span class="help-block" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Descripción incorrecta</span>
                                     </div>
                                 </div>
+
                                 <div class="form-group" th:classappend="${#fields.hasErrors('fechaInicio')}? 'has-error'">
                                     <label for="fechaInicio" class="col-lg-3 control-label">Fecha de inicio</label>
                                     <div class="col-lg-9">     
@@ -101,11 +102,13 @@
                                         </script>
                                     </div>
                                 </div>
-                                <div class="form-group">
+
+                                <div class="form-group" th:classappend="${#fields.hasErrors('fechaFin')}? 'has-error'">
+
                                     <label for="fechafin" class="col-lg-3 control-label">Fecha de Finalización</label>
                                     <div class="col-lg-9">     
                                         <div class="form-group input-group date" id="datetimepicker2" style="margin:0px;" onkeydown="return false;">
-                                            <input type="text" class="form-control" id="fechaFin" placeholder="Introduce al fecha de Finalización" style="cursor:not-allowed;" th:field="*{fechaInicio}"/>
+                                            <input type="text" class="form-control" id="fechaFin" placeholder="Introduce al fecha de Finalización" style="cursor:not-allowed;" th:field="*{fechaFin}"/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
