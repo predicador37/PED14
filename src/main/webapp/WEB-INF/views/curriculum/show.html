@@ -8,6 +8,19 @@
     <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+	 <script type="text/javascript">
+    	function likeAjax(id, url) {
+      	$.ajax({
+        url: url,
+        data: ({id : id}),
+        type: "GET",
+        success: function(data) {
+          $('#numeroLikes').html(data);
+        }
+      });
+    }
+  </script>
+	
 </head>
 <body>
 <div th:replace="fragments/header :: usuario">&nbsp;</div>
@@ -149,6 +162,7 @@
                               <td th:text="${titulacion.anyoFinalizacion}"></td>
                               <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\');'"><span>Me gusta</span></a><span id="numeroLikes" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
                             </tr>
                           </tbody>
                         </table>                          
@@ -232,5 +246,6 @@
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>    
 </div>   
+
 </body>
 </html>

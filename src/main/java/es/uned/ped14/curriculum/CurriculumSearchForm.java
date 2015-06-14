@@ -1,23 +1,27 @@
 package es.uned.ped14.curriculum;
 
-
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Controller;
 
-
+// TODO: Auto-generated Javadoc
+/**
+ * Class CurriculumSearchForm, objeto DTO que recoge los campos de currículum
+ * para las búsquedas.
+ */
 @Controller
 public class CurriculumSearchForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
-   
-    private String pais;
-    private String ciudad;
-    private String titulacion;
-    private String conocimiento;
-    private Integer experiencia;
-       
-	
+	private String pais;
+
+	private String ciudad;
+
+	private String titulacion;
+
+	private String conocimiento;
+
+	private Integer experiencia;
+
 	public String getPais() {
 		return pais;
 	}
@@ -57,8 +61,5 @@ public class CurriculumSearchForm {
 	public void setExperiencia(Integer experiencia) {
 		this.experiencia = experiencia;
 	}
-	
-	
-	
-}
 
+}

@@ -28,6 +28,8 @@ public class Titulacion implements java.io.Serializable {
 	@Column
 	private Integer anyoFinalizacion;
 	
+	@Column(columnDefinition = "int default 0")
+	private Integer likes;
 	
 	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
@@ -93,6 +95,22 @@ public class Titulacion implements java.io.Serializable {
 
 	public Curriculum getCurriculum() {
 		return curriculum;
+	}
+
+	public Integer getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+	
+	public void like(){
+		this.likes++;
+	}
+	@PrePersist
+	void preInsert() {
+	   this.likes = 0;
 	}
 	
 }

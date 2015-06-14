@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -38,6 +40,9 @@ public class TitulacionController {
 	
 	@Autowired
 	private CurriculumService curriculumService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "/create/{id}")
 	public String create(@PathVariable("id")Long id, Model model) {
@@ -164,6 +169,17 @@ public class TitulacionController {
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
       
 		return "titulacion/list";
+	}
+	
+	@RequestMapping(value = "/like", method = RequestMethod.GET)
+	public @ResponseBody String like(@RequestParam("id") Long id, ModelMap model, Authentication authentication) throws TitulacionNotFoundException {
+		logger.info("Starting like controller...");
+		
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		Account usuario = userService.findByEmail(userDetails.getUsername());
+		Titulacion titulacion = titulacionService.findOne(id);
+		return titulacionService.like(titulacion).toString();
+		
 	}
 	
 }

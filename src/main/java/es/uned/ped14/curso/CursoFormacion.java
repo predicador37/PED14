@@ -29,7 +29,7 @@ public class CursoFormacion implements java.io.Serializable {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date fechaFinalizacion;
 	@Column(columnDefinition = "int default 0")
-	private Integer numeroLikes;
+	private Integer likes;
 
 	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="curriculum_id")
@@ -106,14 +106,12 @@ public class CursoFormacion implements java.io.Serializable {
 		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
 		 }
 	 
-	 public Integer getNumeroLikes() {
-			return numeroLikes;
+	 public Integer getLikes() {
+			return likes;
 		}
 
-
-
-		public void setNumeroLikes(Integer numeroLikes) {
-			this.numeroLikes = numeroLikes;
+		public void setLikes(Integer likes) {
+			this.likes = likes;
 		}
 
 
