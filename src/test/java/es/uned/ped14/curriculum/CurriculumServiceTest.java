@@ -29,7 +29,7 @@ import es.uned.ped14.config.SecurityConfig;
 import es.uned.ped14.conocimiento.Conocimiento;
 import es.uned.ped14.conocimiento.NivelConocimiento;
 import es.uned.ped14.experiencia.ExperienciaProfesional;
-import es.uned.ped14.experiencia.ExperienciaProfesionalRepository;
+import es.uned.ped14.experiencia.ExperienciaProfesionalRepositoryInterface;
 import es.uned.ped14.titulacion.Titulacion;
 
 import org.slf4j.Logger;
@@ -63,7 +63,7 @@ public class CurriculumServiceTest {
 	private CurriculumService curriculumService;
 	
 	@Autowired
-	private ExperienciaProfesionalRepository experienciaProfesionalRepository;
+	private ExperienciaProfesionalRepositoryInterface experienciaProfesionalRepository;
 
 	@Before
 	public void setUp() throws ParseException {

@@ -25,8 +25,6 @@ import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumRepository;
 import es.uned.ped14.curriculum.CurriculumService;
-import es.uned.ped14.curso.CursoFormacion;
-import es.uned.ped14.curso.CursoFormacionNotFoundException;
 
 /**
  * Clase ConocimientoController, controlador de Spring MVC para la clase
@@ -53,7 +51,7 @@ public class ConocimientoController {
 	 * @param model
 	 *            , modelo para la vista.
 	 * @param id
-	 *            , currículum asociado.
+	 *            , identificador del currículum asociado.
 	 * 
 	 * @return cadena de texto con el nombre de la vista.
 	 */
@@ -143,7 +141,7 @@ public class ConocimientoController {
 	 * Acción que permite actualizar los datos de un conocimiento,
 	 * complementaria de la anterior.
 	 *
-	 * @param curriculum
+	 * @param conocimiento
 	 *            , objeto de clase Conocimiento.
 	 * @param errors
 	 *            , posibles errores asociados con la acción.
@@ -251,27 +249,31 @@ public class ConocimientoController {
 
 		return "conocimiento/list";
 	}
-	
+
 	/**
 	 * Acción que permite incrementar el número de "me gusta" utilizando AJAX.
 	 *
 	 * @param id
-	 *            , identificador del elemento cuyo contador de "me gusta" se incrementará.
+	 *            , identificador del elemento cuyo contador de "me gusta" se
+	 *            incrementará.
 	 * @param authentication
 	 *            , datos del usuario.
 	 * @param model
 	 *            , el modelo.
 	 * @param request
 	 *            , la petición HTTP asociada.
-	 * @throws ConocimientoNotFoundException, en caso de no encontrar ningún elemento conocimiento.
+	 * @throws ConocimientoNotFoundException
+	 *             , en caso de no encontrar ningún elemento conocimiento.
 	 * @return String con el número de "me gusta"
 	 */
 	@RequestMapping(value = "/like", method = RequestMethod.GET)
-	public @ResponseBody String like(@RequestParam("id") Long id, ModelMap model, Authentication authentication) throws ConocimientoNotFoundException {
+	public @ResponseBody String like(@RequestParam("id") Long id,
+			ModelMap model, Authentication authentication)
+			throws ConocimientoNotFoundException {
 		logger.info("Starting like controller...");
 		Conocimiento conocimiento = conocimientoService.findOne(id);
 		return conocimientoService.like(conocimiento).toString();
-		
+
 	}
 
 }

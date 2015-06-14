@@ -2,6 +2,8 @@ package es.uned.ped14.experiencia;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -18,9 +20,9 @@ public class ExperienciaProfesionalForm {
 	private String cargo;
 	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
 	private String empresa;
-	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	@NotNull(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
 	private Date fechaInicio;
-	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	@NotNull(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
 	private Date fechaFin;
 	private Long curriculumId;
 

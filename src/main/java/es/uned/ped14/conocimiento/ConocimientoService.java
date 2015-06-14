@@ -133,7 +133,7 @@ public class ConocimientoService {
 	 * Find one. Busca un conocimiento dado su identificador.
 	 * 
 	 * @param id
-	 *            , entero largo con el identificador del conocimientro.
+	 *            , entero largo con el identificador del conocimiento.
 	 * @return conocimiento, el conocimiento encontrado.
 	 * @throws ConocimientoNotFoundException
 	 *             , excepción lanzada en caso de no encontrar ningún

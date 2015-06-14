@@ -23,8 +23,6 @@ import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumRepository;
 import es.uned.ped14.curriculum.CurriculumService;
-import es.uned.ped14.titulacion.Titulacion;
-import es.uned.ped14.titulacion.TitulacionNotFoundException;
 
 /**
  * Clase CursoFormacionController, controlador de Spring MVC para la clase
@@ -127,10 +125,12 @@ public class CursoFormacionController {
 	 * Acción que permite actualizar los datos de un curso, complementaria de la
 	 * anterior.
 	 *
-	 * @param curriculum
+	 * @param curso
 	 *            , objeto de clase Curso.
 	 * @param errors
 	 *            , posibles errores asociados con la acción.
+	 * @param ra
+	 *            , atributos a redirigir entre peticiones.
 	 * @return cadena de texto con el nombre de la vista.
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -222,27 +222,31 @@ public class CursoFormacionController {
 
 		return "curso/list";
 	}
-	
+
 	/**
 	 * Acción que permite incrementar el número de "me gusta" utilizando AJAX.
 	 *
 	 * @param id
-	 *            , identificador del elemento cuyo contador de "me gusta" se incrementará.
+	 *            , identificador del elemento cuyo contador de "me gusta" se
+	 *            incrementará.
 	 * @param authentication
 	 *            , datos del usuario.
 	 * @param model
 	 *            , el modelo.
 	 * @param request
 	 *            , la petición HTTP asociada.
-	 * @throws CursoFormacionNotFoundException, en caso de no encontrar ningún elemento curso.
+	 * @throws CursoFormacionNotFoundException
+	 *             , en caso de no encontrar ningún elemento curso.
 	 * @return String con el número de "me gusta"
 	 */
 	@RequestMapping(value = "/like", method = RequestMethod.GET)
-	public @ResponseBody String like(@RequestParam("id") Long id, ModelMap model, Authentication authentication) throws CursoFormacionNotFoundException {
+	public @ResponseBody String like(@RequestParam("id") Long id,
+			ModelMap model, Authentication authentication)
+			throws CursoFormacionNotFoundException {
 		logger.info("Starting like controller...");
 		CursoFormacion curso = cursoService.findOne(id);
 		return cursoService.like(curso).toString();
-		
+
 	}
 
 }
