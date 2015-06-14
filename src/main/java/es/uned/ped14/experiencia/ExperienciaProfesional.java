@@ -2,42 +2,59 @@ package es.uned.ped14.experiencia;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import es.uned.ped14.curriculum.Curriculum;
 
+/**
+ * Clase ExperienciaProfesional, POJO que modela la entidad experiencia así como
+ * sus propiedades y relaciones, mapeándola con la base de datos.
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "experiencia_profesional")
-@Proxy(lazy=false)
+@Proxy(lazy = false)
 public class ExperienciaProfesional implements java.io.Serializable {
-
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	
 	@Column
 	private String cargo;
+
 	@Column
 	private String empresa;
+
 	@Column
 	private String descripcion;
+
 	@Column
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date fechaInicio;
+
 	@Column
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date fechaFin;
+
 	@Column(columnDefinition = "int default 0")
 	private Integer numeroLikes;
-	
+
 	public Integer getNumeroLikes() {
 		return numeroLikes;
 	}
@@ -50,15 +67,35 @@ public class ExperienciaProfesional implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
-	@JoinColumn(name="curriculum_id")
+	/** Curriculum asociado */
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Curriculum.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "curriculum_id")
 	private Curriculum curriculum;
 
-    public ExperienciaProfesional() {
+	/**
+	 * Instancia una nueva experiencia profesional.
+	 */
+	public ExperienciaProfesional() {
 
 	}
 
-	public ExperienciaProfesional(String cargo, String empresa, 
+	/**
+	 * Instancia una nueva experiencia profesional.
+	 *
+	 * @param cargo
+	 *            , cadena de texto con el cargo ocupado en la empresa
+	 * @param empresa
+	 *            , cadena de texto con la empresa en la que trabajó o trabaja
+	 * @param descripcion
+	 *            , cadena de texto con la descripción de la experiencia
+	 *            profesional.
+	 * @param fechaInicio
+	 *            , campo de tipo Date con la fecha de inicio en dicha empresa.
+	 * @param fechaFin
+	 *            , campo de tipo Date con la fecha de finalización en dicha
+	 *            empresa.
+	 */
+	public ExperienciaProfesional(String cargo, String empresa,
 			String descripcion, Date fechaInicio, Date fechaFin) {
 		super();
 		this.cargo = cargo;
@@ -68,13 +105,11 @@ public class ExperienciaProfesional implements java.io.Serializable {
 		this.fechaFin = fechaFin;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
 
-    public String getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
@@ -119,31 +154,40 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	}
 
 	/**
-	* Fijar el nuevo currículum asociado. Este método mantiene
-	* la consistencia entre relaciones:
-	* * la experiencia se elimina del currículo anterior
-	* * la experiencia se añade al nuevo currículo
-	*
-	* @param owner
-	*/
-	
+	 * Fijar el nuevo currículum asociado. Este método mantiene la consistencia
+	 * entre relaciones: * la experiencia profesional se elimina del currículo
+	 * anterior * la experiencia profesional se añade al nuevo currículo
+	 *
+	 * @param curriculum
+	 *            , nuevo currículum a asociar
+	 */
+
 	public void setCurriculum(Curriculum curriculum) {
-		//prevenir bucle sin fin
+		// prevenir bucle sin fin
 		if (sameAsFormer(curriculum))
-		return ;
-		//fijar nuevo currículum
+			return;
+		// fijar nuevo currículum
 		Curriculum viejoCurriculum = this.curriculum;
 		this.curriculum = curriculum;
-		//eliminar del currículum viejo
-		if (viejoCurriculum!=null)
-		viejoCurriculum.removeExperiencia(this);
-		//fijarme a mí mismo como nuevo currículum
-		if (curriculum!=null)
-		curriculum.addExperiencia(this);
+		// eliminar del currículum viejo
+		if (viejoCurriculum != null)
+			viejoCurriculum.removeExperiencia(this);
+		// fijarme a mí mismo como nuevo currículum
+		if (curriculum != null)
+			curriculum.addExperiencia(this);
 	}
-	
-	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
-		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
-		 }
-	
+
+	/**
+	 * Same as former. Método que comprueba si el currículum a añadir es el
+	 * mismo que ya estaba.
+	 * 
+	 * @param nuevoCurriculum
+	 *            , currículum a comprobar.
+	 * @return true, si tiene éxito.
+	 */
+	private boolean sameAsFormer(Curriculum nuevoCurriculum) {
+		return curriculum == null ? nuevoCurriculum == null : curriculum
+				.equals(nuevoCurriculum);
+	}
+
 }
