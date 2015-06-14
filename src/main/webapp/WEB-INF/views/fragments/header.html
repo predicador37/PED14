@@ -59,7 +59,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">                
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesion</a>
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
             </ul>           
