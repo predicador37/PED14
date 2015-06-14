@@ -9,13 +9,13 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 	 <script type="text/javascript">
-    	function likeAjax(id, url) {
+    	function likeAjax(id, url, elemento) {
       	$.ajax({
         url: url,
         data: ({id : id}),
         type: "GET",
         success: function(data) {
-          $('#numeroLikes').html(data);
+          $('#numeroLikes' + elemento).html(data);
         }
       });
     }
@@ -162,7 +162,7 @@
                               <td th:text="${titulacion.anyoFinalizacion}"></td>
                               <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\');'"><span>Me gusta</span></a><span id="numeroLikes" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion\');'"><span>Me gusta</span></a><span id="numeroLikesTitulacion" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
                             </tr>
                           </tbody>
                         </table>                          
@@ -201,6 +201,7 @@
                               <td th:text="${#calendars.format(curso.fechaFinalizacion, 'dd/MM/yyyy')}"></td>
                               <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso\');'"><span>Me gusta</span></a><span id="numeroLikesCurso" th:text="${curso.likes != null and titulacion.likes !=0} ? ${curso.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          

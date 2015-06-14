@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -152,6 +153,15 @@ public class CursoFormacion implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public void like(){
+		this.likes++;
+	}
+	
+	@PrePersist
+	void preInsert() {
+	   this.likes = 0;
 	}
 
 }

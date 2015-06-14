@@ -113,13 +113,23 @@ public class CurriculumService {
 				NivelConocimiento.BAJO);
 
 		Role role1 = new Role("ROLE_USER");
-		Role role2 = new Role("ROLE_CREATE");
-		Role role3 = new Role("ROLE_USER");
+		Role role2 = new Role("ROLE_USER");
+		Role role3 = new Role("ROLE_CREATE");
+		Role role4 = new Role("ROLE_CREATE");
+		Role role5 = new Role("ROLE_EDIT");
+		Role role6 = new Role("ROLE_EDIT");
+		Role role7 = new Role("ROLE_DELETE");
+		Role role8 = new Role("ROLE_DELETE");
 		Account user1 = new Account("miguel.exposito@gmail.com", "miguel");
 		Account user2 = new Account("anapa@gmail.com", "anapa");
 		user1.addRole(role1);
 		user2.addRole(role2);
-		user2.addRole(role3);
+		user1.addRole(role3);
+		user2.addRole(role4);
+		user1.addRole(role5);
+		user2.addRole(role6);
+		user1.addRole(role7);
+		user2.addRole(role8);
 
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito",
 				"España", "Santander", "htp://localhost/imagen.png",

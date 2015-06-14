@@ -38,10 +38,16 @@ public class UserService implements UserDetailsService {
 	protected void initialize() {
 		Role role1 = new Role("ROLE_ADMIN");
 		Role role2 = new Role("ROLE_USER");
+		Role role3 = new Role("ROLE_CREATE");
+		Role role4 = new Role("ROLE_EDIT");
+		Role role5 = new Role("ROLE_DELETE");
 		Account user1 = new Account("user", "demo");
 		Account user2 = new Account("admin@admin.com", "admin");
 		user1.addRole(role1);
 		user2.addRole(role2);
+		user2.addRole(role3);
+		user2.addRole(role4);
+		user2.addRole(role5);
 		accountRepository.save(user1);
 		accountRepository.save(user2);
 	}

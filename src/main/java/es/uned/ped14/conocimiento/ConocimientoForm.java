@@ -1,5 +1,7 @@
 package es.uned.ped14.conocimiento;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Clase ConocimientoForm, que representa el objeto DTO para la edición de
  * conocimientos.
