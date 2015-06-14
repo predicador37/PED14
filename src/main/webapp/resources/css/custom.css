@@ -47,3 +47,5 @@ a:hover{color:#04D6A1!important;text-decoration: none;}
 .td-varios{border:none!important;}
 
 .like{cursor: pointer;}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {border-radius: 0px;}

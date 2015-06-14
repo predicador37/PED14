@@ -22,12 +22,12 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" th:href="@{/}">Inicio</a></li>
                 <li><a href="#memoria">Memoria</a></li>
-                <li><a href="#grupo">Grupo</a></li>
+                <li><a th:href="@{/grupo}">Grupo</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${#authentication}?${#authorization.expression('!isAuthenticated()')}">
-                    <a class="pull-right" href="/signup" th:href="@{/signup}">Registrate</a>                    
-                    <a class="pull-right" href="/signin" th:href="@{/signin}">Iniciar sesion</a>
+                    <a class="pull-right"  th:href="@{/signup}">Registrate</a>                    
+                    <a class="pull-right" th:href="@{/signin}">Iniciar sesión</a>
                 </li>
                 <li th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
@@ -55,7 +55,7 @@
             <ul class="nav navbar-nav">             
                 <li class="active"><a href="#" th:href="@{/}">Inicio</a></li>
                 <li><a href="#memoria">Memoria</a></li>
-                <li><a href="#grupo">Grupo</a></li>
+                <li><a th:href="@{/grupo}">Grupo</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">                
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
