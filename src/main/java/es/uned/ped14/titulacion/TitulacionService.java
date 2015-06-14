@@ -1,6 +1,9 @@
 package es.uned.ped14.titulacion;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -30,6 +33,8 @@ import es.uned.ped14.curriculum.CurriculumService;
 
 @Service
 public class TitulacionService {
+	
+	
 	Logger logger = LoggerFactory.getLogger(TitulacionService.class);
 	 
 	@Autowired
@@ -108,6 +113,15 @@ public class TitulacionService {
 			throw new TitulacionNotFoundException("No se encontraron titulaciones");
 		}
 		return titulaciones;
+	}
+	
+	
+	
+	public Integer like(Titulacion titulacion) {
+		
+		titulacion.like();
+		titulacionRepository.save(titulacion);
+		return titulacion.getLikes();
 	}
 	
 	}

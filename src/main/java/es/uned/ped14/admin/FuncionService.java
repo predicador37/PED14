@@ -1,6 +1,9 @@
 package es.uned.ped14.admin;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -23,6 +26,7 @@ public class FuncionService implements Serializable{
 	private Boolean create;
 	private Boolean edit;
 	private Boolean delete;
+	
 	
 	@PostConstruct
 	private void init(){
@@ -50,7 +54,6 @@ public class FuncionService implements Serializable{
 	public void setDelete(Boolean delete) {
 		this.delete = delete;
 	}
-	
 	
 	
 }

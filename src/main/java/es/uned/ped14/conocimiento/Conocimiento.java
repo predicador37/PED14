@@ -26,18 +26,18 @@ public class Conocimiento implements java.io.Serializable {
 	private NivelConocimiento nivelConocimiento;
 	
 	@Column(columnDefinition = "int default 0")
-	private Integer numeroLikes;
+	private Integer likes;
 	
 	public Conocimiento() {
 		
 	}
 	
-	public Integer getNumeroLikes() {
-		return numeroLikes;
+	public Integer getLikes() {
+		return likes;
 	}
 
-	public void setNumeroLikes(Integer numeroLikes) {
-		this.numeroLikes = numeroLikes;
+	public void setLikes(Integer likes) {
+		this.likes =likes;
 	}
 
 	public Curriculum getCurriculum() {
