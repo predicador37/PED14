@@ -1,17 +1,21 @@
 package es.uned.ped14.conocimiento;
 
+/**
+ * Clase ConocimientoForm, que representa el objeto DTO para la edición de
+ * conocimientos.
+ */
 public class ConocimientoForm {
-	
+
 	private String descripcion;
 	private NivelConocimiento nivelConocimiento;
 	private Long curriculumId;
-	 
+
 	public ConocimientoForm() {
-		
+
 	}
-	
+
 	public Conocimiento createConocimiento() {
-        return new Conocimiento(getDescripcion(), getNivelConocimiento());
+		return new Conocimiento(getDescripcion(), getNivelConocimiento());
 	}
 
 	public String getDescripcion() {
@@ -37,6 +41,5 @@ public class ConocimientoForm {
 	public void setCurriculumId(Long curriculumId) {
 		this.curriculumId = curriculumId;
 	}
-	
-	
+
 }

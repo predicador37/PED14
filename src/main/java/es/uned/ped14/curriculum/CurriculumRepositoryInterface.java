@@ -3,7 +3,7 @@ package es.uned.ped14.curriculum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Interfaz CurriculumRepositoryInterface, proporciona automáticamente los
  * métodos proporcionados por spring-data.

@@ -24,7 +24,7 @@ import es.uned.ped14.titulacion.Titulacion;
 import es.uned.ped14.titulacion.TitulacionRepositoryInterface;
 
 /**
- * Class CurriculumService, servicio que encapsula la lógica de negocio de
+ * Clase CurriculumService, servicio que encapsula la lógica de negocio de
  * currículum e interactúa con las capas inferiores (repositorios).
  */
 @Service
