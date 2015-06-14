@@ -1,15 +1,14 @@
 package es.uned.ped14.account;
 
-
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.uned.ped14.curriculum.Curriculum;
-
+/**
+ * Interfaz AccountRepositoryInterface, proporciona automáticamente los métodos
+ * proporcionados por spring-data.
+ */
 @Transactional
-public interface AccountRepositoryInterface extends JpaRepository<Account, Long>{
-	
-	
+public interface AccountRepositoryInterface extends
+		JpaRepository<Account, Long> {
+
 }

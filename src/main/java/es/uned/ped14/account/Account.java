@@ -3,26 +3,32 @@ package es.uned.ped14.account;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import es.uned.ped14.admin.AdminController;
 import es.uned.ped14.curriculum.Curriculum;
-import es.uned.ped14.experiencia.ExperienciaProfesional;
-import es.uned.ped14.titulacion.Titulacion;
 
+/**
+ * Clase Account, POJO que modela la entidad cuenta de usuario así como sus
+ * propiedades y relaciones, mapeándola con la base de datos.
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
 @NamedQuery(name = Account.FIND_BY_EMAIL, query = "select a from Account a where a.email = :email")
 public class Account implements java.io.Serializable {
-	
-	
+
 	public static final String FIND_BY_EMAIL = "Account.findByEmail";
 
 	@Id
@@ -31,7 +37,7 @@ public class Account implements java.io.Serializable {
 
 	@Column(unique = true)
 	private String email;
-	
+
 	public Curriculum getCurriculum() {
 		return curriculum;
 	}
@@ -47,17 +53,30 @@ public class Account implements java.io.Serializable {
 	@JsonIgnore
 	private String password;
 
+	/** Roles asociados */
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,  orphanRemoval=true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<Role> roles = new ArrayList<Role>();
-	
-	@OneToOne(mappedBy="user")
+
+	@OneToOne(mappedBy = "user")
 	private Curriculum curriculum;
-	
-    protected Account() {
+
+	/**
+	 * Instancia una nueva cuenta de usuario.
+	 */
+	protected Account() {
 
 	}
-	
+
+	/**
+	 * Instancia una nueva cuenta de usuario.
+	 *
+	 * @param email
+	 *            , cadena de texto con el email del usuario, que será su login.
+	 * @param password
+	 *            , contraseña del usuario, que se almacenará encriptada en base
+	 *            de datos.
+	 */
 	public Account(String email, String password) {
 		this.email = email;
 		this.password = password;
@@ -67,7 +86,7 @@ public class Account implements java.io.Serializable {
 		return id;
 	}
 
-    public String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -84,20 +103,22 @@ public class Account implements java.io.Serializable {
 	}
 
 	/**
-	 * Añade una nueva titulación al currículum. Este método mantiene la
-	 * consistencia entre las relaciones. Este currículum se asocia a la
-	 * titulación en concreto
-	 * @param Role role
+	 * Añade un nuevo rol a la cuenta de uusario. Este método mantiene la
+	 * consistencia entre las relaciones. Este usuario se asocia al rol en
+	 * concreto
+	 * 
+	 * @param Role
+	 *            role
 	 */
 	public void addRole(Role role) {
-		
+
 		// prevenir bucle infinito
-				if (roles.contains(role))
-					return;
-				// añadir nueva experiencia
-				roles.add(role);
-				// asociar este currículo con la experiencia
-				role.setUser(this);
+		if (roles.contains(role))
+			return;
+		// añadir nueva experiencia
+		roles.add(role);
+		// asociar este currículo con la experiencia
+		role.setUser(this);
 	}
 
 	public Collection<Role> getRoles() {
@@ -109,21 +130,23 @@ public class Account implements java.io.Serializable {
 	}
 
 	/**
-	 * Elimina una titulación de un currículum. Este método mantiene la
-	 * consistencia entre las relaciones. La titulación no estára asociada al
-	 * currículo a partir de ahora.
-	 * @param Role role
+	 * Elimina un rol de una cuenta de usuario. Este método mantiene la
+	 * consistencia entre las relaciones. El rol no estára asociado al usuario a
+	 * partir de ahora.
+	 * 
+	 * @param Role
+	 *            role
 	 */
 	public void removeRole(Role role) {
 		// prevent endless loop
-		for (Role r : roles){
+		for (Role r : roles) {
 		}
 		// prevent endless loop
-				if (!roles.contains(role))
-					return;
-				// remove the account
-				roles.remove(role);
-				// remove myself from the twitter account
-				role.setUser(null);
+		if (!roles.contains(role))
+			return;
+		// remove the account
+		roles.remove(role);
+		// remove myself from the twitter account
+		role.setUser(null);
 	}
 }
