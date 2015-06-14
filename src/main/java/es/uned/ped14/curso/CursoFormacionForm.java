@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Clase CursoFormacionForm, que representa el objeto DTO para la edición de
+ * Clase CursoFormacionForm, que representa el objeto DTO para la creación de
  * cursos.
  */
 public class CursoFormacionForm {

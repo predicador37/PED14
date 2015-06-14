@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Controller;
 
 /**
- * Clase CurriculumForm, que representa el objeto DTO para la edición de
+ * Clase CurriculumForm, que representa el objeto DTO para la creación de
  * currículos.
  */
 @Controller

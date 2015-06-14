@@ -2,30 +2,32 @@ package es.uned.ped14.experiencia;
 
 import java.util.Date;
 
-import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.NotBlank;
 
-import es.uned.ped14.account.Account;
-
+/**
+ * Clase ExperienciaProfesionalForm, que representa el objeto DTO para la
+ * creación de experiencias profesionales.
+ */
 public class ExperienciaProfesionalForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
-    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
-    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
-    private String cargo;
-    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)    
-    private String empresa;
-    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)    
-    private Date fechaInicio;
-    @NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)    
-    private Date fechaFin;
-    private Long curriculumId;
-    
-    public ExperienciaProfesionalForm(){
-    	
-    }
- 
+	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	private String cargo;
+	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	private String empresa;
+	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	private Date fechaInicio;
+	@NotBlank(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	private Date fechaFin;
+	private Long curriculumId;
+
+	public ExperienciaProfesionalForm() {
+
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -34,9 +36,9 @@ public class ExperienciaProfesionalForm {
 		this.descripcion = descripcion;
 	}
 
-
 	public ExperienciaProfesional createExperienciaProfesional() {
-        return new ExperienciaProfesional(getCargo(), getEmpresa(), getDescripcion(), getFechaInicio(), getFechaFin());
+		return new ExperienciaProfesional(getCargo(), getEmpresa(),
+				getDescripcion(), getFechaInicio(), getFechaFin());
 	}
 
 	public String getCargo() {
@@ -79,7 +81,4 @@ public class ExperienciaProfesionalForm {
 		this.curriculumId = curriculumId;
 	}
 
-	
-
-	
 }

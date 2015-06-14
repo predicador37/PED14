@@ -28,7 +28,7 @@ public interface CursoFormacionRepositoryInterface extends
 	 * Find by descripcion. Encuentra una serie de cursos dada la descripción
 	 * asociada a los mismos.
 	 * 
-	 * @param descripcionm
+	 * @param descripcion
 	 *            cadena de texto con la descripción.
 	 * @return lista de cursos.
 	 */

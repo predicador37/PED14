@@ -46,21 +46,14 @@ public class ExperienciaProfesionalService {
 		return experiencias;
 	}
 	
-	public ExperienciaProfesional findByEmpresa(String empresa) throws ExperienciaProfesionalNotFoundException {
-		ExperienciaProfesional experiencia = experienciaProfesionalRepository.findByEmpresa(empresa);
+	public List<ExperienciaProfesional> findByEmpresa(String empresa) throws ExperienciaProfesionalNotFoundException {
+		List<ExperienciaProfesional> experiencia = experienciaProfesionalRepository.findByEmpresa(empresa);
 		if(experiencia == null) {
 			throw new ExperienciaProfesionalNotFoundException("Experiencia not found");
 		}
 		return experiencia;
 	}
 	
-	public ExperienciaProfesional findByCargo(String cargo) throws ExperienciaProfesionalNotFoundException {
-		ExperienciaProfesional experiencia = experienciaProfesionalRepository.findByCargo(cargo);
-		if(experiencia == null) {
-			throw new ExperienciaProfesionalNotFoundException("Experiencia not found");
-		}
-		return experiencia;
-	}
 	
 	public List<ExperienciaProfesional> findAll() throws ExperienciaProfesionalNotFoundException {
 		List<ExperienciaProfesional> experiencias = experienciaProfesionalRepository.findAll();
