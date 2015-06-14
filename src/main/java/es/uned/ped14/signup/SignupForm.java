@@ -4,7 +4,10 @@ import org.hibernate.validator.constraints.*;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.Role;
-
+/**
+ * Clase TitulacionForm, que representa el objeto DTO para la creación de
+ * usuarios en el sistema.
+ */
 public class SignupForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";

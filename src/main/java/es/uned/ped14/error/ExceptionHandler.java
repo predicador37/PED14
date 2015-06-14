@@ -7,18 +7,26 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.common.base.Throwables;
 
 /**
- * General error handler for the application.
+ * Manejador de excepciones general para la aplicación.
  */
 @ControllerAdvice
 class ExceptionHandler {
 
 	/**
-	 * Handle exceptions thrown by handlers.
+	 * Método que gestiona las excepciones lanzadas por los manejadores.
+	 *
+	 * @param exception
+	 *            , la excepción.
+	 * @param request
+	 *            , la petición HTTP.
+	 * 
+	 * @return modelo y vista para el error.
 	 */
-	@org.springframework.web.bind.annotation.ExceptionHandler(value = Exception.class)	
+	@org.springframework.web.bind.annotation.ExceptionHandler(value = Exception.class)
 	public ModelAndView exception(Exception exception, WebRequest request) {
 		ModelAndView modelAndView = new ModelAndView("error/general");
-		modelAndView.addObject("errorMessage", Throwables.getRootCause(exception));
+		modelAndView.addObject("errorMessage",
+				Throwables.getRootCause(exception));
 		return modelAndView;
 	}
 }
