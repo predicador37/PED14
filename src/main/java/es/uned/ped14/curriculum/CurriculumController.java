@@ -7,6 +7,7 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -216,7 +217,7 @@ public class CurriculumController {
 	}
 	
 	@RequestMapping(value = "/ajaxuploadFile", method = RequestMethod.POST)
-    public @ResponseBody Boolean ajaxUploadFile(@RequestParam("archivo") MultipartFile file, Authentication authentication) {
+    public @ResponseBody Boolean ajaxUploadFile(@RequestParam("archivo") MultipartFile file, Authentication authentication, HttpServletRequest request) {
 
         logger.info("reached ajaxuploadFile");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -224,11 +225,11 @@ public class CurriculumController {
 		//if !(validateImage(file));
         
 
-        return(saveFile(file, user));
+        return(saveFile(file, user, request));
     }
 	
 	@RequestMapping(value = "/ajaxuploadImage", method = RequestMethod.POST)
-    public @ResponseBody Boolean ajaxUploadImage(@RequestParam("imagen") MultipartFile imagen, Authentication authentication) {
+    public @ResponseBody Boolean ajaxUploadImage(@RequestParam("imagen") MultipartFile imagen, Authentication authentication, HttpServletRequest request) {
 
         logger.info("reached ajaxuploadImage");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -236,7 +237,7 @@ public class CurriculumController {
 		//if !(validateImage(file));
         
 
-        return(saveFile(imagen, user));
+        return(saveFile(imagen, user, request));
     }
 	
 	private Boolean validateImage(MultipartFile image) {
@@ -246,7 +247,7 @@ public class CurriculumController {
 		return true;
 		}
 	
-	private Boolean saveFile(MultipartFile file, Account user) {
+	private Boolean saveFile(MultipartFile file, Account user, HttpServletRequest request) {
 		if (!file.isEmpty())
         {
             logger.info("not empty");
@@ -255,9 +256,9 @@ public class CurriculumController {
                 String[] parts = (file.getOriginalFilename()).split("\\.");
                 
                 // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
+                String rootPath = request.getServletContext().getRealPath("/"); 
                 logger.info("catalina home: " + rootPath);
-                File dir = new File(rootPath + File.separator + "tmpFiles");
+                File dir = new File(rootPath + File.separator + "resources" + File.separator + "files");
                 if (!dir.exists())
                     dir.mkdirs();
 
