@@ -23,29 +23,26 @@
             <div class="col-md-3">
                <div class="list-group">
                     <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
-                    <a href="#" class="list-group-item active" th:href="@{/}">Mi curriculum</a>
+                    <a href="#" class="list-group-item active" th:href="@{/}">Mi currículum</a>
                     <a href="/userOut" th:href="@{/}" class="list-group-item">Darme de baja</a>
                     <a class="list-group-item" href="/enableFields" th:href="@{/enableFields}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
-                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesion</a>
+                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
                 </div>
             </div> 
 			 <div  th:if="${hasCurriculum != true}">
             <div class="col-md-9">
-                <h2 class="titulo-pagina">Mi curriculum</h2>
+                <h2 class="titulo-pagina">Mi currículum</h2>
                 <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                      <h4 id="titulo-no-curriculum">Todavia no has creado tu curriculum</h4>
-                        <p>Ya dispones de una cuenta de acceso a la red profesional, pero todavia no has creado tu curriculum.</p>
-                        <p>Por favor, pulsa el boton  <strong>Crear mi curriculum</strong> para acceder editar la informacion profesional asociada a tu perfil.</p>
+                      <h4 id="titulo-no-curriculum">Todavia no has creado tu currículum</h4>
+                        <p>Ya dispones de una cuenta de acceso a la red profesional, pero todavía no has creado tu currículum.</p>
+                        <p>Por favor, pulsa el botón  <strong>Crear mi currículum</strong> para acceder editar la información profesional asociada a tu perfil.</p>
                         <p>
-                            <a  href ="/curriculum/create" class="btn btn-danger" style="margin-top:20px;">Crear mi curriculum</a>
+                            <a  href ="/curriculum/create" class="btn btn-danger" style="margin-top:20px;color:#fff;">Crear mi currículum</a>
                         </p>
                 </div>
             </div>
             </div>
-
-
-
         </div>    
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>    
