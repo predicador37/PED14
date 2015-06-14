@@ -1,31 +1,45 @@
 package es.uned.ped14.curriculum;
 
-
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Controller;
 
-
+/**
+ * Clase CurriculumForm, que representa el objeto DTO para la edición de
+ * currículos.
+ */
 @Controller
 public class CurriculumForm {
 
+	/**
+	 * Constant NOT_BLANK_MESSAGE, con el mensaje a mostrar en caso de campos
+	 * nulos cuando no debieran.
+	 */
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
-    @NotBlank(message = CurriculumForm.NOT_BLANK_MESSAGE)
-	
-    private String nombre;
-    private String apellidos;
-    private String pais;
-    private String ciudad;
-    private String url_imagen;
-    private String url_archivo;
-    
-	public Curriculum createCurriculum() {		
-       return new Curriculum(getNombre(), getApellidos(), getPais(), getCiudad(),
-    		   getUrl_imagen(), getUrl_archivo());		
+	@NotBlank(message = CurriculumForm.NOT_BLANK_MESSAGE)
+	private String nombre;
+
+	private String apellidos;
+
+	private String pais;
+
+	private String ciudad;
+
+	private String url_imagen;
+
+	private String url_archivo;
+
+	/**
+	 * Crea el curriculum.
+	 *
+	 * @return devuelve un currículum.
+	 */
+	public Curriculum createCurriculum() {
+		return new Curriculum(getNombre(), getApellidos(), getPais(),
+				getCiudad(), getUrl_imagen(), getUrl_archivo());
 	}
 
-	
-    public String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
@@ -57,7 +71,6 @@ public class CurriculumForm {
 		this.ciudad = ciudad;
 	}
 
-
 	public String getUrl_imagen() {
 		return url_imagen;
 	}
@@ -73,6 +86,5 @@ public class CurriculumForm {
 	public void setUrl_archivo(String url_archivo) {
 		this.url_archivo = url_archivo;
 	}
-	
-}
 
+}
