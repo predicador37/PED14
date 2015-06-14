@@ -1,17 +1,18 @@
 package es.uned.ped14.admin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.context.annotation.ScopedProxyMode;
 
+/**
+ * Clase FuncionService, servicio que implementa un bean con ámbito de todo el
+ * ciclo de vida de la aplicación que permite guardar el estado de activación (o
+ * desactivación) de las funcionalidades de creación, edición y borrado de
+ * elementos.
+ */
 @Component
 @Service
 public class FuncionService implements Serializable {
@@ -28,6 +29,10 @@ public class FuncionService implements Serializable {
 	private Boolean edit;
 	private Boolean delete;
 
+	/**
+	 * Init. Carga los datos iniciales, por defecto siempre activos.
+	 * 
+	 */
 	@PostConstruct
 	private void init() {
 		this.create = true;

@@ -30,7 +30,7 @@
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
                 </div>
             </div> 
-
+			 <div  th:if="${hasCurriculum != true}">
             <div class="col-md-9">
                 <h2 class="titulo-pagina">Mi curriculum</h2>
                 <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -38,9 +38,10 @@
                         <p>Ya dispones de una cuenta de acceso a la red profesional, pero todavia no has creado tu curriculum.</p>
                         <p>Por favor, pulsa el boton  <strong>Crear mi curriculum</strong> para acceder editar la informacion profesional asociada a tu perfil.</p>
                         <p>
-                            <button type="button" class="btn btn-danger" style="margin-top:20px;">Crear mi curriculum</button>
+                            <a  href ="/curriculum/create" class="btn btn-danger" style="margin-top:20px;">Crear mi curriculum</a>
                         </p>
                 </div>
+            </div>
             </div>
 
 
