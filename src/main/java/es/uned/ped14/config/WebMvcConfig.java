@@ -22,7 +22,11 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 import es.uned.ped14.Application;
-
+/**
+ * 
+ * Clase con la configuración de spring MVC, resolución de plantillas, mensajes, etc.
+ *
+ */
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
 class WebMvcConfig extends WebMvcConfigurationSupport {
@@ -93,7 +97,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
     }
 
     /**
-     * Handles favicon.ico requests assuring no <code>404 Not Found</code> error is returned.
+     * Gestiona las peticiones a favicon.ico para asegurarse de que no se devuelve un <code>404 Not Found</code>.
      */
     @Controller
     static class FaviconController {

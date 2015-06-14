@@ -18,7 +18,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import es.uned.ped14.Application;
-
+/**
+ * 
+ * Configuración de la capa de persistencia JPA
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class, entityManagerFactoryRef="configureEntityManagerFactory")
