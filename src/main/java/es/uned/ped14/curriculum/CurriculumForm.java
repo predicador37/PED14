@@ -18,15 +18,14 @@ public class CurriculumForm {
 
 	@NotBlank(message = CurriculumForm.NOT_BLANK_MESSAGE)
 	private String nombre;
-
+	@NotBlank(message = CurriculumForm.NOT_BLANK_MESSAGE)
 	private String apellidos;
-
+	@NotBlank(message = CurriculumForm.NOT_BLANK_MESSAGE)
 	private String pais;
-
+	@NotBlank(message = CurriculumForm.NOT_BLANK_MESSAGE)
 	private String ciudad;
-
+	
 	private String url_imagen;
-
 	private String url_archivo;
 
 	/**

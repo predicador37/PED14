@@ -33,16 +33,16 @@
 
         <h1>Bienvenido a la red social profesional</h1>
         <div class="alert alert-success" role="alert">
-            <h4>Registrate y publica tu propio curriculum</h4>
-            <p>Si te registras, podras crear tu propio perfil ".</p>
+            <h4>Regístrate y publica tu propio currículum</h4>
+            <p>Si te registras, podras crear tu propio perfil profesional, en el que podrás tus titulaciones, experiencia profesionanal o cursos realizados.</p>
             <a class="btn btn-success btn-mostrar-registro" href="/signup" th:href="@{/signup}">
-                Registrate
+                Regístrate
             </a>           
         </div>        
 
         <div class="alert alert-success" role="alert">
             <h4>Encuentra a tu candidato</h4>
-            <p>A continuacion se muestran los curriculums disponibles. Para establecer los elementos a mostrar, puedes pulsar el boton "Mostrar opciones de filtrado".</p>
+            <p>A continuación se muestran los curriculums disponibles. Para buscar currículums por diferentes parámetros, puedes pulsar el boton "Mostrar opciones de filtrado".</p>
             <a class="btn btn-success btn-mostrar-filtrado" data-toggle="collapse" href="#opciones-edicion" aria-expanded="false" aria-controls="collapseExample">
                 Mostrar opciones de filtrado
             </a>
@@ -59,7 +59,7 @@
                                     <label for="pais" class="col-lg-2 control-label">País</label>
                                     <div class="col-lg-10">
                                         <input type="text" class="form-control" id="pais" placeholder="Introduce el país" th:field="*{pais}" autofocus="autofocus"/>
-                                        <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">Pais incorrecto</span>
+                                        <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">País incorrecto</span>
                                     </div>
                                 </div>
                                  <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
@@ -125,17 +125,17 @@
                 <td th:text="${curriculum.apellidos}"></td>
                 <td th:text="${curriculum.experiencia}"></td>
                 <td>
-                <table>
-                <tr th:each="titulacion : ${curriculum.titulaciones}">
-                 <td th:text="${titulacion.descripcion}"></td>
-              </tr>
-              </table>
-              </td>
+                    <table style="margin-top:-10px;border:none;">
+                        <tr th:each="titulacion : ${curriculum.titulaciones}">
+                            <td class="td-varios" th:text="${titulacion.descripcion}"></td>
+                        </tr>
+                    </table>
+                </td>
               <td>
-              <table>
+              <table style="margin-top:-10px;border:none;">
               <tr th:each="conocimiento : ${curriculum.conocimientos}">
-                 <td th:text="${conocimiento.descripcion}"></td>
-                 <td th:text="${conocimiento.nivelConocimiento}"></td>
+                 <td class="td-varios" th:text="${conocimiento.descripcion}"></td>
+                 <td class="td-varios" th:text="${conocimiento.nivelConocimiento}"></td>
               </tr>
               </table>
                 </td>
@@ -149,7 +149,7 @@
 
 
     </div>
-    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>
