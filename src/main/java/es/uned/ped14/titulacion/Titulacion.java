@@ -1,44 +1,66 @@
 package es.uned.ped14.titulacion;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
 import es.uned.ped14.curriculum.Curriculum;
 
-
+/**
+ * Clase Titulacion, POJO que modela la entidad titulacion así como sus
+ * propiedades y relaciones, mapeándola con la base de datos.
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "titulacion")
-@Proxy(lazy=false)
+@Proxy(lazy = false)
 public class Titulacion implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	 @Column
+	@Column
 	private String descripcion;
-	 
+
 	@Column
 	private Integer anyoFinalizacion;
-	
+
 	@Column(columnDefinition = "int default 0")
 	private Integer likes;
-	
-	@ManyToOne(fetch=FetchType.EAGER, targetEntity = Curriculum.class, cascade=CascadeType.PERSIST)
-	@JoinColumn(name="curriculum_id")
+
+	/** Curriculum asociado */
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Curriculum.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "curriculum_id")
 	private Curriculum curriculum;
 
-    public Titulacion() {
+	/**
+	 * Instancia una nueva titulación.
+	 */
+	public Titulacion() {
 
 	}
-	
+
+	/**
+	 * Instancia una nueva titulación.
+	 *
+	 * 
+	 * @param descripcion
+	 *            , cadena de texto con la descripción de la experiencia
+	 *            profesional.
+	 * @param anyoFinalizacion
+	 *            , campo de tipo entero con el año de finalización de la
+	 *            titulación.
+	 */
 	public Titulacion(String descripcion, Integer anyoFinalizacion) {
 		super();
 		this.descripcion = descripcion;
@@ -49,14 +71,14 @@ public class Titulacion implements java.io.Serializable {
 		return id;
 	}
 
-    public String getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -74,24 +96,41 @@ public class Titulacion implements java.io.Serializable {
 		this.anyoFinalizacion = anyoFinalizacion;
 	}
 
+	/**
+	 * Fijar el nuevo currículum asociado. Este método mantiene la consistencia
+	 * entre relaciones: * la titulación se elimina del currículo anterior * la
+	 * titulación se añade al nuevo currículo
+	 *
+	 * @param curriculum
+	 *            , nuevo currículum a asociar
+	 */
 	public void setCurriculum(Curriculum curriculum) {
-		//prevenir bucle sin fin
+		// prevenir bucle sin fin
 		if (sameAsFormer(curriculum))
-		return ;
-		//fijar nuevo currículum
+			return;
+		// fijar nuevo currículum
 		Curriculum viejoCurriculum = this.curriculum;
 		this.curriculum = curriculum;
-		//eliminar del currículum viejo
-		if (viejoCurriculum!=null)
-		viejoCurriculum.removeTitulacion(this);
-		//fijarme a mí mismo como nuevo currículum
-		if (curriculum!=null)
-		curriculum.addTitulacion(this);
+		// eliminar del currículum viejo
+		if (viejoCurriculum != null)
+			viejoCurriculum.removeTitulacion(this);
+		// fijarme a mí mismo como nuevo currículum
+		if (curriculum != null)
+			curriculum.addTitulacion(this);
 	}
-	
-	 private boolean sameAsFormer(Curriculum nuevoCurriculum) {
-		 return curriculum==null? nuevoCurriculum == null : curriculum.equals(nuevoCurriculum);
-		 }
+
+	/**
+	 * Same as former. Método que comprueba si el currículum a añadir es el
+	 * mismo que ya estaba.
+	 * 
+	 * @param nuevoCurriculum
+	 *            , currículum a comprobar.
+	 * @return true, si tiene éxito.
+	 */
+	private boolean sameAsFormer(Curriculum nuevoCurriculum) {
+		return curriculum == null ? nuevoCurriculum == null : curriculum
+				.equals(nuevoCurriculum);
+	}
 
 	public Curriculum getCurriculum() {
 		return curriculum;
@@ -104,13 +143,14 @@ public class Titulacion implements java.io.Serializable {
 	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
-	
-	public void like(){
+
+	public void like() {
 		this.likes++;
 	}
+
 	@PrePersist
 	void preInsert() {
-	   this.likes = 0;
+		this.likes = 0;
 	}
-	
+
 }

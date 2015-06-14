@@ -1,22 +1,25 @@
 package es.uned.ped14.titulacion;
 
-import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.NotBlank;
 
-import es.uned.ped14.account.Account;
-
+/**
+ * Clase TitulacionForm, que representa el objeto DTO para la creación de
+ * titulaciones.
+ */
 public class TitulacionForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
-    @NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
+	@NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
-    @NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
-    private Integer anyoFinalizacion;
-    private Long curriculumId;
+	@NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
+	private Integer anyoFinalizacion;
+	private Long curriculumId;
 
-    public TitulacionForm() {
-    	
-    }
+	public TitulacionForm() {
+
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -24,7 +27,7 @@ public class TitulacionForm {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public Integer getAnyoFinalizacion() {
 		return anyoFinalizacion;
 	}
@@ -34,7 +37,7 @@ public class TitulacionForm {
 	}
 
 	public Titulacion createTitulacion() {
-        return new Titulacion(getDescripcion(), getAnyoFinalizacion());
+		return new Titulacion(getDescripcion(), getAnyoFinalizacion());
 	}
 
 	public Long getCurriculumId() {
@@ -45,7 +48,4 @@ public class TitulacionForm {
 		this.curriculumId = curriculumId;
 	}
 
-
-
-	
 }

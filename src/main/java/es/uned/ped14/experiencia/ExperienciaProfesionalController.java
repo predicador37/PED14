@@ -63,7 +63,7 @@ public class ExperienciaProfesionalController {
 	}
 
 	/**
-	 * Acción que permite añadir un nuevo conocimiento, complementaria de la
+	 * Acción que permite añadir una nueva experiencia profesional, complementaria de la
 	 * anterior.
 	 *
 	 * @param experienciaProfesionalForm
@@ -204,8 +204,8 @@ public class ExperienciaProfesionalController {
 	}
 
 	/**
-	 * Acción que permite listar todos los conocimientos asociados a una
-	 * experiencia profesional.
+	 * Acción que permite listar todas las experiencias asociadas a un
+	 * currículum.
 	 *
 	 * @param model
 	 *            , el modelo.

@@ -24,16 +24,22 @@ import es.uned.ped14.curriculum.Curriculum;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumRepository;
 import es.uned.ped14.curriculum.CurriculumService;
+import es.uned.ped14.experiencia.ExperienciaProfesionalNotFoundException;
 import es.uned.ped14.support.web.*;
-
+/**
+ * Clase TitulacionController, controlador de Spring MVC para la
+ * clase Titulacion. Gestiona todas las peticiones a URLs.
+ */
 @Controller
 @RequestMapping("/titulacion")
 public class TitulacionController {
-
-    private static final String CREATE_VIEW_NAME = "titulacion/create";
-    Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
+	
+	/** Logger para la depuración de errores. */
+	Logger logger = LoggerFactory.getLogger(CurriculumRepository.class);
     
-    private static final String LIST_VIEW_NAME = "titulacion/list";
+    /** Constante CREATE_VIEW_NAME, con el nombre de la vista de creación. */
+    private static final String CREATE_VIEW_NAME = "titulacion/create";
+    
 
 	@Autowired
 	private TitulacionService titulacionService;
@@ -44,6 +50,17 @@ public class TitulacionController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * Acción que permite crear una nueva titulación asociada a un
+	 * currículum.
+	 *
+	 * @param model
+	 *            , modelo para la vista.
+	 * @param id
+	 *            , identificador del currículum asociado.
+	 * 
+	 * @return cadena de texto con el nombre de la vista.
+	 */
 	@RequestMapping(value = "/create/{id}")
 	public String create(@PathVariable("id")Long id, Model model) {
 		TitulacionForm titulacionForm = new TitulacionForm();
@@ -51,7 +68,18 @@ public class TitulacionController {
 		model.addAttribute("titulacionForm", titulacionForm);
         return CREATE_VIEW_NAME;
 	}
-	
+	/**
+	 * Acción que permite añadir una nueva titulación, complementaria de la
+	 * anterior.
+	 *
+	 * @param titulacionForm
+	 *            , objeto formulario para la adición de una titulación.
+	 * @param errors
+	 *            , posibles errores relacionados con la acción.
+	 * @param ra
+	 *            , atributos a redirigir entre peticiones.
+	 * @return cadena de texto con el nombre de la vista.
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@Valid @ModelAttribute("titulacionForm") TitulacionForm titulacionForm,  Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
@@ -77,7 +105,13 @@ public class TitulacionController {
       
 		return "redirect:/curriculum/show/"+curriculum.getId();
 	}
-	
+	/**
+	 * Acción que permite editar una titulación ya existente.
+	 *
+	 * @param id
+	 *            , identificador del currículum asociado.
+	 * @return modelo y vista.
+	 */
 	 @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
 	 	 public ModelAndView edit(@PathVariable("id")Long id)
 	 	 {
@@ -94,7 +128,18 @@ public class TitulacionController {
 		 
 	 	  return mav;
 	 	 }
-	 	  
+	 /**
+		 * Acción que permite actualizar los datos de una titulación,
+		 * complementaria de la anterior.
+		 *
+		 * @param titulacion
+		 *            , objeto de clase Titulacion.
+		 * @param errors
+		 *            , posibles errores asociados con la acción.
+		 * @param ra
+		 *            , atributos a redirigir entre peticiones.
+		 * @return cadena de texto con el nombre de la vista.
+		 */ 
 	 	 @RequestMapping(value="/update", method=RequestMethod.POST)
 	 	 public String update(@Valid @ModelAttribute("titulacion")Titulacion titulacion, Errors errors, RedirectAttributes ra)
 	 	 {
@@ -109,7 +154,13 @@ public class TitulacionController {
 	 
 	 	
 	
-	
+	 	/**
+	 	 * Acción que permite borrar una titulación.
+	 	 *
+	 	 * @param id
+	 	 *            , identificador de la titulación.
+	 	 * @return cadena de texto con el nombre de la vista.
+	 	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 	
@@ -135,16 +186,15 @@ public class TitulacionController {
 		return "redirect:/curriculum/show/"+curriculumId;
 	}
 	
-	@RequestMapping(value = "/curriculum/{curriculumId}/remove/{id}", method = RequestMethod.GET)
-	public String removeFromUser(@PathVariable("curriculumId") Long curriculumId, @PathVariable("id") Long id) {
-	
-		
-        // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
-      
-		return "redirect:/titulacion/list";
-	}
-	
-	
+	/**
+	 * Acción que permite listar todas las titulaciones.
+	 *
+	 * @param model
+	 *            , el modelo.
+	 * @return cadena de texto con el nombre de la vista.
+	 * @throws TitulacionNotFoundException
+	 *             , excepción en caso de no encontrar titulaciones.
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(ModelMap model) throws TitulacionNotFoundException  {
 		
@@ -153,7 +203,19 @@ public class TitulacionController {
       
 		return "titulacion/list";
 	}
-	
+	/**
+	 * Acción que permite listar todas las titulaciones asociadas a un
+	 * currículum.
+	 *
+	 * @param model
+	 *            , el modelo.
+	 * @param id
+	 *            , el identificador del currículum asociado.
+	 * @return cadena de texto con el nombre de la vista.
+	 * @throws TitulacionProfesionalNotFoundException
+	 *             , excepción en caso de no encontrar titulaciones.
+	 *      
+	 */
 	@RequestMapping(value = "/list/user/{id}", method = RequestMethod.GET)
 	public String listByUser(@PathVariable("id") Long id, ModelMap model) throws TitulacionNotFoundException  {
 		 Curriculum curriculum;

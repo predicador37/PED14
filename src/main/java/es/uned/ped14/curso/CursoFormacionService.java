@@ -91,8 +91,8 @@ public class CursoFormacionService {
 	 * Find by descripcion. Busca cursos dada una descripción asociada.
 	 * 
 	 * @param descripcion
-	 *            , descripción asociada al ccurso.
-	 * @return lista de ccursoss.
+	 *            , descripción asociada al curso.
+	 * @return lista de cursos.
 	 * @throws CursoFormacionNotFoundException
 	 *             , excepción lanzada en caso de no encontrar ningún curso.
 	 */
