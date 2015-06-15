@@ -35,19 +35,18 @@ Para generar un WAR para desplegarlo posteriormente, en una consola, en el direc
       mvn package 
 
 ##Uso de git 
-- Antes de nada, descargar lo que haya en el repositorio para evitar conflitos:
-
-        git pull
-
 - Se realizan los cambios o añadidos pertinentes en el código
-- Se vuelve a hacer un `git pull`
-- Se añaden los cambios para hacer commiti (desde el directorio raíz del proyecto):
+- Se añaden los cambios para hacer commit (desde el directorio raíz del proyecto):
 
         git add .
-
+        
 - Se hace commit de los cambios:
 
         git commit -m "Mensaje del commit explicativo del código enviado"
+
+- Se descarga lo que haya en el repositorio para hacer un merge:
+
+        git pull
 
 - Se hace push al repositorio, rama master:
 
