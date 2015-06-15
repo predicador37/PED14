@@ -52,3 +52,5 @@ a:hover{color:#04D6A1!important;text-decoration: none;}
 
 .contenedor-foto-curriculum{}
 .foto-curriculum{width:100%;border-radius: 6px;}
+
+.list-group .list-group-item:last-child {border-radius:0px!important;}
