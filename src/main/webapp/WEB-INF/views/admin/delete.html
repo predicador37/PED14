@@ -57,7 +57,7 @@
                             <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.nombre} : '--'"></td>
                             <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.apellidos} : '--'"></td>
                          
-                            <td><a th:href="@{/admin/account/delete/} + ${usuario.id}"><span>Eliminar</span></a></td>
+                            <td><a th:if="${!(usuario.email == 'admin@admin.com')}" th:href="@{/admin/account/delete/} + ${usuario.id}"><span>Eliminar</span></a></td>
                         </tr>
                     </tbody>
                 </table>
