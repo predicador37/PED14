@@ -42,31 +42,39 @@
                         <h3 class="titulo-contenedor-formulario-login">Información general</h3>
                     </div>
                     <div class="panel-body">
-                      <table class="tabla-ficha table table-striped table-bordered">
-                        <tbody>
-                          <tr>
-                            <td class="columna-30 td-small">Id</td>
-                            <td class="columna-70 td-small" th:text="${curriculum.id}"></td>
-                          </tr>
-                          <tr>
-                            <td class="columna-30 td-small">Nombre</td>
-                            <td class="columna-70 td-small" th:text="${curriculum.nombre}"></td>
-                          </tr>
-                          <tr>
-                            <td class="columna-30 td-small">Apellidos</td>
-                            <td class="columna-70 td-small" th:text="${curriculum.apellidos}"></td>
-                          </tr>
-                          <tr>
-                            <td class="columna-30 td-small">País</td>
-                            <td class="columna-70 td-small" th:text="${curriculum.pais}"></td>
-                          </tr>
-                          <tr>
-                            <td class="columna-30 td-small">Ciudad</td>
-                            <td class="columna-70 td-small" th:text="${curriculum.ciudad}"></td>
-                          </tr>
+                      <div class="col-lg-3">
+                        <div class="contenedor-foto-curriculum">
+                            <img class="foto-curriculum" th:src="${curriculum.urlImagen}"></img>                              
+                        </div>
+                      </div>
+                      <div class="col-lg-9">                       
+                        <table class="tabla-ficha table table-striped table-bordered">
+                          <tbody>
+                            <tr>
+                              <td class="columna-30 td-small">Id</td>
+                              <td class="columna-70 td-small" th:text="${curriculum.id}"></td>
+                            </tr>
+                            <tr>
+                              <td class="columna-30 td-small">Nombre</td>
+                              <td class="columna-70 td-small" th:text="${curriculum.nombre}"></td>
+                            </tr>
+                            <tr>
+                              <td class="columna-30 td-small">Apellidos</td>
+                              <td class="columna-70 td-small" th:text="${curriculum.apellidos}"></td>
+                            </tr>
+                            <tr>
+                              <td class="columna-30 td-small">País</td>
+                              <td class="columna-70 td-small" th:text="${curriculum.pais}"></td>
+                            </tr>
+                            <tr>
+                              <td class="columna-30 td-small">Ciudad</td>
+                              <td class="columna-70 td-small" th:text="${curriculum.ciudad}"></td>
+                            </tr>
 
-                        </tbody>
-                      </table>
+                          </tbody>
+                        </table>
+                        <a class="foto-curriculum" th:href="${curriculum.urlArchivo}"><span class="glyphicon glyphicon-import" aria-hidden="true"> </span> Descargar el documento asociado al currículum</a>
+                      </div>
                     </div>    
                 </div>
 
