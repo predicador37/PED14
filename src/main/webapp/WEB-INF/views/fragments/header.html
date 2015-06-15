@@ -17,7 +17,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" th:href="@{~/}"><img class="logo" src="../../../resources/images/uned.png" th:href="@{~/resources/images/uned.png}"></img>Red social profesional</a>
+            <a class="navbar-brand" th:href="@{~/}"><img class="logo" src="../../../resources/images/uned.png" th:src="@{~/resources/images/uned.png}"></img>Red social profesional</a>
 
         </div>
         <div class="navbar-collapse collapse">
@@ -32,7 +32,7 @@
                     <a class="pull-right" th:href="@{~/signin}">Iniciar sesión</a>
                 </li>
                 <li th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
-                    <a href="~/logout" th:href="@{~#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    <a href="~/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{~/logout}"></form>
                 </li>
             </ul>
@@ -51,7 +51,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"th:href="@{~/}"><img class="logo" src="../../../resources/images/uned.png" th:href="@{~/resources/images/uned.png}"></img>Red social profesional</a>
+            <a class="navbar-brand" th:href="@{~/}"><img class="logo" src="../../../resources/images/uned.png" th:src="@{~/resources/images/uned.png}"></img>Red social profesional</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">             
@@ -61,7 +61,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">                
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a href="~/logout" th:href="@{~#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    <a href="~/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{~/logout}"></form>
                 </li>
             </ul>           

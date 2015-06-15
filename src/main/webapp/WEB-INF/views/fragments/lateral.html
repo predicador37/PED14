@@ -11,17 +11,20 @@
  <div class="col-md-3" >
                <div class="list-group">
                     <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
-                    <div  th:if="${hasCurriculum == true}">
-                    <a class="list-group-item active" th:href="@{~/curriculum/} + ${curriculumId}">Mi currículum</a>
+                    <div  th:if="${hasCurriculum == true or curriculum != null}">
+                    <a class="list-group-item active" th:href="@{~/curriculum/show/} + ${curriculumId}">Mi currículum</a>
                     </div>
-                    <div  th:if="${hasCurriculum != true}">                    
-                    <a class="list-group-item active" th:href="@{~/curriculum/create}">Crear o modificar currículum</a>
+                    <div  th:if="${hasCurriculum != true or curriculum == null}">                    
+                    <a class="list-group-item active" th:href="@{~/curriculum/create}">Crear currículum</a>
+                    </div>
+                    <div  th:if="${hasCurriculum == true}">                    
+                    <a class="list-group-item active" th:href="@{~/curriculum/show/} + ${curriculumId}">Editar currículum</a>
                     </div>
                     <a th:href="@{/account/userOut}" th:if="${!#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="list-group-item">Darme de baja</a>
                     <a class="list-group-item" th:href="@{~/admin/delete}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Dar de baja a usuarios</a>
                     <a class="list-group-item" th:href="@{~/admin/view}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
                     
-                    <a class="list-group-item" href="~/logout" th:href="@{~#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    <a class="list-group-item" href="~/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{~/logout}"></form>                
                 </div>
             </div> 
