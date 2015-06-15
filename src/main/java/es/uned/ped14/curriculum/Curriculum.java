@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.conocimiento.Conocimiento;
@@ -51,20 +52,30 @@ public class Curriculum implements java.io.Serializable {
 	 * un currículum por email de su usuario asociado.
 	 */
 	public static final String FIND_BY_USER_EMAIL = "Curriculum.findByUserEmail";
+	
+	/**
+	 * Constante NOT_BLANK_MESSAGE, con el mensaje a mostrar en caso de campos
+	 * nulos cuando no debieran.
+	 */
+	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column
+	@NotBlank(message = Curriculum.NOT_BLANK_MESSAGE)
 	private String nombre;
-
+	
+	@NotBlank(message = Curriculum.NOT_BLANK_MESSAGE)
 	@Column
 	private String apellidos;
-
+	
+	@NotBlank(message = Curriculum.NOT_BLANK_MESSAGE)
 	@Column
 	private String pais;
-
+	
+	@NotBlank(message = Curriculum.NOT_BLANK_MESSAGE)
 	@Column
 	private String ciudad;
 

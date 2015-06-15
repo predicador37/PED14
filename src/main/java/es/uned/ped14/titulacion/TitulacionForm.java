@@ -1,5 +1,7 @@
 package es.uned.ped14.titulacion;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -12,7 +14,7 @@ public class TitulacionForm {
 
 	@NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
-	@NotBlank(message = TitulacionForm.NOT_BLANK_MESSAGE)
+	@NotNull(message = TitulacionForm.NOT_BLANK_MESSAGE)
 	private Integer anyoFinalizacion;
 	private Long curriculumId;
 

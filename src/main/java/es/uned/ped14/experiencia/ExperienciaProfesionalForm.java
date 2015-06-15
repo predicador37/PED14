@@ -22,7 +22,7 @@ public class ExperienciaProfesionalForm {
 	private String empresa;
 	@NotNull(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
 	private Date fechaInicio;
-	@NotNull(message = ExperienciaProfesionalForm.NOT_BLANK_MESSAGE)
+	
 	private Date fechaFin;
 	private Long curriculumId;
 

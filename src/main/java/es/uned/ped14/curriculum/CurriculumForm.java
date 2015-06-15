@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 public class CurriculumForm {
 
 	/**
-	 * Constant NOT_BLANK_MESSAGE, con el mensaje a mostrar en caso de campos
+	 * Constante NOT_BLANK_MESSAGE, con el mensaje a mostrar en caso de campos
 	 * nulos cuando no debieran.
 	 */
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
