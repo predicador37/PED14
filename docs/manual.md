@@ -79,6 +79,17 @@ para iniciar sesión en la aplicación.
 Para iniciar sesión, podemos hacer click en el enlace `Iniciar sesión`, disponible en la 
 cabecera de la página.
 
+## Cuentas de usuarios de prueba
+Se han creado dos usuarios de prueba para la aplicación:
+
+### Usuario con rol de administrador
+- Nombre de usuario: admin@admin.com
+- Contraseña: admin
+
+### Usuario con rol de usuario
+- Nombre de usuario: miguel.exposito@gmail.com
+- Contraseña: miguel
+
 ## Usuarios registrados
 
 Una vez hemos iniciado sesión como usuario registrado, la aplicación mostrará nuestro 
