@@ -149,11 +149,16 @@ public class Titulacion implements java.io.Serializable {
 	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
-
+	
+	/**
+	 * Método para incrementar el contador "me gusta"
+	 */
 	public void like() {
 		this.likes++;
 	}
-
+	/**
+	 * Método para inicializar el contador "me gusta" a cero
+	 */
 	@PrePersist
 	void preInsert() {
 		this.likes = 0;

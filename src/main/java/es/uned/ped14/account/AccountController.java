@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -34,13 +33,13 @@ import es.uned.ped14.curriculum.CurriculumService;
 @Controller
 @Secured({ "ROLE_USER", "ROLE_RESTRICTED" })
 class AccountController {
-	
+
 	/** Logger para la depuración de errores. */
 	Logger logger = LoggerFactory.getLogger(CurriculumController.class);
-	
+
 	@Autowired
 	private AccountRepository accountRepository;
-	
+
 	@Autowired
 	private RoleService roleService;
 
@@ -48,12 +47,13 @@ class AccountController {
 	public AccountController(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
 	}
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CurriculumService curriculumService;
-	
+
 	/**
 	 * Acción que devuelve el usuario actual loggeado en el sistema.
 	 *
@@ -69,7 +69,12 @@ class AccountController {
 		Assert.notNull(principal);
 		return accountRepository.findByEmail(principal.getName());
 	}
-	
+
+	/**
+	 * Acción que envía a una página de confirmación para eliminar un usuario.
+	 *
+	 * @return cadena de texto con la vista de confirmación.
+	 */
 	@RequestMapping(value = "account/userOut", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public String userOut(Principal principal) {
@@ -77,44 +82,57 @@ class AccountController {
 		Assert.notNull(principal);
 		return "account/delete";
 	}
-	
+
+	/**
+	 * Acción que elimina al usuario actual loggeado en el sistema que la
+	 * ejecuta..
+	 *
+	 * @param principal
+	 *            , datos de usuario de spring security.
+	 * @param request
+	 *            , petición HTTP.
+	 * @param response
+	 *            , respuesta HTTP
+	 * @param auth
+	 *            , datos de autenticación
+	 * 
+	 * @return cadena de texto con la vista de confirmación del borrado.
+	 */
 	@RequestMapping(value = "account/delete", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public String delete(Principal principal, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
-		logger.info("Delete user controller"); 
-		if (auth != null){
-			 UserDetails userDetails = (UserDetails) auth.getPrincipal();
-			 Account user = userService.findByEmail(userDetails.getUsername());
-			 Curriculum curriculum = user.getCurriculum();
-		     SecurityContextHolder.getContext().setAuthentication(null);
-             new SecurityContextLogoutHandler().logout(request, response, auth);
-             logger.info("User logged out");
-             curriculum.setUser(null);
-             curriculumService.save(curriculum);
-             curriculumService.delete(curriculum.getId());
-             curriculumService.flush();
-             logger.info("Curriculum deleted");
-             user.setCurriculum(null);
-             user.setCurriculum(null);
-             for (Role r : user.getRoles()){
-            	 user.removeRole(r);
-            	 roleService.delete(r);
-            	 roleService.flush();
-             }
-             userService.merge(user);
-             userService.flush();
-             try {
-             userService.delete(user.getId());
-             
-             }
-             catch (ConcurrentModificationException e) {
-            	 logger.error("Error de concurrencia... pasable");
-             }
-             userService.flush();
-          }
-		 
-		
-		
+	public String delete(Principal principal, HttpServletRequest request,
+			HttpServletResponse response, Authentication auth) {
+		logger.info("Delete user controller");
+		if (auth != null) {
+			UserDetails userDetails = (UserDetails) auth.getPrincipal();
+			Account user = userService.findByEmail(userDetails.getUsername());
+			Curriculum curriculum = user.getCurriculum();
+			SecurityContextHolder.getContext().setAuthentication(null);
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+			logger.info("User logged out");
+			curriculum.setUser(null);
+			curriculumService.save(curriculum);
+			curriculumService.delete(curriculum.getId());
+			curriculumService.flush();
+			logger.info("Curriculum deleted");
+			user.setCurriculum(null);
+			user.setCurriculum(null);
+			for (Role r : user.getRoles()) {
+				user.removeRole(r);
+				roleService.delete(r);
+				roleService.flush();
+			}
+			userService.merge(user);
+			userService.flush();
+			try {
+				userService.delete(user.getId());
+
+			} catch (ConcurrentModificationException e) {
+				logger.error("Error de concurrencia... pasable");
+			}
+			userService.flush();
+		}
+
 		return "account/confirmed";
 	}
 }

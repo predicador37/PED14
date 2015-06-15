@@ -216,7 +216,7 @@ public class CurriculumService {
 	/**
 	 * Servicio que devuelve una lista con todos los currículos existentes.
 	 *
-	 * @return lista de currículos.
+	 * @return lista de currículos ordenada descendentemente por experiencia.
 	 * @throws CurriculumNotFoundException
 	 *             , excepción en caso de no encontrar ningún currículum.
 	 */

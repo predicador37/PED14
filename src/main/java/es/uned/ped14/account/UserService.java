@@ -27,6 +27,7 @@ import es.uned.ped14.curriculum.CurriculumNotFoundException;
  * usuario e interactúa con las capas inferiores (repositorios).
  */
 public class UserService implements UserDetailsService {
+	
 	/** Logger para la depuración de errores */
 	Logger logger = LoggerFactory.getLogger(UserService.class);
 

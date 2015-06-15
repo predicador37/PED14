@@ -144,11 +144,15 @@ public class Conocimiento implements java.io.Serializable {
 		return curriculum == null ? nuevoCurriculum == null : curriculum
 				.equals(nuevoCurriculum);
 	}
-	
+	/**
+	 * Método para incrementar el contador "me gusta"
+	 */
 	public void like(){
 		this.likes++;
 	}
-	
+	/**
+	 * Método para inicializar el contador "me gusta" a cero
+	 */
 	@PrePersist
 	void preInsert() {
 	   this.likes = 0;
