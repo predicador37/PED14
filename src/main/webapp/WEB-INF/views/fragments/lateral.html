@@ -15,7 +15,7 @@
                     <a class="list-group-item active" th:href="@{/curriculum/} + ${curriculumId}">Mi currículum</a>
                     </div>
                     <div  th:if="${hasCurriculum != true}">                    
-                    <a class="list-group-item active" th:href="@{/curriculum/create}">Crear currículum</a>
+                    <a class="list-group-item active" th:href="@{/curriculum/create}">Crear o modificar currículum</a>
                     </div>
                     <a th:href="@{/account/userOut}" th:if="${!#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="list-group-item">Darme de baja</a>
                     <a class="list-group-item" th:href="@{/admin/delete}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Dar de baja a usuarios</a>

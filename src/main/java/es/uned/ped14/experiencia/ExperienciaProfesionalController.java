@@ -242,7 +242,9 @@ public class ExperienciaProfesionalController {
 
 		return "experiencia/list";
 	}
-	
+	/*
+	 * Binder para poder pasar nulos en los campos de fecha. Incompatible con Thymeleaf...
+	 */
 	@InitBinder
 	public void allowEmptyDateBinding( WebDataBinder binder )
 	{

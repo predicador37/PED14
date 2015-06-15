@@ -3,7 +3,10 @@ package es.uned.ped14.home;
 import java.security.Principal;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.UserService;
 import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.curriculum.CurriculumController;
 import es.uned.ped14.curriculum.CurriculumNotFoundException;
 import es.uned.ped14.curriculum.CurriculumSearchForm;
 import es.uned.ped14.curriculum.CurriculumService;
@@ -23,7 +27,9 @@ import es.uned.ped14.curriculum.CurriculumService;
  */
 @Controller
 public class HomeController {
-
+	
+	Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	@Autowired
 	CurriculumService curriculumService;
 
@@ -65,6 +71,7 @@ public class HomeController {
 			model.addAttribute("curriculos", curriculos);
 		}
 		if (principal != null) {
+			try {
 		Account user = userService.findByEmail(principal.getName());
 		if (user.getCurriculum() != null) {
 			model.addAttribute("hasCurriculum", true);
@@ -74,6 +81,11 @@ public class HomeController {
 			model.addAttribute("hasCurriculum", false);
 			return "home/homeSignedIn";
 		}
+			}
+			catch (UsernameNotFoundException e) {
+				logger.error("usuario no encontrado... ignorando");
+			}
+		
 		}
 		model.addAttribute("curriculumSearchForm", new CurriculumSearchForm());
 

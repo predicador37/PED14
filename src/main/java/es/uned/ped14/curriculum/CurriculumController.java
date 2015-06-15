@@ -3,7 +3,9 @@ package es.uned.ped14.curriculum;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,8 +125,10 @@ public class CurriculumController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(
 			@Valid @ModelAttribute("curriculumForm") CurriculumForm curriculumForm,
-			Authentication authentication, Errors errors, RedirectAttributes ra) {
-		if (errors.hasErrors()) {
+			 Errors errors, Authentication authentication, RedirectAttributes ra, BindingResult result) {
+		logger.info("Iniciando acción añadir...");
+		if (errors.hasErrors() || result.hasErrors()) {
+			logger.error("form data has errors");
 			return CREATE_VIEW_NAME;
 		}
 		logger.info("Creando currículo y asociando a usuario");
@@ -301,7 +309,7 @@ public class CurriculumController {
 	@RequestMapping(value = "/results", method = RequestMethod.POST)
 	public String results(
 			@Valid @ModelAttribute("curriculumForm") CurriculumSearchForm curriculumSearchForm,
-			ModelMap model, Errors errors, RedirectAttributes ra) {
+			 Errors errors, ModelMap model, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return "curriculum/search";
 		}

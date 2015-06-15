@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.conocimiento.Conocimiento;
@@ -33,6 +34,7 @@ import es.uned.ped14.titulacion.Titulacion;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "curriculum")
+@Proxy(lazy = false)
 @NamedQueries({
 		@NamedQuery(name = Curriculum.FIND_ONE, query = "select a from Curriculum a where a.id = :id"),
 		@NamedQuery(name = Curriculum.FIND_BY_USER_EMAIL, query = "select a from Curriculum a where a.user.email = :email") })

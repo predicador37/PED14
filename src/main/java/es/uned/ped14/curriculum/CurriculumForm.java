@@ -37,6 +37,10 @@ public class CurriculumForm {
 		return new Curriculum(getNombre(), getApellidos(), getPais(),
 				getCiudad(), getUrlImagen(), getUrlArchivo());
 	}
+	
+	public CurriculumForm() {
+
+	}
 
 	public String getNombre() {
 		return nombre;
