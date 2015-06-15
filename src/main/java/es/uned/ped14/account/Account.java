@@ -58,7 +58,8 @@ public class Account implements java.io.Serializable {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<Role> roles = new ArrayList<Role>();
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user",
+	        cascade = CascadeType.ALL, orphanRemoval = true)
 	private Curriculum curriculum;
 
 	/**

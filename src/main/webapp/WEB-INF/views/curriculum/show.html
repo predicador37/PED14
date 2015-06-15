@@ -36,10 +36,19 @@
             <div class="col-md-3">
                <div class="list-group">
                     <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
-                    <a class="list-group-item active" href="../home/curriculum/create.html" th:href="@{/curriculum/create}">Mi currículum</a>
-                    <a href="/userOut" th:href="@{/}" class="list-group-item">Darme de baja</a>
+                    <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
+                    <a class="list-group-item active" href="../home/curriculum/create.html" th:href="@{/curriculum/show/} + ${curriculum.id}">Mi currículum</a>
+                    </div>
+                    <div th:if="${#authentication}?${!#authorization.expression('isAuthenticated()')}">
+                     <a class="list-group-item active" href="../home/curriculum/create.html" th:href="@{/signup}">Registrarse</a>
+                    </div>
+                    <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
+                    <a  th:href="@{/account/userOut}" class="list-group-item">Darme de baja</a>
+                    </div>
                     <a class="list-group-item" href="/enableFields" th:href="@{/enableFields}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
+                    <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                     <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    </div>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
                 </div>
             </div> 
@@ -173,7 +182,7 @@
                               <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span><img border="0" alt="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
                             </tr>
                           </tbody>
                         </table>                          
@@ -216,7 +225,7 @@
                               <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso' + ${curso.id} + '\');'"><span><img border="0" alt="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesCurso + ${curso.id}" th:text="${curso.likes != null and curso.likes !=0} ? ${curso.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso' + ${curso.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesCurso + ${curso.id}" th:text="${curso.likes != null and curso.likes !=0} ? ${curso.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          
@@ -255,7 +264,7 @@
                               <td><a th:href="@{/conocimiento/edit/} + ${conocimiento.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/conocimiento/delete/} + ${conocimiento.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span><img border="0" alt="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          

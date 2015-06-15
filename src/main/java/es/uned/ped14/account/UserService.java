@@ -31,9 +31,6 @@ public class UserService implements UserDetailsService {
 	private AccountRepository accountRepository;
 
 	@Autowired
-	private AccountRepositoryInterface accountRepositoryInt;
-
-	@Autowired
 	private RoleRepositoryInterface roleRepository;
 
 	@Autowired
@@ -184,6 +181,15 @@ public class UserService implements UserDetailsService {
 		accountRepositoryInterface.flush();
 
 	}
+	
+	/**
+	 * Flush. Obliga a la capa de persistencia a escribir cualquier cambio en la
+	 * base de datos.
+	 */
+	public void delete(Long id) {
+		accountRepositoryInterface.delete(id);
+
+	}
 
 	/**
 	 * Find all. Devuelve un listado con todos los usuarios existentes.
@@ -191,7 +197,7 @@ public class UserService implements UserDetailsService {
 	 * @return lista de cuentas de usuario.
 	 */
 	public List<Account> findAll() {
-		return accountRepositoryInt.findAll();
+		return accountRepositoryInterface.findAll();
 	}
 
 	/**

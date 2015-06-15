@@ -1,5 +1,7 @@
 package es.uned.ped14.curriculum;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,4 +33,6 @@ public interface CurriculumRepositoryInterface extends
 	 * @return primer objeto de clase Currículum encontrado.
 	 */
 	Curriculum findByNombre(String nombre);
+	
+	List<Curriculum> findAllByOrderByExperienciaDesc();
 }

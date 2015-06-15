@@ -221,7 +221,7 @@ public class CurriculumService {
 	 *             , excepción en caso de no encontrar ningún currículum.
 	 */
 	public List<Curriculum> findAll() throws CurriculumNotFoundException {
-		List<Curriculum> curriculos = curriculumRepository.findAll();
+		List<Curriculum> curriculos = curriculumRepository.findAllByOrderByExperienciaDesc();
 		if (curriculos.isEmpty()) {
 			throw new CurriculumNotFoundException("curriculum not found");
 		}
