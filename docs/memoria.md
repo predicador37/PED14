@@ -18,12 +18,52 @@
 |Validador|X|X||
 |Documentador|X|X|X|
 
-#Plan de trabajo
+# Plan de trabajo
+A continuación se incluye la propuesta inicial de calendario para el cumplimiento de hitos:
+
 |Hito|Descripción|Fecha estimada |
-|---|------------|---------------|----------------|
-|Jefe de proyecto||X||
-#Especificación de requerimientos
-##Requisitos funcionales
+|----|-----------|---------------|
+|Hito 1| Esqueleto de proyecto montado|31/03/2015|
+|Hito 2| Dominio de la aplicación completado|20/04/2015|
+|Hito 3| Lógica de negocio completada|18/05/2015|
+|Hito 4| Vistas maquetadas|1/6/2015|
+|Hito 5| Pruebas y producto completo|15/06/2015|
+
+## Hito 1
+Comprende la elección e implementación de la infraestructura necesaria para llevar a cabo el proyecto. Se tendrán los siguientes entregables:
+
+- Esqueleto del proyecto.
+- Repositorio del proyecto en un sistema de control de versiones.
+- Elección y configuración de la herramienta de construcción y gestión del ciclo de vida del proyecto.
+
+## Hito 2
+En el segundo hito se lleva a cabo un análisis y especificación de requisitos inicial, debiendo dar lugar a los siguientes entregables:
+
+- Diagrama de casos de uso UML.
+- Diagrama de modelo de datos.
+- Código fuente de capa de persistencia.
+
+## Hito 3
+Definido el modelo, el siguiente paso es implementar la lógica de negocio en forma de servicios a partir de los requisitos capturados, debiendo dar lugar al siguiente entregable:
+
+- Diagrama de clases UML.
+- Código fuente de capa de servicios.
+
+## Hito 4
+Una vez implementados el modelo y la lógica de negocio, es necesario elaborar la maquetación de las vistas. Los entregables en esta fase serían:
+
+- Código fuente de vistas y controladores.
+
+## Hito 5
+Finalmente, en el último hito se corrigen posibles deficiencias y elaboran las pruebas unitarias razonables para asegurar una mínima calidad del sistema. Asimismo, se prepara el producto para su despliegue. Los entregables de este hito serían:
+
+- Producto completo.
+- Tests unitarios y de integración que correspondan.
+- Documentación asociada: memoria, manual de usuario, javadoc.
+
+# Especificación de requerimientos
+
+## Requisitos funcionales
 
 Tabla 1. Identificación de requisitos funcionales
 ---------------------------------------------------------------------------------------
@@ -69,9 +109,9 @@ id      nombre            descripción
 
 ## Casos de uso
 
-#Esquema de base de datos
+# Esquema de base de datos
 
-##Consideraciones de diseño
+## Consideraciones de diseño
 
 Para simplificar el modelado del sistema, se han tomado las siguientes decisiones de diseño:
 
@@ -79,7 +119,7 @@ Para simplificar el modelado del sistema, se han tomado las siguientes decisione
 - Utilizar búsquedas de tipo `like`: dado que no se especifican requisitos técnicos acerca del tipo de búsquedas, se optó por implementar la solución más simple (búsqueda de una cadena de texto en cualquier posición de otra). En futuras iteraciones del sistema podría contemplarse el uso de Hibernate Search, que permite realizar búsquedas *fulltext*.
 - Utilizar enumeraciones para los tipos más simples: en concreto, para modelar los niveles de conocimiento (alto, medio, bajo).
 
-##Dominio de la información
+## Dominio de la información
 
 El dominio de la información asociada al sistema se compone de las siguientes entidades:
 
@@ -90,21 +130,26 @@ El dominio de la información asociada al sistema se compone de las siguientes e
 - Conocimiento: entidad que modela los posibles conocimientos asociados a un usuario. A su vez presentan un campo "nivel de conocimiento" (una enumeración con valores posibles medio, bajo y alto).
 - Curso de formación: entidad que representa los posibles cursos de formación asociados a un usuario o currículum.
 
-En la siguiente figura se encuentra un diagrama con el modelo de datos:
-
-![Modelo de datos](./img/modelo.png)
+En los anexos se incluye una figura con el diagrama de modelo de datos.
 
 #Arquitectura
 
 La arquitectura del sistema se define teniendo presente el patrón DRY (Don't Repeat Yourself). Se seleccionó un arquetipo Maven con una integración adecuada de distintos frameworks según la capa concreta del patrón MVC (Modelo - Vista - Controlador).
 
-El arquetipo Maven es un proyecto abierto relativamente conocido que puede descargarse aquí:
+Para gestionar el ciclo de vida del proyecto así como su construcción se seleccionó la herramienta Maven, que permite, mediante sencillos comandos, llevar a cabo las siguientes tareas:
 
-      https://github.com/kolorobot/spring-mvc-quickstart-archetype
+- Ejecución de la aplicación en un contenedor Tomcat 7 empotrado.
+- Ejecución de pruebas unitarias y de integración.
+- Construcción de un WAR para desplegar en otro contenedor.
+- Gestionar las dependencias de bibliotecas mediante un repositorio sencillo.
+
+El arquetipo Maven seleccionado es un proyecto abierto relativamente conocido que puede descargarse aquí:
+
+      [https://github.com/kolorobot/spring-mvc-quickstart-archetype](https://github.com/kolorobot/spring-mvc-quickstart-archetype)
 
 Para poder utilizar el arquetipo con la configuración de plataforma especificada en los requisitos técnicos se tuvieron que hacer ciertos cambios que permitieran su ejecución con la plataforma Java EE 1.7. A partir de dicho arquetipo se confeccionó un esqueleto para el desarrollo del sistema que se subió a un repositorio de código fuente gratuito (Github), pudiendo consultarse aquí:
 
-      https://github.com/predicador37/PED14
+      [https://github.com/predicador37/PED14](https://github.com/predicador37/PED14)
 
 Dicho repositorio conforma la solución colaborativa utilizada por el grupo de desarrollo. En su página principal se encuentra información somera sobre las características del proyecto y documentación sobre el proceso de envío e intercambio de código, así como de construcción y pruebas del software.
 
@@ -132,11 +177,32 @@ Capa que constituye la frontera de interacción con el usuario, que le permite e
 
 - JQuery: framework javascript que permite dotar a la aplicación de funcionalidades de interfaz avanzadas así como interacciones asíncronas con el servidor (AJAX).
 
-En la siguiente figura se muestra un resumen de la arquitectura utilizada:
+## Seguridad
+Finalmente, para ofrecer garantías de seguridad se utilizó el conocido framework Spring Security, que soluciona problemas de autenticación y autorización de usuarios. En este caso, se han mapeado las funciones de Spring Security con clases del dominio (usuarios y roles), permitiendo implementar también los requisitos asociados de activación y desactivación de funcionalidades.
 
-![Arquitectura del sistema](./img/arquitectura.png)
+Además, Spring Security protege también contra ataques de inyección SQL y *cross-site scripting* (XSS), entre otros.
+
+## Resumen de arquitectura
+
+En los anexos se incluye una figura con el resumen de la arquitectura utilizada.
 
 #Guía de usuario
+
 #Conclusiones
+Del desarrollo del sistema propuesto se extraen las siguientes conclusiones:
+
+- Es difícil encontrar arquetipos estándar que sirvan de esqueleto para el desarrollo rápido de aplicaciones, especialmente utilizando bases de datos residentes en memoria como HSQLDB.
+- El uso de distintos frameworks de desarrollo para las distintas capas del sistema simplifica la implementación pero complica la configuración, dadas las prácticamente infinitas posibilidades existentes.
+- Existen ciertas tareas básicas que se complican utilizando frameworks; por ejemplo, la integración de Thymeleaf con Spring MVC hace prácticamente imposible el almacenamiento de un valor nulo en un campo fecha de la base de datos. Si bien parece una tarea trivial, lo cierto es que no lo es.
+- Las relaciones `many-to-many` con atributos extra requieren del uso de clases intermedias (asociadas con sendas `one-to-many` a las dos entidades en cuestión, complicando el diseño y la implementación sobremanera.
+- Es muy difícil cumplir con un calendario propuesto teniendo en cuenta las diversas circunstancias de los miembros de un equipo de desarrollo, que hacen que el tiempo disponible sea más bien escaso e insuficiente.
+- Las pruebas unitarias y de integración son herramientas muy útiles para evitar errores de regresión y aumentar la confianza y seguridad en la corrección del código desarrollado.
+- Las herramientas de gestión del ciclo de vida del proyecto permiten automatizar tareas de otra forma tediosas, aumentando considerablemente la productividad del desarrollador.
+- Los lenguajes de etiquetas sencillos, como Markdown, permiten generar documentos con apariencia profesional conservando todos los beneficios del uso de texto plano.
+- En general, como última conclusión, este grupo de desarrollo se opina que trabajar con un ecosistema de tecnologías tan variado como es el de JEE es complicado, dado que si no se dispone de usuarios expertos en cada capa el tiempo de desarrollo aumenta y, por el contrario, si sólo se tienen usuarios expertos en cada capa es difícil llevar a cabo la integración de dichas tecnologías. Se trata de un mosaico demasiado disperso, difícil de manejar.
 
 #Anexos
+
+![Modelo de datos](./img/modelo.png)
+
+![Arquitectura del sistema](./img/arquitectura.png)
