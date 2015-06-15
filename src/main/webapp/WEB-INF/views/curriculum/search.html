@@ -20,16 +20,7 @@
         </th:block>
         
         <div class="row contenedor-principal">
-            <div class="col-md-3">
-               <div class="list-group">
-                    <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
-                    <a href="#" class="list-group-item active" th:href="@{/}">Mi curriculum</a>
-                    <a href="/userOut" th:href="@{/}" class="list-group-item">Darme de baja</a>
-                    <a class="list-group-item" href="/enableFields" th:href="@{/enableFields}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
-                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesion</a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
-                </div>
-            </div> 
+              <div th:include="fragments/lateral :: lateral">&nbsp;</div>
 
             <div class="col-md-9">
                 <h2 class="titulo-pagina">Búsqueda de currículos</h2>
