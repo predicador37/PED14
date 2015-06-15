@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Red social profesional. PED14</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />    
+    <script src="../../../resources/js/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">Header</div>
+<div class="container">
+    <div class="row" style="min-height:480px;">       
+
+        <h1>Práctica Tecnologías web 2014-2015</h1>
+        <h2>Grupo: PED 14</h2>
+        <p><strong>Alumnos</strong></p>
+        <ul>
+            <li>Héctor Garnacho García, 12398942X</li>
+            <li>Marcos Azorí, 53017273L</li>
+            <li>Miguel Expósito Martín, 72056097H</li>
+        </ul>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
