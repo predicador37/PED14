@@ -11,6 +11,25 @@ Los objetivos del grupo al abordar el presente trabajo han sido los siguientes:
 
 En el presente documento, cuya fuente se encuentra disponible en formato Markdown con el proyecto, se ofrecerá una visión general sobre cómo se ha llevado a cabo el desarrollo del producto, incluyendo documentación sobre las distintas fases de su ciclo de vida (análisis, diseño, implementación y pruebas) y satisfaciendo de este modo los requisitos de documentación establecidos.
 
+# Notas para el despliegue
+La práctica se ha desarrollado utilizando JDK 1.7. Por ello, para el correcto funcionamiento en la máquina virtual es necesario asegurarse de que esta sea la versión activa:
+
+- Ejecutar el comando `update-alternatives --config java` y seleccionar JDK 1.7
+
+Además, la aplicación necesita más memoria de PERMGEN SPACE de Java de la que dispone Tomcat 7 con su configuración por defecto para ejecutarse correctamente. Para incrementarla:
+
+- Crear el archivo `setenv.sh` en la ruta:
+  
+      /usr/share/tomcat7/bin
+
+con el siguiente contenido:
+  
+      #!/bin/sh
+      export JAVA_OPTS=”-Xms256m -Xmx1024m”
+
+***Se ha comprobado que con esta configuración la aplicación se ejecuta correctamente en la máquina virtual proporcionada.***
+
+
 # Composición del grupo y roles
 
 ## Miembros del grupo
@@ -187,6 +206,7 @@ id      nombre              descripción                                     dep
                          para los usuarios de la aplicación.
 3       Dar de baja a    Un usuario administrador puede dar de baja a       Ninguna
         usuarios         cualquier otro usuario del sistema.
+
 # Esquema de base de datos
 
 ## Consideraciones de diseño
@@ -210,7 +230,7 @@ El dominio de la información asociada al sistema se compone de las siguientes e
 
 A partir de este dominio de información se genera toda la estructura por capas de la aplicación, estableciéndose una nomenclatura estándar de este tipo: `ClaseCapa.javadoc` (ejemplo: `CurriculumController.java`)
 
-En los anexos se incluye una figura con el diagrama de modelo de datos.
+En los anexos se incluye una figura con el diagrama de modelo de datos y un diagrama de clases.
 
 #Arquitectura
 
@@ -225,11 +245,11 @@ Para gestionar el ciclo de vida del proyecto así como su construcción se selec
 
 El arquetipo Maven seleccionado es un proyecto abierto relativamente conocido que puede descargarse aquí:
 
-      [https://github.com/kolorobot/spring-mvc-quickstart-archetype](https://github.com/kolorobot/spring-mvc-quickstart-archetype)
+[https://github.com/kolorobot/spring-mvc-quickstart-archetype](https://github.com/kolorobot/spring-mvc-quickstart-archetype)
 
 Para poder utilizar el arquetipo con la configuración de plataforma especificada en los requisitos técnicos se tuvieron que hacer ciertos cambios que permitieran su ejecución con la plataforma Java EE 1.7. A partir de dicho arquetipo se confeccionó un esqueleto para el desarrollo del sistema que se subió a un repositorio de código fuente gratuito (Github), pudiendo consultarse aquí:
 
-      [https://github.com/predicador37/PED14](https://github.com/predicador37/PED14)
+[https://github.com/predicador37/PED14](https://github.com/predicador37/PED14)
 
 Dicho repositorio conforma la solución colaborativa utilizada por el grupo de desarrollo. En su página principal se encuentra información somera sobre las características del proyecto y documentación sobre el proceso de envío e intercambio de código, así como de construcción y pruebas del software.
 
@@ -314,6 +334,8 @@ En los anexos se incluye una figura con el resumen de la arquitectura utilizada.
 
 #Guía de usuario
 
+Se adjunta como el documento anexo [manual.pdf](./manual.pdf).
+
 #Conclusiones
 Del desarrollo del sistema propuesto se extraen las siguientes conclusiones:
 
@@ -330,5 +352,7 @@ Del desarrollo del sistema propuesto se extraen las siguientes conclusiones:
 #Anexos
 
 ![Modelo de datos](./img/modelo.png)
+
+![Diagrama de clases](./img/dominio.png)
 
 ![Arquitectura del sistema](./img/arquitectura.png)

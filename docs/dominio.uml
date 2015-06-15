@@ -1,8 +1,5 @@
 @startuml
 abstract class Usuario {
-String nombre
-String password
-String email
 
 }
 class Registrado {
@@ -13,22 +10,8 @@ class Administrador {
 
 }
 
-class Provincia {
-Integer codigo
-String nombre
-}
-
 class Curriculo {
 
-}
-
-class Perfil {
-String inicio
-String final
-String cargo
-String empresa
-String descripcion
-byte[] foto
 }
 
 class Curso {
@@ -44,7 +27,6 @@ class Localizacion {
 }
 
 class Experiencia {
-
 }
 
 class Titulacion {
@@ -61,10 +43,7 @@ Elemento <|-- Localizacion
 Elemento <|-- Experiencia
 Elemento <|-- Titulacion
 Elemento <|-- Conocimiento
-
-Provincia "1"  --> "*" Usuario
+Elemento <|-- Curso
 Curriculo "1" --> "*" Elemento
 Usuario "1" <--> "1" Curriculo
-Perfil "1" --> "*" Curso
-Perfil "1" --> "*" Titulacion
 @enduml
