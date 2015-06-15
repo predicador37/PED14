@@ -22,7 +22,7 @@ con el siguiente contenido:
 
 La aplicación se encuentra disponible en la URL:
 
-[http://localhost:8080/ped14](http://localhost:8080/ped14)
+[http://localhost:8080/14](http://localhost:8080/14)
 
 ## Home pública
 
