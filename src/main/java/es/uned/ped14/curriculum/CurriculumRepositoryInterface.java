@@ -30,7 +30,7 @@ public interface CurriculumRepositoryInterface extends
 	 * 
 	 * @param nombre
 	 *            cadena de texto con el nombre del usuario
-	 * @return primer objeto de clase Currículum encontrado.
+	 * @return lista de objetos currículum ordenados descendentemente por experiencia.
 	 */
 	Curriculum findByNombre(String nombre);
 	

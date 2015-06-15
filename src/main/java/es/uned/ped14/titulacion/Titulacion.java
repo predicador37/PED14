@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
 
 import es.uned.ped14.curriculum.Curriculum;
 
@@ -24,17 +27,22 @@ import es.uned.ped14.curriculum.Curriculum;
 @Table(name = "titulacion")
 @Proxy(lazy = false)
 public class Titulacion implements java.io.Serializable {
-
+	
+	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
+	
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column
+	@NotBlank(message = Titulacion.NOT_BLANK_MESSAGE)
 	private String descripcion;
-
+	
 	@Column
+	@NotNull(message = Titulacion.NOT_BLANK_MESSAGE)
+	@Digits(integer=4, fraction=0)
 	private Integer anyoFinalizacion;
-
+	
 	@Column(columnDefinition = "int default 0")
 	private Integer likes;
 
@@ -143,11 +151,16 @@ public class Titulacion implements java.io.Serializable {
 	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
-
+	
+	/**
+	 * Método para incrementar el contador "me gusta"
+	 */
 	public void like() {
 		this.likes++;
 	}
-
+	/**
+	 * Método para inicializar el contador "me gusta" a cero
+	 */
 	@PrePersist
 	void preInsert() {
 		this.likes = 0;

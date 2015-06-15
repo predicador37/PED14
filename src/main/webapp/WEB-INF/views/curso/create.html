@@ -6,7 +6,7 @@
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
     <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
     <!-- Extensión Datepicker para bootstrap http://eonasdan.github.io/bootstrap-datetimepicker/ -->
     <script src="../../../resources/js/moment/min/moment-with-locales.js" th:src="@{/resources/js/moment/min/moment-with-locales.js}"></script>
@@ -38,7 +38,7 @@
                         <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curso/add}" th:object="${cursoForm}">
                             <!--/* Show general error message when form contains errors */-->
                             <th:block th:if="${#fields.hasErrors('${cursoForm.*}')}">
-                                <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+                                <div th:replace="fragments/alert :: alert (type='danger', message='El formulario contiene errores. Por favor, inténtalo de nuevo.')">Alert</div>
                             </th:block>
                              <input type="text" hidden="hidden" data-th-value="*{curriculumId}" data-th-field="*{curriculumId}" />
                             <fieldset>

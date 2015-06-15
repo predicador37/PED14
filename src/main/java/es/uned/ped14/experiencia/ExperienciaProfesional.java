@@ -13,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import es.uned.ped14.curriculum.Curriculum;
@@ -28,15 +30,21 @@ import es.uned.ped14.curriculum.Curriculum;
 @Table(name = "experiencia_profesional")
 @Proxy(lazy = false)
 public class ExperienciaProfesional implements java.io.Serializable {
+	
+	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
+	
+	
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
 	@Column
+	@NotBlank(message = ExperienciaProfesional.NOT_BLANK_MESSAGE)
 	private String cargo;
 
 	@Column
+	@NotBlank(message = ExperienciaProfesional.NOT_BLANK_MESSAGE)
 	private String empresa;
 
 	@Column
@@ -45,6 +53,7 @@ public class ExperienciaProfesional implements java.io.Serializable {
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@NotNull(message = ExperienciaProfesional.NOT_BLANK_MESSAGE)
 	private Date fechaInicio;
 
 	@Column

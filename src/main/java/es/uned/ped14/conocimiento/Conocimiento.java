@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
 
 import es.uned.ped14.curriculum.Curriculum;
 
@@ -26,12 +27,15 @@ import es.uned.ped14.curriculum.Curriculum;
 @Table(name = "conocimiento")
 @Proxy(lazy = false)
 public class Conocimiento implements java.io.Serializable {
+	
+	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column
+	@NotBlank(message = Conocimiento.NOT_BLANK_MESSAGE)
 	private String descripcion;
 
 	@Enumerated(EnumType.STRING)
@@ -140,11 +144,15 @@ public class Conocimiento implements java.io.Serializable {
 		return curriculum == null ? nuevoCurriculum == null : curriculum
 				.equals(nuevoCurriculum);
 	}
-	
+	/**
+	 * Método para incrementar el contador "me gusta"
+	 */
 	public void like(){
 		this.likes++;
 	}
-	
+	/**
+	 * Método para inicializar el contador "me gusta" a cero
+	 */
 	@PrePersist
 	void preInsert() {
 	   this.likes = 0;

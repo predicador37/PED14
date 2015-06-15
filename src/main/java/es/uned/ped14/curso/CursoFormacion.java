@@ -14,8 +14,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import es.uned.ped14.curriculum.Curriculum;
@@ -30,16 +32,22 @@ import es.uned.ped14.curriculum.Curriculum;
 @Proxy(lazy = false)
 public class CursoFormacion implements java.io.Serializable {
 
+	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
+
+	
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
+	@NotBlank(message = CursoFormacion.NOT_BLANK_MESSAGE)
 	@Column
 	private String descripcion;
 	@Column
+	@NotNull(message = CursoFormacion.NOT_BLANK_MESSAGE)
 	private Integer numeroHoras;
 	@Column
 	@Temporal(TemporalType.DATE)
+	@NotNull(message = CursoFormacion.NOT_BLANK_MESSAGE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date fechaFinalizacion;
 	@Column(columnDefinition = "int default 0")
@@ -57,7 +65,7 @@ public class CursoFormacion implements java.io.Serializable {
 	}
 
 	/**
-	 * Instancia un nuevocurso de formación.
+	 * Instancia un nuevo curso de formación.
 	 *
 	 * @param descripcion
 	 *            , cadena de texto con la descripción del curso.
@@ -155,10 +163,15 @@ public class CursoFormacion implements java.io.Serializable {
 		this.id = id;
 	}
 	
+	/**
+	 * Método para incrementar el contador "me gusta"
+	 */
 	public void like(){
 		this.likes++;
 	}
-	
+	/**
+	 * Método para inicializar el contador "me gusta" a cero
+	 */
 	@PrePersist
 	void preInsert() {
 	   this.likes = 0;
