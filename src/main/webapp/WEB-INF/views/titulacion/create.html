@@ -10,14 +10,6 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 
-<script type="text/javascript">
-function soloNumeros(e)
-{
-    var keynum = window.event ? window.event.keyCode : e.which;
-    if ((keynum == 8) || (keynum == 9) || (keynum == 46) || (keynum == 37) || (keynum == 39))return true;return /\d/.test(String.fromCharCode(keynum));
-}
-</script>
-
 <body>
 <div th:replace="fragments/header :: usuario">&nbsp;</div>
 <div class="container">
@@ -55,7 +47,7 @@ function soloNumeros(e)
                                  <div class="form-group" th:classappend="${#fields.hasErrors('anyoFinalizacion')}? 'has-error'">
                                     <label for="anyoFinalizacion" class="col-lg-3 control-label">Año de finalización</label>
                                     <div class="col-lg-9">
-                                        <input type="text" class="form-control" id="anyoFinalizacion" placeholder="Introduce el año de finalización" th:field="*{anyoFinalizacion}"  onkeydown="return soloNumeros(event);" maxlength="4" />
+                                        <input type="text" class="form-control" id="anyoFinalizacion" placeholder="Introduce el año de finalización" th:field="*{anyoFinalizacion}"  />
                                         <span class="help-block" th:if="${#fields.hasErrors('anyoFinalizacion')}" th:errors="*{anyoFinalizacion}">Descripción incorrecta</span>
                                     </div>
                                 </div>
