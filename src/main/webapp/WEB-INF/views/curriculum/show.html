@@ -153,7 +153,7 @@
                                <th>Id</th>
                                <th>Descripción</th>
                                <th>Año de finalización</th>
-                               <th colspan="2">Opciones</th>
+                               <th colspan="3">Opciones</th>
                                
                             </tr>
                             <tr th:each="titulacion : ${titulaciones}">
@@ -164,7 +164,7 @@
                               <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span class="badge" th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
                             </tr>
                           </tbody>
                         </table>                          
@@ -196,7 +196,7 @@
                                 <th>Descripción</th>
                                 <th>Nº de horas</th>
                                 <th>Fecha finalización</th>
-                                <th colspan="2">Opciones</th>
+                                <th colspan="3">Opciones</th>
                             </tr>
                             <tr th:each="curso : ${cursos}">
                               <td th:text="${curso.id}"></td>
@@ -236,7 +236,7 @@
                                 <th>Id</th>
                                 <th>Descripción</th>
                                 <th>Nivel</th>
-                                <th colspan="2">Opciones</th>
+                                <th colspan="3">Opciones</th>
                             </tr>
                             <tr th:each="conocimiento : ${conocimientos}">
                               <td th:text="${conocimiento.id}"></td>
@@ -246,7 +246,7 @@
                               <td><a th:href="@{/conocimiento/edit/} + ${conocimiento.id}"><span>Editar</span></a></td>
                               <td><a th:href="@{/conocimiento/delete/} + ${conocimiento.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span class="badge" th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          

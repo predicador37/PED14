@@ -10,13 +10,6 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 
-<script type="text/javascript">
-function gestionarCambioEstado()
-{
-  alert('ok');
-}
-</script>
-
 <body>
 <div th:replace="fragments/header :: usuario">&nbsp;</div>
 <div class="container">
@@ -46,8 +39,8 @@ function gestionarCambioEstado()
                                   </tr>
                                   <tr>
                                     <td>Alta de elementos</td>
-                                    <td th:text="${create == true} ? 'Habilitado' : 'Deshabilitado'"></td> 
-                                  <td><a onclick="gestionarCambioEstado();" th:href="@{/admin/view(create=${!create})}"><span>Cambiar estado</span></a></td>      
+                                    <td id="estado-alta" th:text="${create == true} ? 'Habilitado' : 'Deshabilitado'"></td> 
+                                  <td><a th:href="@{/admin/view(create=${!create})}"><span>Cambiar estado</span></a></td>      
                                   </tr>
                                   <tr>
                                     <td>Modificación de elementos</td>
