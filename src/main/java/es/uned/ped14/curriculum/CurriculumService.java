@@ -130,10 +130,10 @@ public class CurriculumService {
 		user2.addRole(role6);
 		user1.addRole(role7);
 		user2.addRole(role8);
-
+		
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito",
-				"España", "Santander", "htp://localhost/imagen.png",
-				"http://localhost/archivo.pdf");
+				"España", "Santander", "~/resources/files/7.jpg",
+				"~/resources/files/memoria.pdf");
 		Curriculum demoCurriculum2 = new Curriculum("Héctor", "Garnacho",
 				"España", "Valladolid", "htp://localhost/imagen.png",
 				"http://localhost/archivo.pdf");
