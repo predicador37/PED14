@@ -18,6 +18,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.experiencia.ExperienciaProfesional;
 
 /**
  * Clase Account, POJO que modela la entidad cuenta de usuario así como sus
@@ -122,8 +123,14 @@ public class Account implements java.io.Serializable {
 		role.setUser(this);
 	}
 
+	/**
+	 * Devuelve una colección de roles. La colección devuelta es una
+	 * copia defensiva (nadie puede cambiarla desde el exterior)
+	 *
+	 * @return una coleccion de roles asociados al currículum
+	 */
 	public Collection<Role> getRoles() {
-		return roles;
+		return new ArrayList<Role>(roles);
 	}
 
 	public void setRoles(Collection<Role> roles) {

@@ -40,6 +40,9 @@ class AccountController {
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
+	@Autowired
+	private RoleService roleService;
 
 	@Autowired
 	public AccountController(AccountRepository accountRepository) {
@@ -92,9 +95,17 @@ class AccountController {
              curriculumService.flush();
              logger.info("Curriculum deleted");
              user.setCurriculum(null);
+             user.setCurriculum(null);
+             for (Role r : user.getRoles()){
+            	 user.removeRole(r);
+            	 roleService.delete(r);
+            	 roleService.flush();
+             }
              userService.merge(user);
+             userService.flush();
              try {
              userService.delete(user.getId());
+             
              }
              catch (ConcurrentModificationException e) {
             	 logger.error("Error de concurrencia... pasable");

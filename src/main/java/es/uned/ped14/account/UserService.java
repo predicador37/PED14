@@ -19,6 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.curriculum.CurriculumNotFoundException;
+
 /**
  * Clase UserService, servicio que encapsula la lógica de negocio de cuenta de
  * usuario e interactúa con las capas inferiores (repositorios).
@@ -246,6 +249,25 @@ public class UserService implements UserDetailsService {
 		} else {
 			removeRole(role);
 		}
+	}
+	
+	/**
+	 * Find one. Busca un único usuario dado su identificador.
+	 * 
+	 * @param id
+	 *            , el identificador.
+	 * @return account, el objeto de clase Account encontrado.
+	 * @throws AccountNotFoundException
+	 *             , excepción a lanzar en caso de no encontrar el usuario.
+	 */
+	public Account findOne(Long id) throws AccountNotFoundException {
+
+		Account usuario = accountRepositoryInterface.findOne(id);
+		if (usuario == null) {
+			throw new AccountNotFoundException(
+					"No se encuentra el usuario especificado");
+		}
+		return usuario;
 	}
 
 }

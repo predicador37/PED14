@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Baja de currículum. PED14</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+	
+	
+</head>
+<body>
+<h1>Listado de usuarios del sistema</h1>
+  
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Usuario</th>
+        <th>Roles</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        
+      </tr>
+      <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.id}"></td>
+        <td th:text="${usuario.email != null} ? ${usuario.email} : 'Ninguno'"></td>
+        <td>
+         <table>
+        
+        <tr th:each="role : ${usuario.roles}">
+   			 <td th:text="${role.descripcion}"></td>
+    	</tr>
+    	
+    	</table>
+    	
+        </td>
+        
+        <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.nombre} : '--'"></td>
+        <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.apellidos} : '--'"></td>
+     
+        <td><a th:href="@{/admin/account/delete/} + ${usuario.id}"><span>Eliminar</span></a></td>
+      </tr>
+    </table>
+  
+    <p>
+      <a href="../home.html" th:href="@{/}">Página principal</a>
+    </p>
+   
+
+</body>
+</html>

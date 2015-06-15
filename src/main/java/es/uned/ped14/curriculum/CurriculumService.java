@@ -310,7 +310,6 @@ public class CurriculumService {
 	 * 
 	 */
 	public void save(Curriculum curriculum) {
-		logger.info("user imagen url: "+ curriculum.getUrlImagen());
 		curriculumRepositoryInterface.save(curriculum);
 
 	}

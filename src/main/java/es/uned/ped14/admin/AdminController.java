@@ -1,17 +1,37 @@
 package es.uned.ped14.admin;
 
+import java.security.Principal;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import es.uned.ped14.account.Account;
+import es.uned.ped14.account.AccountNotFoundException;
+import es.uned.ped14.account.Role;
 import es.uned.ped14.account.RoleService;
 import es.uned.ped14.account.UserService;
+import es.uned.ped14.curriculum.Curriculum;
+import es.uned.ped14.curriculum.CurriculumNotFoundException;
+import es.uned.ped14.curriculum.CurriculumService;
 
 /**
  * Clase AdminController, controlador de Spring MVC para la clase Admin.
@@ -28,6 +48,9 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CurriculumService curriculumService;
 
 	@Autowired
 	RoleService roleService;
@@ -79,6 +102,52 @@ public class AdminController {
 		model.addAttribute("edit", funcionService.getEdit());
 		model.addAttribute("delete", funcionService.getDelete());
 		return "admin/view";
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public String delete(ModelMap model) throws AccountNotFoundException {
+		List<Account> usuarios = userService.findAll();
+		logger.info("Total de usuarios recuperados: " + usuarios.size());
+		model.addAttribute("usuarios", usuarios);	
+		return "admin/delete";
+	}
+	
+	@RequestMapping(value = "/account/delete/{id}", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public String deleteUser(@PathVariable("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) throws AccountNotFoundException {
+		logger.info("Delete user controller"); 
+		
+			 Account user = userService.findOne(id);
+			 UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+			 if (user.getCurriculum() != null) {
+				 Curriculum curriculum = user.getCurriculum();
+				 curriculum.setUser(null);
+				 curriculumService.save(curriculum);
+	             curriculumService.delete(curriculum.getId());
+	             curriculumService.flush();
+	             logger.info("Curriculum deleted");
+			 }
+            
+            
+             user.setCurriculum(null);
+             for (Role r : user.getRoles()){
+            	 user.removeRole(r);
+            	 roleService.delete(r);
+            	 roleService.flush();
+             }
+             userService.merge(user);
+             userService.flush();
+             try {
+             userService.delete(user.getId());
+             }
+             catch (ConcurrentModificationException e) {
+            	 logger.error("Error de concurrencia... pasable");
+             }
+             userService.flush();
+         model.addAttribute("usuarios", userService.findAll());
+		
+		return "admin/delete";
 	}
 
 }
