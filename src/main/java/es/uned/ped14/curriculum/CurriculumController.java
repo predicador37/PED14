@@ -360,7 +360,7 @@ public class CurriculumController {
 		Account user = userService.findByEmail(userDetails.getUsername());
 		// if !(validateImage(file));
 
-		if (saveFile(file, user, request)) {
+		if (saveFile(file, user, request, "_file")) {
 			logger.info("archivo guardado");
 			String[] parts = (file.getOriginalFilename()).split("\\.");
 			return "../../../resources/files/" + user.getId() + "_file." + parts[1];
@@ -389,7 +389,7 @@ public class CurriculumController {
 		Account user = userService.findByEmail(userDetails.getUsername());
 		// if !(validateImage(file));
 
-		if (saveFile(imagen, user, request)) {
+		if (saveFile(imagen, user, request, "_img")) {
 			logger.info("archivo guardado");
 			String[] parts = (imagen.getOriginalFilename()).split("\\.");
 			return "../../../resources/files/" + user.getId() + "_img." + parts[1];
@@ -424,7 +424,7 @@ public class CurriculumController {
 	 * @return booleano indicando el resultado de la operación.
 	 */
 	private Boolean saveFile(MultipartFile file, Account user,
-			HttpServletRequest request) {
+			HttpServletRequest request, String type) {
 		if (!file.isEmpty()) {
 			logger.info("not empty");
 			try {
@@ -441,7 +441,7 @@ public class CurriculumController {
 
 				// Crear el archivo en el servidor
 				File serverFile = new File(dir.getAbsolutePath()
-						+ File.separator + user.getId() + "." + parts[1]);
+						+ File.separator + user.getId() + type + "." + parts[1]);
 				BufferedOutputStream stream = new BufferedOutputStream(
 						new FileOutputStream(serverFile));
 				stream.write(bytes);
