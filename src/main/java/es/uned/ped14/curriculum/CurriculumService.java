@@ -245,19 +245,14 @@ public class CurriculumService {
 	 * @param conocimiento
 	 *            , cadena de texto con el conocimiento a buscar.
 	 * @return lista de currículos.
-	 * @throws CurriculumNotFoundException
-	 *             , excepción en caso de no encontrar ningún currículo.
 	 */
 	public List<Curriculum> findByOptionalParameters(String pais,
 			String ciudad, Integer experiencia, String titulacion,
-			String conocimiento) throws CurriculumNotFoundException {
+			String conocimiento) {
 
 		List<Curriculum> curriculos = curriculumRepositoryImp
 				.findByOptionalParameters(pais, ciudad, experiencia,
 						titulacion, conocimiento);
-		if (curriculos.isEmpty()) {
-			throw new CurriculumNotFoundException("curriculum not found");
-		}
 		return curriculos;
 	}
 

@@ -46,6 +46,7 @@
             <a class="btn btn-success btn-mostrar-filtrado" data-toggle="collapse" href="#opciones-edicion" aria-expanded="false" aria-controls="collapseExample">
                 Mostrar opciones de filtrado
             </a>
+            
             <div class="collapse" id="opciones-edicion">
             <div class="formulario-opciones-filtrado">
                         <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curriculum/results}" th:object="${curriculumSearchForm}">
@@ -58,35 +59,35 @@
                                 <div class="form-group" th:classappend="${#fields.hasErrors('pais')}? 'has-error'">
                                     <label for="pais" class="col-lg-2 control-label">País</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="pais" placeholder="Introduce el país" th:field="*{pais}" autofocus="autofocus"/>
+                                        <input type="text" class="form-control" id="pais" placeholder="Ej.: España" th:field="*{pais}" autofocus="autofocus"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}">País incorrecto</span>
                                     </div>
                                 </div>
                                  <div class="form-group" th:classappend="${#fields.hasErrors('ciudad')}? 'has-error'">
                                     <label for="ciudad" class="col-lg-2 control-label">Ciudad</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="ciudad" placeholder="Introduce la ciudad" th:field="*{ciudad}"/>
+                                        <input type="text" class="form-control" id="ciudad" placeholder="Ej.: Santander" th:field="*{ciudad}"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">Ciudad incorrecta</span>
                                     </div>
                                 </div>
                               <div class="form-group" th:classappend="${#fields.hasErrors('experiencia')}? 'has-error'">
                                     <label for="experiencia" class="col-lg-2 control-label">Experiencia</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Introduce la experiencia" th:field="*{experiencia}" />
+                                        <input type="text" class="form-control" id="nombre" placeholder="Ej.: 5" th:field="*{experiencia}" />
                                         <span class="help-block" th:if="${#fields.hasErrors('experiencia')}" th:errors="*{experiencia}">Experiencia incorrecta</span>
                                     </div>
                                 </div>
                                 <div class="form-group" th:classappend="${#fields.hasErrors('titulacion')}? 'has-error'">
                                     <label for="titulacion" class="col-lg-2 control-label">Titulación</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="titulacion" placeholder="Introduce la titulación" th:field="*{titulacion}"/>
+                                        <input type="text" class="form-control" id="titulacion" placeholder="Ej.: Ingeniería informática" th:field="*{titulacion}"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('titulacion')}" th:errors="*{titulacion}">TItulación incorrecta</span>
                                     </div>
                                 </div>
                                  <div class="form-group" th:classappend="${#fields.hasErrors('conocimiento')}? 'has-error'">
                                     <label for="conocimiento" class="col-lg-2 control-label">Conocimiento</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="conocimiento" placeholder="Introduce el conocimiento" th:field="*{conocimiento}"/>
+                                        <input type="text" class="form-control" id="conocimiento" placeholder="Ej.: java" th:field="*{conocimiento}"/>
                                         <span class="help-block" th:if="${#fields.hasErrors('conocimiento')}" th:errors="*{conocimiento}">Conocimiento incorrecto</span>
                                     </div>
                                 </div>
@@ -101,9 +102,19 @@
                         </form>                        
                 
             </div>
+           
             </div>
-        </div>        
-        <h2>Curriculums</h2>
+            
+             </div>
+              <div  th:if="${notFound == true}">
+              <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <h4>No se encontraron coincidencias</h4>
+            <p>Verifica las condiciones de búsqueda, recordando que los términos de búsqueda se deben introducir de la forma más completa y correcta posible (ej: incluir tildes, género de las palabras, etc.)</p>
+                  
+        </div>       
+        </div>
+         <div  th:if="${notFound == false or notFound == null}">        
+        <h2>Currículos en la red</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -140,13 +151,12 @@
               </table>
                 </td>
                  <td><a th:href="@{/curriculum/show/} + ${curriculum.id}"><span>Ver detalle</span></a></td>
-                <td><a th:href="@{/curriculum/edit/} + ${curriculum.id}"><span>Editar</span></a></td>
-                <td><a th:href="@{/curriculum/delete/} + ${curriculum.id}"><span>Eliminar</span></a></td>
+                   
               </tr>
 
             </tbody>            
         </table>
-
+	</div>
 
     </div>
     <div th:replace="fragments/footer :: footer"></div>

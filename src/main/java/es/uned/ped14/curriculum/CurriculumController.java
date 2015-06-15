@@ -3,6 +3,7 @@ package es.uned.ped14.curriculum;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -304,21 +305,25 @@ public class CurriculumController {
 		if (errors.hasErrors()) {
 			return "curriculum/search";
 		}
-
-		try {
-			List<Curriculum> curriculos = curriculumService
+		List<Curriculum> curriculos = new ArrayList<Curriculum>();
+	
+			curriculos = curriculumService
 					.findByOptionalParameters(curriculumSearchForm.getPais(),
 							curriculumSearchForm.getCiudad(),
 							curriculumSearchForm.getExperiencia(),
 							curriculumSearchForm.getTitulacion(),
 							curriculumSearchForm.getConocimiento());
+			if (curriculos.isEmpty()) {
+				logger.info("Curriculum not found");
+				model.addAttribute("notFound", true);
+				ra.addFlashAttribute("notFound", true);
+			}
+			else {
+			model.addAttribute("notFound", false);
+			ra.addFlashAttribute("notFound", false);
+			}
 			model.addAttribute("curriculos", curriculos);
 			ra.addFlashAttribute("curriculos", curriculos);
-		} catch (CurriculumNotFoundException e) {
-
-			e.printStackTrace();
-			logger.error("No se encontraron currículos para la búsqueda");
-		}
 
 		// see /WEB-INF/i18n/messages.properties and
 		// /WEB-INF/views/homeSignedIn.html
