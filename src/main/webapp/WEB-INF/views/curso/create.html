@@ -8,6 +8,12 @@
     <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <!-- Extensión Datepicker para bootstrap http://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="../../../resources/js/moment/min/moment-with-locales.js" th:src="@{/resources/js/moment/min/moment-with-locales.js}"></script>
+   
+    <script src="../../../resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" th:src="@{/resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+    <link href="../../../resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen" th:href="@{/resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css}" />
+    
 </head>
 <body>
 <div th:replace="fragments/header :: usuario">&nbsp;</div>
@@ -50,13 +56,35 @@
                                         <span class="help-block" th:if="${#fields.hasErrors('numeroHoras')}" th:errors="*{numeroHoras}">Número incorrecto</span>
                                     </div>
                                 </div>
+
                                 <div class="form-group" th:classappend="${#fields.hasErrors('fechaFinalizacion')}? 'has-error'">
-                                    <label for="fechaFinalizacion" class="col-lg-3 control-label">Fecha de finalización</label>
-                                    <div class="col-lg-9">
-                                        <input type="text" class="form-control" id="fechaFinalizacion" placeholder="Introduce la fecha de finalización" th:field="*{fechaFinalizacion}"/>
-                                        <span class="help-block" th:if="${#fields.hasErrors('fechaFinalizacion')}" th:errors="*{fechaFinalizacion}">Fecha incorrecta</span>
+                                    <label for="fechaInicio" class="col-lg-3 control-label">Fecha de Finalización</label>
+                                    <div class="col-lg-9">     
+                                        <div class="input-group date" id="datetimepicker1" style="margin:0px;" onkeydown="return false;">
+                                            <input type="text" class="form-control" id="fechaFinalizacion" placeholder="Introduce al fecha de finalización" style="cursor:not-allowed;" th:field="*{fechaFinalizacion}"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-list-alt"></span>
+                                            </span>                      
+                                            <span class="help-block" th:if="${#fields.hasErrors('fechaFinalizacion')}" th:errors="*{fechaFinalizacion}">Fecha incorrecta</span>
+                                        </div>                                    
+                                    
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $('#datetimepicker1').datetimepicker({
+                                                    locale: 'es',
+                                                    format: "DD/MM/YYYY",
+                                                    minDate: "1/1/1800",                    
+                                                    maxDate: "31/12/2100",
+                                                    defaultDate:new Date
+                                                });
+                                                $("#datetimepicker1").on("dp.change", function (e) {
+                                                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                 </div>
+
                                 
                                 <div class="contenedor-botones-inferiores-formulario"> 
                                     <div class="form-group">

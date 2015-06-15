@@ -12,42 +12,54 @@
 	
 </head>
 <body>
-<h1>Listado de usuarios del sistema</h1>
-  
-    <table>
-      <tr>
-        <th>Id</th>
-        <th>Usuario</th>
-        <th>Roles</th>
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        
-      </tr>
-      <tr th:each="usuario : ${usuarios}">
-        <td th:text="${usuario.id}"></td>
-        <td th:text="${usuario.email != null} ? ${usuario.email} : 'Ninguno'"></td>
-        <td>
-         <table>
-        
-        <tr th:each="role : ${usuario.roles}">
-   			 <td th:text="${role.descripcion}"></td>
-    	</tr>
-    	
-    	</table>
-    	
-        </td>
-        
-        <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.nombre} : '--'"></td>
-        <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.apellidos} : '--'"></td>
-     
-        <td><a th:href="@{/admin/account/delete/} + ${usuario.id}"><span>Eliminar</span></a></td>
-      </tr>
-    </table>
-  
-    <p>
-      <a href="../home.html" th:href="@{/}">Página principal</a>
-    </p>
-   
 
+<div th:replace="fragments/header :: header">Header</div>
+<div class="container">
+        <div class="row contenedor-principal">
+            <div th:include="fragments/lateral :: lateral">&nbsp;</div>
+
+            <div class="col-md-9">
+
+                <h2 class="titulo-pagina">Listado de usuarios del sistema</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Usuario</th>
+                        <th>Roles</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Opciones</th>
+                           
+                    </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr th:each="usuario : ${usuarios}">
+                            <td th:text="${usuario.id}"></td>
+                            <td th:text="${usuario.email != null} ? ${usuario.email} : 'Ninguno'"></td>
+                            <td style="padding:0px;">
+                             <table style="font-size:10px;">
+                            
+                            <tr th:each="role : ${usuario.roles}">
+                       			 <td style="border:none;" th:text="${role.descripcion}"></td>
+                        	</tr>
+                        	
+                        	</table>
+                        	
+                            </td>
+                            
+                            <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.nombre} : '--'"></td>
+                            <td th:text="${usuario.curriculum != null} ? ${usuario.curriculum.apellidos} : '--'"></td>
+                         
+                            <td><a th:href="@{/admin/account/delete/} + ${usuario.id}"><span>Eliminar</span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+    <div th:replace="fragments/footer :: footer"></div>    
+</div>
 </body>
 </html>
