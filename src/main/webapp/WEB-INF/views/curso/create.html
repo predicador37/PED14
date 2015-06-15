@@ -3,16 +3,16 @@
 <head>
     <title>Nuevo curso de formación</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
-    <script src="../../../resources/js/jquery-latest.js"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/custom.css}" />
+    <script src="../../../resources/js/jquery-latest.js" th:src="@{~/resources/js/jquery-latest.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{~/resources/js/bootstrap.min.js}"></script>
     <!-- Extensión Datepicker para bootstrap http://eonasdan.github.io/bootstrap-datetimepicker/ -->
-    <script src="../../../resources/js/moment/min/moment-with-locales.js" th:src="@{/resources/js/moment/min/moment-with-locales.js}"></script>
+    <script src="../../../resources/js/moment/min/moment-with-locales.js" th:src="@{~/resources/js/moment/min/moment-with-locales.js}"></script>
    
-    <script src="../../../resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" th:src="@{/resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
-    <link href="../../../resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen" th:href="@{/resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css}" />
+    <script src="../../../resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" th:src="@{~/resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+    <link href="../../../resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen" th:href="@{~/resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css}" />
     
 </head>
 <body>
@@ -35,7 +35,7 @@
                         <h3 class="titulo-contenedor-formulario-login">Datos del curso</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curso/add}" th:object="${cursoForm}">
+                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{~/curso/add}" th:object="${cursoForm}">
                             <!--/* Show general error message when form contains errors */-->
                             <th:block th:if="${#fields.hasErrors('${cursoForm.*}')}">
                                 <div th:replace="fragments/alert :: alert (type='danger', message='El formulario contiene errores. Por favor, inténtalo de nuevo.')">Alert</div>

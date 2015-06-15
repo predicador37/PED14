@@ -3,11 +3,11 @@
 <head>
     <title>Detalle de currículum. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
-    <script src="../../../resources/js/jquery-latest.js"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/custom.css}" />
+    <script src="../../../resources/js/jquery-latest.js" th:src="@{~/resources/js/jquery-latest.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{~/resources/js/bootstrap.min.js}"></script>
 	 <script type="text/javascript">
     	function likeAjax(id, url, elemento) {
       	$.ajax({
@@ -89,7 +89,7 @@
                         </div>
                            <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                         <div class="col-lg-3 pull-right">
-                          <a th:href="@{/experiencia/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nueva experiencia</a>
+                          <a th:href="@{~/experiencia/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nueva experiencia</a>
                         </div>
                          </div>
                       </div>
@@ -127,8 +127,8 @@
                              <td th:text="${#calendars.format(experiencia.fechaInicio,'dd/MM/yyyy')}"></td>
                              <td th:text="${#calendars.format(experiencia.fechaFin, 'dd/MM/yyyy')}"></td>
                             <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
-                            <td><a th:href="@{/experiencia/edit/} + ${experiencia.id}"><span>Editar</span></a></td>
-                            <td><a th:href="@{/experiencia/delete/} + ${experiencia.id}"><span>Eliminar</span></a></td>
+                            <td><a th:href="@{~/experiencia/edit/} + ${experiencia.id}"><span>Editar</span></a></td>
+                            <td><a th:href="@{~/experiencia/delete/} + ${experiencia.id}"><span>Eliminar</span></a></td>
                          	</div>
                           </tr>
                         </tbody>
@@ -148,7 +148,7 @@
                         </div>
                         <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                         <div class="col-lg-3 pull-right">
-                          <a th:href="@{/titulacion/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nueva titulación</a>
+                          <a th:href="@{~/titulacion/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nueva titulación</a>
                         </div>
                         </div>
                       </div>
@@ -169,10 +169,10 @@
                               <td th:text="${titulacion.descripcion}"></td>
                               <td th:text="${titulacion.anyoFinalizacion}"></td>
                               <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
-                              <td><a th:href="@{/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
-                              <td><a th:href="@{/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
+                              <td><a th:href="@{~/titulacion/edit/} + ${titulacion.id}"><span>Editar</span></a></td>
+                              <td><a th:href="@{~/titulacion/delete/} + ${titulacion.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span class="badge" th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${titulacion.id} +', \'~/titulacion/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Titulacion' + ${titulacion.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span class="badge" th:id="numeroLikesTitulacion + ${titulacion.id}" th:text="${titulacion.likes != null and titulacion.likes !=0} ? ${titulacion.likes} : ''"></span></td>
                             </tr>
                           </tbody>
                         </table>                          
@@ -190,7 +190,7 @@
                         </div>
                         <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                         <div class="col-lg-3 pull-right">
-                          <a th:href="@{/curso/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nuevo curso</a>
+                          <a th:href="@{~/curso/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nuevo curso</a>
                         </div>
                         </div>
                       </div>
@@ -212,10 +212,10 @@
                               <td th:text="${curso.numeroHoras}"></td>
                               <td th:text="${#calendars.format(curso.fechaFinalizacion, 'dd/MM/yyyy')}"></td>
                               <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
-                              <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
-                              <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
+                              <td><a th:href="@{~/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
+                              <td><a th:href="@{~/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso' + ${curso.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesCurso + ${curso.id}" th:text="${curso.likes != null and curso.likes !=0} ? ${curso.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${curso.id} +', \'~/curso/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Curso' + ${curso.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span th:id="numeroLikesCurso + ${curso.id}" th:text="${curso.likes != null and curso.likes !=0} ? ${curso.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          
@@ -231,7 +231,7 @@
                         </div>
                         <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
                         <div class="col-lg-3 pull-right">
-                          <a th:href="@{/conocimiento/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nuevo conocimiento</a>
+                          <a th:href="@{~/conocimiento/create/} + ${curriculum.id}" class="btn btn-success pull-right" style="margin-right:0px;margin-top:5px;">Nuevo conocimiento</a>
                         </div>
                         </div>
                       </div>
@@ -251,10 +251,10 @@
                               <td th:text="${conocimiento.descripcion}"></td>
                               <td th:text="${conocimiento.nivelConocimiento}"></td>
                               <div th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
-                              <td><a th:href="@{/conocimiento/edit/} + ${conocimiento.id}"><span>Editar</span></a></td>
-                              <td><a th:href="@{/conocimiento/delete/} + ${conocimiento.id}"><span>Eliminar</span></a></td>
+                              <td><a th:href="@{~/conocimiento/edit/} + ${conocimiento.id}"><span>Editar</span></a></td>
+                              <td><a th:href="@{~/conocimiento/delete/} + ${conocimiento.id}"><span>Eliminar</span></a></td>
                               </div>
-                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span class="badge" th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
+                              <td><a class="like" th:onclick="'likeAjax(' + ${conocimiento.id} +', \'~/conocimiento/like'+ '?' + ${_csrf.parameterName} + '=' + ${_csrf.token} + '\', \'Conocimiento' + ${conocimiento.id} + '\');'"><span><img border="0" alt="Me gusta" title="Me gusta" src="../../../resources/images/like.png" width="16" height="16" /></span><span> </span></a><span class="badge" th:id="numeroLikesConocimiento + ${conocimiento.id}" th:text="${conocimiento.likes != null and conocimiento.likes !=0} ? ${conocimiento.likes} : ''"></span></td>
                             </tr>                          
                           </tbody>
                         </table>                          

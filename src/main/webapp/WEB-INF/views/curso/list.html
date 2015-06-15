@@ -3,10 +3,10 @@
 <head>
     <title>Signup</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <script src="../../../resources/js/jquery-latest.js"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/core.css}" />
+    <script src="../../../resources/js/jquery-latest.js" th:src="@{~/resources/js/jquery-latest.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{~/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <h1>Cursos de formación disponibles</h1>
@@ -23,13 +23,13 @@
         <td th:text="${curso.descripcion}"></td>
         <td th:text="${curso.numeroHoras}"></td>
         <td th:text="${#calendars.format(curso.fechaFinalizacion, 'dd/MM/yyyy')}"></td>
-        <td><a th:href="@{/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
-        <td><a th:href="@{/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
+        <td><a th:href="@{~/curso/edit/} + ${curso.id}"><span>Editar</span></a></td>
+        <td><a th:href="@{~/curso/delete/} + ${curso.id}"><span>Eliminar</span></a></td>
       </tr>
     </table>
   
     <p>
-      <a href="../home.html" th:href="@{/}">Página principal</a>
+      <a href="../home.html" th:href="@{~/}">Página principal</a>
     </p>
 
 

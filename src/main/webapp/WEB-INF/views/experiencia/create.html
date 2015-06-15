@@ -3,18 +3,18 @@
 <head>
     <title>Nueva experiencia</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
 
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
-    <script src="../../../resources/js/jquery-latest.js"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/custom.css}" />
+    <script src="../../../resources/js/jquery-latest.js" th:src="@{~/resources/js/jquery-latest.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{~/resources/js/bootstrap.min.js}"></script>
 
     <!-- Extensión Datepicker para bootstrap http://eonasdan.github.io/bootstrap-datetimepicker/ -->
-    <script src="../../../resources/js/moment/min/moment-with-locales.js" th:src="@{/resources/js/moment/min/moment-with-locales.js}"></script>
+    <script src="../../../resources/js/moment/min/moment-with-locales.js" th:src="@{~/resources/js/moment/min/moment-with-locales.js}"></script>
    
-    <script src="../../../resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" th:src="@{/resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
-    <link href="../../../resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen" th:href="@{/resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css}" />
+    <script src="../../../resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" th:src="@{~/resources/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+    <link href="../../../resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen" th:href="@{~/resources/js/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css}" />
 
 
 </head>
@@ -38,7 +38,7 @@
                         <h3 class="titulo-contenedor-formulario-login">Datos de la experiencia</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/experiencia/add}" th:object="${experienciaForm}">
+                        <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{~/experiencia/add}" th:object="${experienciaForm}">
                             <!--/* Show general error message when form contains errors */-->
                              <input type="text" hidden="hidden" data-th-value="*{curriculumId}" data-th-field="*{curriculumId}" />
                             <th:block th:if="${#fields.hasErrors('${experienciaForm.*}')}">

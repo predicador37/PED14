@@ -3,8 +3,8 @@
 <meta charset="UTF-8"/>
 
 <head>
-<link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+<link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/custom.css}" />
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
 </head>
 <body>
 <div th:fragment="lateral">
@@ -12,17 +12,17 @@
                <div class="list-group">
                     <p href="#" class="list-group-item cabecera-menu-principal-izquierda"><strong>Opciones</strong></p>
                     <div  th:if="${hasCurriculum == true}">
-                    <a class="list-group-item active" th:href="@{/curriculum/} + ${curriculumId}">Mi currículum</a>
+                    <a class="list-group-item active" th:href="@{~/curriculum/} + ${curriculumId}">Mi currículum</a>
                     </div>
                     <div  th:if="${hasCurriculum != true}">                    
-                    <a class="list-group-item active" th:href="@{/curriculum/create}">Crear o modificar currículum</a>
+                    <a class="list-group-item active" th:href="@{~/curriculum/create}">Crear o modificar currículum</a>
                     </div>
                     <a th:href="@{/account/userOut}" th:if="${!#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="list-group-item">Darme de baja</a>
-                    <a class="list-group-item" th:href="@{/admin/delete}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Dar de baja a usuarios</a>
-                    <a class="list-group-item" th:href="@{/admin/view}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
+                    <a class="list-group-item" th:href="@{~/admin/delete}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Dar de baja a usuarios</a>
+                    <a class="list-group-item" th:href="@{~/admin/view}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Gestionar funcionalidades</a>
                     
-                    <a class="list-group-item" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>                
+                    <a class="list-group-item" href="~/logout" th:href="@{~#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{~/logout}"></form>                
                 </div>
             </div> 
 </div>
