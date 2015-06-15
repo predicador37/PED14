@@ -14,7 +14,7 @@
     <input type="text" hidden="hidden" data-th-value="*{id}" data-th-field="*{id}" />
     <input type="text" hidden="hidden" data-th-value="*{curriculum.id}" data-th-field="*{curriculum.id}" />
     <th:block th:if="${#fields.hasErrors('${titulacion.*}')}">
-        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+        <div th:replace="fragments/alert :: alert (type='danger', message='El formulario contiene errores. Por favor, inténtalo de nuevo.')">Alert</div>
     </th:block>
     <fieldset>
         <legend>Introduzca los datos requeridos:</legend>

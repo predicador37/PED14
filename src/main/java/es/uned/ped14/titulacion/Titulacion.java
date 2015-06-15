@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Proxy;
@@ -39,6 +40,7 @@ public class Titulacion implements java.io.Serializable {
 	
 	@Column
 	@NotNull(message = Titulacion.NOT_BLANK_MESSAGE)
+	@Digits(integer=4, fraction=0)
 	private Integer anyoFinalizacion;
 	
 	@Column(columnDefinition = "int default 0")

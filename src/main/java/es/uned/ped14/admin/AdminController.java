@@ -146,7 +146,10 @@ public class AdminController {
 			Authentication auth, RedirectAttributes ra)
 			throws AccountNotFoundException {
 		logger.info("Delete user controller");
-
+		if (id == 6){
+			//nada de borrar al admin... muy básico
+			return "redirect:/admin/delete";
+		}
 		Account user = userService.findOne(id);
 		UserDetails userDetails = userService.loadUserByUsername(user
 				.getEmail());

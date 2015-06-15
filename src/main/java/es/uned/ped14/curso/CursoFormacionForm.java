@@ -2,7 +2,9 @@ package es.uned.ped14.curso;
 
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -17,6 +19,7 @@ public class CursoFormacionForm {
 	@NotBlank(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
 	private String descripcion;
 	@NotNull(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
+	@Digits(integer=4, fraction=0)
 	private Integer numeroHoras;
 	@NotNull(message = CursoFormacionForm.NOT_BLANK_MESSAGE)
 	private Date fechaFinalizacion;

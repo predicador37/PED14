@@ -32,7 +32,7 @@
                         <form class="form-narrow form-horizontal formulario-ficha" method="post" th:action="@{/curso/add}" th:object="${cursoForm}">
                             <!--/* Show general error message when form contains errors */-->
                             <th:block th:if="${#fields.hasErrors('${cursoForm.*}')}">
-                                <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+                                <div th:replace="fragments/alert :: alert (type='danger', message='El formulario contiene errores. Por favor, inténtalo de nuevo.')">Alert</div>
                             </th:block>
                              <input type="text" hidden="hidden" data-th-value="*{curriculumId}" data-th-field="*{curriculumId}" />
                             <fieldset>

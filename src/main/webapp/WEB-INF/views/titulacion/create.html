@@ -33,7 +33,7 @@
                             <!--/* Show general error message when form contains errors */-->
                             <input type="text" hidden="hidden" data-th-value="*{curriculumId}" data-th-field="*{curriculumId}" />
                             <th:block th:if="${#fields.hasErrors('${titulacionForm.*}')}">
-                                <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
+                                <div th:replace="fragments/alert :: alert (type='danger', message='El formulario contiene errores. Por favor, inténtalo de nuevo.')">Alert</div>
                             </th:block>
                             <fieldset>
                                 <div class="form-group" th:classappend="${#fields.hasErrors('descripcion')}? 'has-error'">
