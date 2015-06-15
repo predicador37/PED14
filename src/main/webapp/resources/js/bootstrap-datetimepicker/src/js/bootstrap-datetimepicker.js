@@ -1674,7 +1674,7 @@
         enabledDates: false,
         icons: {
             time: 'glyphicon glyphicon-time',
-            date: 'glyphicon glyphicon-calendar',
+            date: 'glyphicon glyphicon-calendar',            
             up: 'glyphicon glyphicon-chevron-up',
             down: 'glyphicon glyphicon-chevron-down',
             previous: 'glyphicon glyphicon-chevron-left',
