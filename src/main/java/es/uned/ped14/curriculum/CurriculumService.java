@@ -132,8 +132,8 @@ public class CurriculumService {
 		user2.addRole(role8);
 		
 		Curriculum demoCurriculum1 = new Curriculum("Miguel", "Expósito",
-				"España", "Santander", "~/resources/files/7.jpg",
-				"~/resources/files/memoria.pdf");
+				"España", "Santander", "7.jpg",
+				"memoria.pdf");
 		Curriculum demoCurriculum2 = new Curriculum("Héctor", "Garnacho",
 				"España", "Valladolid", "htp://localhost/imagen.png",
 				"http://localhost/archivo.pdf");

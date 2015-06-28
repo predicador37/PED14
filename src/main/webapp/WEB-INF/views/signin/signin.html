@@ -3,9 +3,9 @@
 <head>
     <title>Validacion. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/core.css}" />
-    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/custom.css}" />    
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />    
 </head>
 <body>
 <div th:replace="fragments/header :: header">Header</div>
@@ -16,7 +16,7 @@
     </div>
     <div class="panel-body">
 
-        <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{~/authenticate}">
+        <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{/authenticate}">
             <th:block th:if="${param.error != null}">
                 <div th:replace="fragments/alert :: alert (type='danger', message='Datos incorrectos, por favor, vuelve a intentarlo.')">Alert</div>
             </th:block>
@@ -45,7 +45,7 @@
                                 <input type="checkbox" name="_spring_security_remember_me" /> <span style="font-size:12px;">Recuerdame</span>
                             </label>
                         </div>
-                        <p style="font-size:12px;">Si eres nuevo, puedes <a href="signup" th:href="@{~/signup}"><strong>registrarte</strong></a></p>
+                        <p style="font-size:12px;">Si eres nuevo, puedes <a href="signup" th:href="@{/signup}"><strong>registrarte</strong></a></p>
                     </div>
                 </div>
             </fieldset>

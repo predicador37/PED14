@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.uned.ped14.account.Account;
 import es.uned.ped14.account.AccountRepository;
+import es.uned.ped14.account.Role;
 import es.uned.ped14.account.UserService;
 import es.uned.ped14.support.web.MessageHelper;
 

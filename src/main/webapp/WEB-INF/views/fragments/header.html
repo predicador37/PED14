@@ -3,7 +3,7 @@
 <meta charset="UTF-8"/>
 
 <head>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
    
 
 </head>
@@ -17,23 +17,23 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" th:href="@{~/}"><img class="logo" src="../../../resources/images/uned.png" th:src="@{~/resources/images/uned.png}"></img>Red social profesional</a>
+            <a class="navbar-brand" th:href="@{/}"><img class="logo" src="../../../resources/images/uned.png" th:src="@{/resources/images/uned.png}"></img>Red social profesional</a>
 
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#" th:href="@{~/}">Inicio</a></li>
-                <li><a th:href="@{~/resources/files/memoria.pdf}">Memoria</a></li>
-                <li><a th:href="@{~/grupo}">Grupo</a></li>
+                <li class="active"><a href="#" th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/resources/files/memoria.pdf}">Memoria</a></li>
+                <li><a th:href="@{/grupo}">Grupo</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${#authentication}?${#authorization.expression('!isAuthenticated()')}">
-                    <a class="pull-right"  th:href="@{~/signup}">Registrate</a>                    
-                    <a class="pull-right" th:href="@{~/signin}">Iniciar sesión</a>
+                    <a class="pull-right"  th:href="@{/signup}">Registrate</a>                    
+                    <a class="pull-right" th:href="@{/signin}">Iniciar sesión</a>
                 </li>
                 <li th:if="${#authentication}?${#authorization.expression('isAuthenticated()')}">
-                    <a href="~/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{~/logout}"></form>
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
             </ul>
         </div>
@@ -51,18 +51,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" th:href="@{~/}"><img class="logo" src="../../../resources/images/uned.png" th:src="@{~/resources/images/uned.png}"></img>Red social profesional</a>
+            <a class="navbar-brand" th:href="@{/}"><img class="logo" src="../../../resources/images/uned.png" th:src="@{/resources/images/uned.png}"></img>Red social profesional</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">             
-                <li class="active"><a href="~/" th:href="@{/}">Inicio</a></li>
-                <li><a href="#memoria">Memoria</a></li>
-                <li><a th:href="@{~/grupo}">Grupo</a></li>
+                <li class="active"><a href="/" th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/resources/files/memoria.pdf}">Memoria</a></li>
+                <li><a th:href="@{/grupo}">Grupo</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">                
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a href="~/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{~/logout}"></form>
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">Cerrar sesión</a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
             </ul>           
             <!--

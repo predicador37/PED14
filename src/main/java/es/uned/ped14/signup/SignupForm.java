@@ -50,9 +50,10 @@ public class SignupForm {
 	}
 
 	public Account createAccount() {
-		Role role = new Role("ROLE_USER");
 		Account user = new Account(getEmail(), getPassword());
-		user.addRole(role);
+		user.addRole(new Role("ROLE_CREATE"));
+		user.addRole(new Role("ROLE_EDIT"));
+		user.addRole(new Role("ROLE_DELETE"));
         return user;
 	}
 

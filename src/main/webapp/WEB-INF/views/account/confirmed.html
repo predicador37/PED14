@@ -3,11 +3,11 @@
 <head>
     <title>Baja de currículum. PED14</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/core.css}" />
-    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{~/resources/css/custom.css}" />
-    <script src="../../../resources/js/jquery-latest.js" th:src="@{~/resources/js/jquery-latest.js}"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{~/resources/js/bootstrap.min.js}"></script>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link href="../../../resources/css/custom.css" rel="stylesheet" media="screen" th:href="@{/resources/css/custom.css}" />
+    <script src="../../../resources/js/jquery-latest.js" th:src="@{/resources/js/jquery-latest.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 	
 	
 </head>
@@ -20,7 +20,7 @@
             <div class="alert alert-success" role="alert">
             <h4>Se ha dado de baja en la aplicación correctamente.</h4>
             <p>Si lo desea, puede volver a consultar el listado de candidatos en nuestra red social pinchando en el botón <strong>Volver al inicio</strong>.</p>
-                  <a  href ="~/" class="btn btn-success" style="margin-top:20px;color:#fff!important;">Volver al inicio</a>
+                  <a  th:href="@{/}" class="btn btn-success" style="margin-top:20px;color:#fff!important;">Volver al inicio</a>
         </div>    
             </div>
 
